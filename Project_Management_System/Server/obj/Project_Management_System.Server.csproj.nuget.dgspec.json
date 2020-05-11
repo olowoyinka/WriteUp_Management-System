@@ -1,0 +1,444 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Server\\Project_Management_System.Server.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\DAL\\DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\DAL\\DAL.csproj",
+        "projectName": "DAL",
+        "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\DAL\\DAL.csproj",
+        "packagesPath": "C:\\Users\\olowoyinka\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\DAL\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\olowoyinka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\olowoyinka\\Downloads": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj": {
+                "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\EndPoint\\EndPoint.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\EndPoint\\EndPoint.csproj",
+        "projectName": "EndPoint",
+        "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\EndPoint\\EndPoint.csproj",
+        "packagesPath": "C:\\Users\\olowoyinka\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\EndPoint\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\olowoyinka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\olowoyinka\\Downloads": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj": {
+                "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Client\\Project_Management_System.Client.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Client\\Project_Management_System.Client.csproj",
+        "projectName": "Project_Management_System.Client",
+        "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Client\\Project_Management_System.Client.csproj",
+        "packagesPath": "C:\\Users\\olowoyinka\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Client\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\olowoyinka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\olowoyinka\\Downloads": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj": {
+                "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Blazor.HttpClient": {
+              "target": "Package",
+              "version": "[3.2.0-preview3.20168.3, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly": {
+              "target": "Package",
+              "version": "[3.2.0-preview3.20168.3, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.Build": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.2.0-preview3.20168.3, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.DevServer": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.2.0-preview3.20168.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Server\\Project_Management_System.Server.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Server\\Project_Management_System.Server.csproj",
+        "projectName": "Project_Management_System.Server",
+        "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Server\\Project_Management_System.Server.csproj",
+        "packagesPath": "C:\\Users\\olowoyinka\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Server\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\olowoyinka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\olowoyinka\\Downloads": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\DAL\\DAL.csproj": {
+                "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\DAL\\DAL.csproj"
+              },
+              "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\EndPoint\\EndPoint.csproj": {
+                "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\EndPoint\\EndPoint.csproj"
+              },
+              "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Client\\Project_Management_System.Client.csproj": {
+                "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Client\\Project_Management_System.Client.csproj"
+              },
+              "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj": {
+                "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.Server": {
+              "target": "Package",
+              "version": "[3.2.0-preview3.20168.3, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.9.3, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "Sendgrid": {
+              "target": "Package",
+              "version": "[9.12.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.0.0-rc2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj",
+        "projectName": "Project_Management_System.Shared",
+        "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj",
+        "packagesPath": "C:\\Users\\olowoyinka\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\olowoyinka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\olowoyinka\\Downloads": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.9.3, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

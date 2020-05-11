@@ -1,0 +1,12 @@
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\bin\Debug\netcoreapp3.1\Project_Management_System.Shared.deps.json
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\bin\Debug\netcoreapp3.1\Project_Management_System.Shared.dll
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\bin\Debug\netcoreapp3.1\Project_Management_System.Shared.pdb
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\bin\Debug\netcoreapp3.1\EndPoint.dll
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\bin\Debug\netcoreapp3.1\EndPoint.pdb
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\obj\Debug\netcoreapp3.1\Project_Management_System.Shared.csprojAssemblyReference.cache
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\obj\Debug\netcoreapp3.1\Project_Management_System.Shared.csproj.CoreCompileInputs.cache
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\obj\Debug\netcoreapp3.1\Project_Management_System.Shared.AssemblyInfoInputs.cache
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\obj\Debug\netcoreapp3.1\Project_Management_System.Shared.AssemblyInfo.cs
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\obj\Debug\netcoreapp3.1\Project_Management_System.Shared.csproj.CopyComplete
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\obj\Debug\netcoreapp3.1\Project_Management_System.Shared.dll
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\obj\Debug\netcoreapp3.1\Project_Management_System.Shared.pdb
