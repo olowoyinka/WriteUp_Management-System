@@ -1,0 +1,294 @@
+﻿@page "/chapters"
+
+@inject IJSRuntime js
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fa fa-edit"></i>
+                                CHAPTERS
+                            </h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <button type="submit" class="btn btn-primary" href="#">
+                                <i class="nav-icon fa fa-plus"></i>
+                                New Chapter
+                            </button>
+                            <hr />
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                                        <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="true">Home</a>
+                                        <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false">Profile</a>
+                                        <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages" aria-selected="false">Messages</a>
+                                        <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">Settings</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="javascript::">View All Users</a>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="card card-outline card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                CHAPTER ONE
+                            </h3>
+                            <!-- tools box -->
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse" data-toggle="tooltip"
+                                        title="Collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body pad">
+                            <div class="mb-3">
+                                <textarea class="textarea" placeholder="Place some text here"
+                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                                </textarea>
+                            </div>
+                            <p class="text-sm mb-0">
+                                Editor <a href="https://github.com/bootstrap-wysiwyg/bootstrap3-wysiwyg">
+                                    Documentation and license
+                                    information.
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-->
+                <div class="col-md-3">
+                    <div class="card collapsed-card">
+                        <div class="card-header">
+                            <h3 class="card-title">MEMBERS</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <ul class="users-list clearfix">
+                                <li>
+                                    <img src="Images/love.jpg" alt="User Image">
+                                    <a class="users-list-name" href="#">Alexander Pierce</a>
+                                    <span class="users-list-date">Today</span>
+                                </li>
+                                <li>
+                                    <img src="Images/olowoyinka.jpg" alt="User Image">
+                                    <a class="users-list-name" href="#">Norman</a>
+                                    <span class="users-list-date">Yesterday</span>
+                                </li>
+                                <li>
+                                    <img src="/Images/love.jpg" alt="User Image">
+                                    <a class="users-list-name" href="#">Jane</a>
+                                    <span class="users-list-date">12 Jan</span>
+                                </li>
+                                <li>
+                                    <img src="/Images/olowoyinka.jpg" alt="User Image">
+                                    <a class="users-list-name" href="#">John</a>
+                                    <span class="users-list-date">12 Jan</span>
+                                </li>
+                            </ul>
+                            <!-- /.users-list -->
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer text-center">
+                            <a href="javascript::">View All Users</a>
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+
+                    <div class="card collapsed-card">
+                        <div class="card-header">
+                            <h3 class="card-title">INVITEE MEMBERS</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <form class="form-inline m-3">
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control" type="search" placeholder="Search Username" aria-label="Search">
+                                    @*<div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>*@
+                                </div>
+                            </form>
+                            <div class="card-footer text-center">
+                                <a href="javascript::">SENT REQUESTS</a>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="users-list clearfix">
+                                    <li>
+                                        <img src="Images/love.jpg" alt="User Image">
+                                        <a class="users-list-name" href="#">Alexander Pierce</a>
+                                        <span class="users-list-date">Today</span>
+                                    </li>
+                                    <li>
+                                        <img src="Images/olowoyinka.jpg" alt="User Image">
+                                        <a class="users-list-name" href="#">Norman</a>
+                                        <span class="users-list-date">Yesterday</span>
+                                    </li>
+                                    <li>
+                                        <img src="/Images/love.jpg" alt="User Image">
+                                        <a class="users-list-name" href="#">Jane</a>
+                                        <span class="users-list-date">12 Jan</span>
+                                    </li>
+                                    <li>
+                                        <img src="/Images/olowoyinka.jpg" alt="User Image">
+                                        <a class="users-list-name" href="#">John</a>
+                                        <span class="users-list-date">12 Jan</span>
+                                    </li>
+                                </ul>
+                                <!-- /.users-list -->
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer text-center">
+                            <a href="javascript::">View All Users</a>
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+
+                    <div class="card direct-chat direct-chat-primary">
+                        <div class="card-header ui-sortable-handle" style="cursor: move;">
+                            <h3 class="card-title">CHATS</h3>
+
+                            <div class="card-tools">
+                                <span data-toggle="tooltip" title="3 New Messages" class="badge badge-primary">3</span>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <!-- Conversations are loaded here -->
+                            <div class="direct-chat-messages">
+                                <!-- Message. Default to the left -->
+                                <div class="direct-chat-msg">
+                                    <div class="direct-chat-infos clearfix">
+                                        <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                        <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+                                    </div>
+                                    <!-- /.direct-chat-infos -->
+                                    <img class="direct-chat-img" src="/Images/olowoyinka.jpg" alt="message user image">
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        Is this template really for free? That's unbelievable!
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
+                                <!-- Message to the right -->
+                                <div class="direct-chat-msg right">
+                                    <div class="direct-chat-infos clearfix">
+                                        <span class="direct-chat-name float-right">Sarah Bullock</span>
+                                        <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
+                                    </div>
+                                    <!-- /.direct-chat-infos -->
+                                    <img class="direct-chat-img" src="/Images/love.jpg" alt="message user image">
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        You better believe it!
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
+                                <!-- Message. Default to the left -->
+                                <div class="direct-chat-msg">
+                                    <div class="direct-chat-infos clearfix">
+                                        <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                        <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
+                                    </div>
+                                    <!-- /.direct-chat-infos -->
+                                    <img class="direct-chat-img" src="/Images/olowoyinka.jpg" alt="message user image">
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        Working with AdminLTE on a great new app! Wanna join?
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
+                                <!-- Message to the right -->
+                                <div class="direct-chat-msg right">
+                                    <div class="direct-chat-infos clearfix">
+                                        <span class="direct-chat-name float-right">Sarah Bullock</span>
+                                        <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
+                                    </div>
+                                    <!-- /.direct-chat-infos -->
+                                    <img class="direct-chat-img" src="/Images/love.jpg" alt="message user image">
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        I would love to.
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
+
+                            </div>
+                            <!--/.direct-chat-messages-->
+                            <!-- Contacts are loaded here -->
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                <form action="#" method="post">
+                                    <div class="input-group">
+                                        <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-primary">Send</button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.card-footer-->
+                        </div>
+                    </div>
+                </div>
+                <!-- ./row -->
+
+            </div>
+        </section>
+    </div>
+</section>
+
+@code{
+
+    protected override async void OnAfterRender(bool firstRender)
+    {if(firstRender)
+        {
+            await js.InvokeVoidAsync("CloseModal");
+        }
+    }
+
+}

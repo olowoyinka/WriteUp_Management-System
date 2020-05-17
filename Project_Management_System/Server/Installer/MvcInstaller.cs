@@ -44,7 +44,7 @@ namespace Project_Management_System.Server.Installer
 
             services.AddSwaggerGen(x =>
             {
-                x.SwaggerDoc("v1", new OpenApiInfo { Title = "Project Management", Version = "v1" });
+                x.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjMAN", Version = "v1" });
 
                 var security = new Dictionary<string, IEnumerable<string>>
                 {

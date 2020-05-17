@@ -1,0 +1,116 @@
+﻿@page "/login"
+
+@inject IAccount _accountService
+@inject NavigationManager _navigationManager
+@inject ILoginService _loginService
+
+
+<div class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="/login"><b>Proj</b>MAN</a>
+        </div>
+        <div class="card">
+            <div class="card-body login-card-body">
+                <h4 class="login-box-msg">Sign In</h4>
+                @if (loginFailure)
+                {
+                    <div class="text-danger">
+                        <h6>
+                            @ErrorMessage
+                        </h6>
+                    </div>
+                 }
+                <EditForm Model="userRequest" OnValidSubmit="LoginUser">
+                    <DataAnnotationsValidator />
+                    <div class="text-danger">
+                        <ValidationMessage For="@(() => userRequest.UserName)" />
+                    </div>
+                    <div class="input-group mb-3">
+                        <InputText @bind-Value="@userRequest.UserName" class="form-control" placeholder="Username" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fa fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-danger">
+                        <ValidationMessage For="@(() => userRequest.Password)" />
+                    </div>
+                    <div class="input-group mb-3">
+                        <InputPassword class="form-control" @bind-Value="@userRequest.Password"  />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fa fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-auth-links text-center mb-3">
+                        @if (IsSearching)
+                        {
+                            <button type="submit" class="btn btn-block btn-primary" disabled><span class="fa fa-refresh fas spinning" style="margin-right:10px;"></span>
+                                Sign In
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-block btn-primary">
+                                Sign In
+                            </button>
+                        }
+
+                    </div>
+
+                </EditForm>
+
+
+                <p class="mb-1">
+                    <a href="/forgetpassword">I forgot my password</a>
+                </p>
+                <p class="mb-0">
+                    <a href="/register" class="text-center">I Don't Have an Account</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private LoginUserRequest userRequest = new LoginUserRequest();
+
+    bool loginFailure;
+
+    private bool IsSearching { get; set; }
+
+    private string ErrorMessage = null;
+
+    protected async override Task OnInitializedAsync()
+    {
+        await _loginService.Logout();
+    }
+
+    private async Task LoginUser()
+    {
+        IsSearching = true;
+
+        StateHasChanged();
+
+        var userToken = await _accountService.Login(userRequest);
+
+        loginFailure = userToken.Token == null;
+
+        if (!loginFailure)
+        {
+            await _loginService.Login(userToken.Token);
+
+            _navigationManager.NavigateTo("/");
+        }
+
+        ErrorMessage = userToken.Error;
+
+        IsSearching = false;
+        StateHasChanged();
+    }
+}

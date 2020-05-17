@@ -5,11 +5,9 @@ using EndPoint.v1;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project_Management_System.Server.Helpers;
 using Project_Management_System.Server.Interfaces;
-using Project_Management_System.Shared.Models.UserModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,19 +19,15 @@ namespace Project_Management_System.Server.Controllers
     {
         private readonly IAccount _account;
 
-        private readonly UserManager<AppUser> _userManager;
-
         private readonly IEmailSender _emailSender;
 
         private readonly IMapper _mapper;
 
         public AccountController(IAccount account,
-            UserManager<AppUser> userManager,
             IEmailSender emailSender,
             IMapper mapper)
         {
             _account = account;
-            this._userManager = userManager;
             this._emailSender = emailSender;
             this._mapper = mapper;
         }
@@ -45,18 +39,14 @@ namespace Project_Management_System.Server.Controllers
 
             if (!authResponse.Success)
             {
-                return BadRequest(new { 
-                    Error = authResponse.Error
-                });
+                return Ok(_mapper.Map<ConfirmMapResponse>(authResponse));
             }
 
-            var callbackUrl = Url.Action("emailconfirm", "v1", new { UserId = authResponse.UserId, Code = authResponse.Code }, HttpContext.Request.Scheme);
+            var callbackUrl = Url.Action("ConfirmEmail", "Manage", new { UserId = authResponse.UserId, Code = authResponse.Code }, HttpContext.Request.Scheme);
              
-            await _emailSender.SendEmailAsync(authResponse.Email, "OLOWOFELA YINKA SEUN - Confirm Your Email", "Please Confirm Your E-Mail by clicking this link: <a href=\"" + callbackUrl + "\">Click here </a>");
+            await _emailSender.SendEmailAsync(authResponse.Email, "ProjMAN - Confirm Your Email", "Please Confirm Your E-Mail by clicking this link: <a href=\"" + callbackUrl + "\">Click here </a>");
 
-            return Ok( new {
-                Result = authResponse.Result
-            });
+            return Ok( _mapper.Map<ConfirmMapResponse>(authResponse));
         }
 
         [HttpPost(APIRoute.Account.Login)]
@@ -66,17 +56,11 @@ namespace Project_Management_System.Server.Controllers
 
             if (!authUserResponse.Success)
             {
-                return BadRequest(new AuthResponse
-                {
-                    Error = authUserResponse.Error
-                });
+                return Ok(_mapper.Map<AuthResponse>(authUserResponse));
 
             }
 
-            return Ok(new AuthResponse
-            {
-                Token = authUserResponse.Token
-            });
+            return Ok(_mapper.Map<AuthResponse>(authUserResponse));
         }
 
         [HttpPost(APIRoute.Account.ProfilePicture)]
@@ -98,6 +82,23 @@ namespace Project_Management_System.Server.Controllers
             {
                 Token = authUserResponse.Token
             });
+        }
+
+        [HttpPost(APIRoute.Account.ForgetPassword)]
+        public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordRequest passwordRequest)
+        {
+            var authResponse = await _account.ForgetPasswordAsync(passwordRequest);
+
+            if (!authResponse.Success)
+            {
+                return Ok(_mapper.Map<ConfirmMapResponse>(authResponse));
+            }
+
+            var callbackUrl = Url.Action("ResetPassword", "Manage", new { UserId = authResponse.UserId, Code = authResponse.Code }, HttpContext.Request.Scheme);
+
+            await _emailSender.SendEmailAsync(authResponse.Email, "ProjMAN - Confirm Your Email", "Please Confirm Your E-Mail by clicking this link: <a href=\"" + callbackUrl + "\">Click here </a>");
+
+            return Ok(_mapper.Map<ConfirmMapResponse>(authResponse));
         }
 
         [HttpGet(APIRoute.Account.GetAllUser)]
@@ -131,55 +132,6 @@ namespace Project_Management_System.Server.Controllers
             }
 
             return Ok(_mapper.Map<UsernameResponse>(allUserResponse));
-        }
-
-        [HttpGet(APIRoute.Account.EmailConfirm)]
-        public async Task<IActionResult> EmailConfirmed(string userId, string code)
-        {
-            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
-            {
-                ModelState.AddModelError("", "User Id and Code are required");
-                return BadRequest(ModelState);
-            }
-
-            var user = await _userManager.FindByIdAsync(userId);
-
-            if (user == null)
-            {
-                return new JsonResult("ERROR");
-            }
-
-            if (user.EmailConfirmed)
-            {
-                return Ok(
-                    new
-                    {
-                        success = "You haven't confirmed your mail"
-                    });
-            }
-
-            var result = await _userManager.ConfirmEmailAsync(user, code);
-
-            if (result.Succeeded)
-            {
-                return Ok(
-                    new
-                    {
-                        success = "Thank You, Your Email has been Confirmed"
-                    });
-            }
-            else
-            {
-                List<string> errors = new List<string>();
-
-                foreach (var error in result.Errors)
-                {
-                    errors.Add(error.ToString());
-                }
-
-                return new JsonResult(errors);
-            }
-
         }
 
         private string GetUserId()

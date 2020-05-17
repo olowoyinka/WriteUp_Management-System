@@ -1,0 +1,212 @@
+﻿@page "/register"
+
+@inject IAccount _accountService
+@inject NavigationManager _navigationManager
+@inject ILoginService _loginService
+
+
+<div class="hold-transition register-page" style="height: 125vh;">
+    <div class="register-box">
+        <div class="register-logo">
+            <a href="/login"><b>Proj</b>MAN</a>
+        </div>
+
+        <div class="card">
+            <div class="card-body register-card-body">
+                <h6 class="login-box-msg">Register as <strong>Student or Supervisor</strong></h6>
+
+                @if (loginFailure)
+                {
+                    <div class="text-danger">
+                        <h6>
+                            @ErrorMessage
+                        </h6>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-danger">
+                        <h6>
+                            @ErrorMessage
+                        </h6>
+                    </div>
+                }
+
+            <EditForm Model="userRequest" OnValidSubmit="RegisterUser">
+                <DataAnnotationsValidator />
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => userRequest.FirstName)" />
+                </div>
+                <div class="input-group mb-3">
+                    <InputText @bind-Value="@userRequest.FirstName" class="form-control" placeholder="First Name" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => userRequest.LastName)" />
+                </div>
+                <div class="input-group mb-3">
+                    <InputText @bind-Value="@userRequest.LastName" class="form-control" placeholder="Last Name" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => userRequest.UserName)" />
+                </div>
+                <div class="input-group mb-3">
+                    <InputText @bind-Value="@userRequest.UserName" class="form-control" placeholder="Username" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => userRequest.Email)" />
+                </div>
+                <div class="input-group mb-3">
+                    <InputText @bind-Value="@userRequest.Email" class="form-control" placeholder="Email" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => userRequest.ConfirmEmail)" />
+                </div>
+                <div class="input-group mb-3">
+                    <InputText @bind-Value="@userRequest.ConfirmEmail" class="form-control" placeholder="Retype Email" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => userRequest.Roles)" />
+                </div>
+                <div class="input-group mb-3">
+                    <InputSelect @bind-Value="@userRequest.Roles" class="form-control" placeholder="Select Your Role">
+                        <option selected disabled>*** Select Your Role ***</option>
+                        <option value="Student">Student</option>
+                        <option value="Supervisor">Supervisor</option>
+                    </InputSelect>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-briefcase"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => userRequest.Password)" />
+                </div>
+                <div class="input-group mb-3">
+                    <InputPassword @bind-Value="@userRequest.Password" class="form-control" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger">
+                    <ValidationMessage For="@(() => userRequest.ConfirmPassword)" />
+                </div>
+                <div class="input-group mb-3">
+                    <InputConfirmPassword @bind-Value="@userRequest.ConfirmPassword" class="form-control" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="text-danger">
+            <ValidationMessage For="@(() => userRequest.Term)" />
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="icheck-primary">
+                    <InputCheckbox @bind-Value="@userRequest.Term" id="agreeTerms" name="terms" checked />
+                    <label for="agreeTerms">
+                        I agree to the <a href="#">terms and conditions</a>
+                    </label>
+                </div>
+            </div>
+        </div>*@
+                <div class="social-auth-links text-center">
+                    @if (IsSearching)
+                    {
+                        <button type="submit" class="btn btn-block btn-primary" disabled>
+                            <span class="fa fa-refresh fas spinning" style="margin-right:10px;"></span>
+                            Register
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-block btn-primary">
+                            Register
+                        </button>
+                    }
+                </div>
+            </EditForm>
+
+                <a href="/login" class="text-center">I already have an Account</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private RegisterUserRequest userRequest = new RegisterUserRequest();
+
+    bool loginFailure;
+
+    private bool IsSearching { get; set; }
+
+    private string ErrorMessage = null;
+
+    protected async override Task OnInitializedAsync()
+    {
+        await _loginService.Logout();
+    }
+
+    private async Task RegisterUser()
+    {
+        IsSearching = true;
+
+        StateHasChanged();
+
+        var userToken = await _accountService.Register(userRequest);
+
+        loginFailure = userToken.Result == null;
+
+        if (!loginFailure)
+        {
+            ErrorMessage = userToken.Result;
+            userRequest.FirstName = null;
+            userRequest.LastName = null;
+            userRequest.Email = null;
+            userRequest.ConfirmPassword = null;
+            userRequest.Password = null;
+            userRequest.Roles = null;
+            userRequest.UserName = null;
+            userRequest.ConfirmEmail = null;
+            IsSearching = false;
+            StateHasChanged();
+        }
+        else
+        {
+            ErrorMessage = userToken.Error;
+            IsSearching = false;
+            StateHasChanged();
+        }
+
+    }
+}

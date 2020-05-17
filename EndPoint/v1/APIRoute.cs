@@ -10,7 +10,7 @@
 
             public const string Login = version + "/login";
 
-            public const string EmailConfirm = version + "/emailconfirm";
+            public const string ForgetPassword = version + "/forgetpassword";
 
             public const string GetAllUser = version + "/getalluser/{username}";
 

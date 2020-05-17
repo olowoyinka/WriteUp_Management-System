@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EndPoint.Response.UserResponse
+﻿namespace EndPoint.Response.UserResponse
 {
     public class ConfirmResponse
     {
@@ -15,5 +13,12 @@ namespace EndPoint.Response.UserResponse
         public string Email { get; set; }
 
         public string Code { get; set; }
+    }
+
+    public class ConfirmMapResponse
+    {
+        public string Result { get; set; }
+
+        public string Error { get; set; }
     }
 }

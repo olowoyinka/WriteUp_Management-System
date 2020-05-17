@@ -1,9 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Text;
+using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Project_Management_System.Client.AuthService;
+using Project_Management_System.Client.Helpers.HelperInterface;
+using Project_Management_System.Client.Helpers.HelperService;
+using Project_Management_System.Client.Respository.RespositoryInterface;
+using Project_Management_System.Client.Respository.RespositoryService;
+using System.Threading.Tasks;
 
 namespace Project_Management_System.Client
 {
@@ -14,9 +18,34 @@ namespace Project_Management_System.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddBaseAddressHttpClient();
+            ConfigureServices(builder.Services);          
 
             await builder.Build().RunAsync();
+        }
+
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            services.AddBaseAddressHttpClient();
+
+            services.AddOptions();
+
+            services.AddAuthorizationCore();
+
+            services.AddScoped<IAccount, AccountService>();
+
+            services.AddScoped<IHttpService, HttpService>();
+
+            services.AddScoped<JWTAuthenticationProvider>();
+
+            services.AddBlazoredLocalStorage();
+
+            services.AddScoped<AuthenticationStateProvider, JWTAuthenticationProvider>(
+                provider => provider.GetRequiredService<JWTAuthenticationProvider>()
+            );
+
+            services.AddScoped<ILoginService, JWTAuthenticationProvider>(
+               provider => provider.GetRequiredService<JWTAuthenticationProvider>()
+                );
         }
     }
 }

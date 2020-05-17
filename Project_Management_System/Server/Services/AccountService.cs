@@ -83,6 +83,7 @@ namespace Project_Management_System.Server.Services
 
         }
 
+
         public async Task<AuthResult> ProfilePicture(IFormFile Image, string GetUserId)
         {
             var user = await _userManager.FindByIdAsync(GetUserId);
@@ -128,6 +129,7 @@ namespace Project_Management_System.Server.Services
                 Success = true
             };
         }
+
 
         public async Task<ConfirmResponse> RegisterAsync(RegisterUserRequest userRequest)
         {
@@ -184,13 +186,39 @@ namespace Project_Management_System.Server.Services
             };
         }
 
+
+        public async Task<ConfirmResponse> ForgetPasswordAsync(ForgetPasswordRequest passwordRequest)
+        {
+            var user = await _userManager.FindByEmailAsync(passwordRequest.Email);
+
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            {
+                return new ConfirmResponse()
+                {
+                    Error = "It is Already Sent to your Email"
+                };
+            }
+
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            return new ConfirmResponse()
+            {
+                Success = true,
+                Result = "Please Check Your Email",
+                UserId = user.Id,
+                Code = code,
+                Email = passwordRequest.Email
+            };
+        }
+
+
         private async Task<AuthResult> GenerateUserToken(AppUser user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.Secret));
 
             double tokenExpiryTime = Convert.ToDouble(_appSettings.ExpireTime);
 
-            var Expires = DateTime.UtcNow.AddDays(tokenExpiryTime);
+            var Expires = DateTime.UtcNow.AddHours(tokenExpiryTime);
 
             var tokenHandler = new JwtSecurityTokenHandler();
 

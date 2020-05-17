@@ -9,6 +9,10 @@ namespace Project_Management_System.Server.Mapping.UserMapping
         public UserResponseMapping()
         {
             CreateMap<AppUser, UsernameResponse>();
+
+            CreateMap<ConfirmResponse, ConfirmMapResponse>();
+
+            CreateMap<AuthResult, AuthResponse>();
         }
     }
 }

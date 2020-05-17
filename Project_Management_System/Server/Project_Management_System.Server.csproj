@@ -28,9 +28,5 @@
     <ProjectReference Include="..\Shared\Project_Management_System.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\Images\" />
-  </ItemGroup>
-
 
 </Project>

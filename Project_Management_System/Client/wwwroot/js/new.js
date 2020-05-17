@@ -1,0 +1,3 @@
+﻿function CloseModal() {
+    $('.textarea').summernote();
+}

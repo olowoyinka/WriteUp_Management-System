@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project_Management_System.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{501666F4-7BAD-4EAD-B00C-7750F296A564}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndPoint", "EndPoint\EndPoint.csproj", "{B59475FF-20C2-4D94-BC3B-F2F7630BC558}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndPoint", "EndPoint\EndPoint.csproj", "{B59475FF-20C2-4D94-BC3B-F2F7630BC558}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
