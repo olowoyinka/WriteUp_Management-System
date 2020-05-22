@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using EndPoint.Request.ViewModelRequest;
+using EndPoint.Response.UserResponse;
 using EndPoint.Response.ViewModelResponse;
 using EndPoint.v1;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Project_Management_System.Server.Helpers;
 using Project_Management_System.Server.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -36,22 +39,23 @@ namespace Project_Management_System.Server.Controllers
 
             if (!topics)
             {
-                return BadRequest(new
+                return Ok(new AuthResponse
                 {
                     Error = "The  Name Already Exist"
                 });
             }
 
-            return Ok(new { 
-                  Status = "The Topic is Created"
+            return Ok(new AuthResponse
+            { 
+                  Token = "The Topic is Created"
             });
 
         }
 
         [HttpGet(APIRoute.Topics.GetAll)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] PaginationRequest pagination, [FromQuery] string name)
         {
-            var topics = await _topicsService.GetAllAsync(GetUserId());
+            var topics = _topicsService.GetAllAsync(GetUserId(), name);
 
             if (topics == null)
             {
@@ -61,7 +65,11 @@ namespace Project_Management_System.Server.Controllers
                 });
             }
 
-            return Ok(_mapper.Map<List<TopicsResponse>>(topics));
+            await HttpContext.InsertPaginationParameterInResponse(topics, pagination.QuantityPerPage);
+
+            var returnResult = await topics.Paginate(pagination).ToListAsync();
+
+            return Ok(_mapper.Map<List<TopicsResponse>>(returnResult));
         }
 
         [HttpGet(APIRoute.Topics.Get)]
@@ -87,15 +95,15 @@ namespace Project_Management_System.Server.Controllers
 
             if (!topics)
             {
-                return BadRequest(new
+                return Ok(new AuthResponse
                 {
-                    Error = "The  Name Doesn't Exist"
+                    Error = "The Name Already Exist"
                 });
             }
 
-            return Ok(new
+            return Ok(new AuthResponse
             {
-                Status = "The Topic is Updated"
+                Token = "The Topic is Updated"
             });
         }
 

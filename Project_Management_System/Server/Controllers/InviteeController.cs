@@ -5,6 +5,8 @@ using EndPoint.v1;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Project_Management_System.Server.Helpers;
 using Project_Management_System.Server.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -30,9 +32,9 @@ namespace Project_Management_System.Server.Controllers
 
 
         [HttpGet(APIRoute.Invitee.ReadPending)]
-        public async Task<IActionResult> ReadPending()
+        public async Task<IActionResult> ReadPending([FromQuery] PaginationRequest pagination, [FromQuery] string name)
         {
-            var invitee = await _inviteeService.ReadPendingInvitation(GetUserId());
+            var invitee =  _inviteeService.ReadPendingInvitation(GetUserId(), name);
 
             if (invitee == null)
             {
@@ -42,14 +44,18 @@ namespace Project_Management_System.Server.Controllers
                 });
             }
 
-            return Ok(_mapper.Map<List<InviteeResponse>>(invitee));
+            await HttpContext.InsertPaginationParameterInResponse(invitee, pagination.QuantityPerPage);
+
+            var returnResult = await invitee.Paginate(pagination).ToListAsync();
+
+            return Ok(_mapper.Map<List<InviteeResponse>>(returnResult));
         }
 
 
         [HttpGet(APIRoute.Invitee.ReadAccepted)]
-        public async Task<IActionResult> ReadAccepted()
+        public async Task<IActionResult> ReadAccepted([FromQuery] PaginationRequest pagination, [FromQuery] string name)
         {
-            var invitee = await _inviteeService.ReadAcceptedInvitation(GetUserId());
+            var invitee =  _inviteeService.ReadAcceptedInvitation(GetUserId(), name);
 
             if (invitee == null)
             {
@@ -59,7 +65,11 @@ namespace Project_Management_System.Server.Controllers
                 });
             }
 
-            return Ok(_mapper.Map<List<InviteeResponse>>(invitee));
+            await HttpContext.InsertPaginationParameterInResponse(invitee, pagination.QuantityPerPage);
+
+            var returnResult = await invitee.Paginate(pagination).ToListAsync();
+
+            return Ok(_mapper.Map<List<InviteeResponse>>(returnResult));
         }
 
 

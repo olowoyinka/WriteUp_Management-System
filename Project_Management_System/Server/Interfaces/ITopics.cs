@@ -1,7 +1,7 @@
 ﻿using EndPoint.Request.ViewModelRequest;
 using Project_Management_System.Shared.Models.ViewModels;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Project_Management_System.Server.Interfaces
@@ -12,7 +12,7 @@ namespace Project_Management_System.Server.Interfaces
 
         Task<Topics> GetByIdAsync(Guid Id, string GetUserId);
 
-        Task<List<Topics>> GetAllAsync(string GetUserId);
+        IQueryable<Topics> GetAllAsync(string GetUserId, string name);
 
         Task<bool> DeleteAsync(Guid Id, string GetUserId);
 

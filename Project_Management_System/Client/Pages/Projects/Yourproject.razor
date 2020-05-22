@@ -1,7 +1,10 @@
 ﻿@page "/projects"
 
+@inject ITopics _topicsService
 
+@inject IJSRuntime js
 
+@attribute [Authorize]
 <section class="content-header">
     <div class="container-fluid">
         <div class="container-fluid">
@@ -12,7 +15,7 @@
                 <div class="col-4">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <button type="submit" class="btn btn-primary" href="#">
+                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#AddEditEmpModal" @onclick="@AddTopics">
                                 <i class="nav-icon fa fa-plus"></i>
                                 New Project
                             </button>
@@ -25,138 +28,273 @@
             <br />
             <div class="pl-lg-5">
                 <div class="row">
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-6">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h2 class="card-title m-0">Featured</h2>
-                            </div>
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <!-- /.col-md-6 -->
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-6">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h2 class="card-title m-0">Featured Go somewhere Go somewhere v Go somewhere Go somewhere Go somewhere Go somewhere Go somewhere Go somewhere Go somewhere Go somewhere Go somewhere  vGo somewhere</h2>
-                            </div>
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col-md-6 -->
-                    <!-- /.col-md-6 -->
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-6">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h2 class="card-title m-0">Featured</h2>
-                            </div>
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <!-- /.col-md-6 -->
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-6">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h2 class="card-title m-0">Featured</h2>
-                            </div>
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <!-- /.col-md-6 -->
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-10">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h2 class="card-title m-0">Featured</h2>
-                            </div>
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <!-- /.col-md-6 -->
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-10">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h2 class="card-title m-0">Featured</h2>
-                            </div>
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <!-- /.col-md-6 -->
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-10">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h2 class="card-title m-0">Featured</h2>
-                            </div>
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <!-- /.col-md-6 -->
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-10">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h2 class="card-title m-0">Featured</h2>
-                            </div>
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <!-- /.col-md-6 -->
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-10">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h2 class="card-title m-0">Featured</h2>
-                            </div>
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-10">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h2 class="card-title m-0">Featured</h2>
-                            </div>
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <!-- /.col-md-6 -->
-                    <!-- /.col-md-6 -->
+                    <GenericList Elements="Topics">
+                        <WithElementsTemplate>
+                            @foreach (var item in Topics.OrderByDescending(s => s.CreatedDate))
+                            {
+                                <div class="col-lg-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h2 class="card-title m-0">@item.Name</h2>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <a href="projects/@item.Id" class="btn btn-primary">VIEW DETAILS</a>
+                                                </div>
+                                                <div class="col-8">
+                                                    <ol class="breadcrumb float-sm-right">
+                                                        <li class="pr-2 pt-2">
+                                                            <h6>@item.CreatedDate</h6>
+                                                        </li>
+                                                        <li class="breadcrumb-item">
+                                                            <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#EditEmpModal"
+                                                                        @onclick="@(async () => await EditTopics(item.Id))">
+                                                                <i class="nav-icon fa fa-edit"></i>
+                                                            </button>
+                                                            <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">
+                                                                <i class="nav-icon fa fa-trash"></i>
+                                                            </button>
+                                                        </li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                            }
+                        </WithElementsTemplate>
+                    </GenericList>
                 </div>
             </div>
+            <Pagination CurrentPage="Request.Page" Radius="4"  TotalPagesQuantity="totalAmountPages"
+                        SelectedPage="SelectedPage" />
+        </div>
+    </div>
+</section>
+
+
+<div class="modal fade" id="AddEditEmpModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">@modalTitle</h3>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if (Failure)
+                {
+                    <div class="text-danger">
+                        <h6>
+                            @ErrorMessage
+                        </h6>
+                    </div>
+                }
+                <EditForm Model="@topicsRequest" OnValidSubmit="SaveTopics">
+                    <div class="row">
+                        <DataAnnotationsValidator />
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <InputText @bind-Value="@topicsRequest.Name" class="form-control" placeholder="Project Name" />
+                                <ValidationMessage For="@(() => topicsRequest.Name)" />
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            @if (IsSearching)
+                            {
+                                <button type="submit" class="btn btn-block btn-success" disabled><span class="fa fa-refresh fas spinning" style="margin-right:10px;"></span>@modalTitle</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-block btn-success">@modalTitle</button>
+                            }
+                        </div>
+                    </div>
+                </EditForm>
             </div>
         </div>
-</section>
+    </div>
+</div>
+
+
+<div class="modal fade" id="EditEmpModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">@modalTitle</h3>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @if (Failure)
+                {
+                    <div class="text-danger">
+                        <h6>
+                            @ErrorMessageEdit
+                        </h6>
+                    </div>
+                }
+                <EditForm Model="@topicsRequest" OnValidSubmit="SaveEditTopics">
+                    <div class="row">
+                        <DataAnnotationsValidator />
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <InputText @bind-Value="@topicsRequest.Name" class="form-control" placeholder="Project Name" />
+                                <ValidationMessage For="@(() => topicsRequest.Name)" />
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            @if (IsSearching)
+                            {
+                                <button type="submit" class="btn btn-block btn-success" disabled><span class="fa fa-refresh fas spinning" style="margin-right:10px;"></span>@modalTitle</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-block btn-success">@modalTitle</button>
+                            }
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+
+    List<TopicsResponse> Topics;
+
+    TopicsResponse topicsResponse = new TopicsResponse();
+
+    PaginationRequest Request = new PaginationRequest();
+
+    TopicsRequest topicsRequest = new TopicsRequest();
+
+    private string modalTitle { get; set; }
+
+    private bool IsSearching { get; set; }
+
+    private int totalAmountPages;
+
+    bool Failure;
+
+    private string ErrorMessage = null;
+
+    private string ErrorMessageEdit = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadTopics();
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    private async Task LoadTopics(string name = null)
+    {
+        var paginatedResponse = await _topicsService.GetAllAsync(Request, name);
+
+        Topics = paginatedResponse.Response;
+
+        totalAmountPages = paginatedResponse.TotalAmountPages;
+    }
+
+    private async Task SelectedPage(int page)
+    {
+        Request.Page = page;
+
+        await LoadTopics();
+    }
+
+
+    private void AddTopics()
+    {
+        topicsRequest = new TopicsRequest();
+
+        modalTitle = "Add New Project";
+    }
+
+    private async Task EditTopics(Guid? topicsId)
+    {
+        modalTitle = "Edit Project";
+
+        topicsResponse = new TopicsResponse();
+
+        topicsRequest = new TopicsRequest();
+
+        topicsResponse = await _topicsService.GetByIdAsync(topicsId);
+
+        topicsRequest.Name = topicsResponse.Name;
+    }
+
+    private async Task SaveTopics()
+    {
+        IsSearching = true;
+        StateHasChanged();
+
+        var result = await _topicsService.CreateAsync(topicsRequest);
+
+        Failure = result.Token == null;
+
+        if(!Failure)
+        {
+            await js.RemoveModal("New Project Added", $"{topicsRequest.Name}", SweetAlertMessageType.success);
+
+            await LoadTopics();
+        }
+
+        ErrorMessage = result.Error;
+
+        IsSearching = false;
+        StateHasChanged();
+    }
+
+    private async Task SaveEditTopics()
+    {
+        IsSearching = true;
+
+        StateHasChanged();
+
+        var result = await _topicsService.UpdateAsync(topicsResponse.Id, topicsRequest);
+
+        Failure = result.Token == null;
+
+        if (!Failure)
+        {
+            await js.RemoveModal("Project Details Updated", $"{topicsRequest.Name}", SweetAlertMessageType.success);
+
+            await LoadTopics();
+        }
+
+        ErrorMessageEdit = result.Error;
+
+        IsSearching = false;
+
+        StateHasChanged();
+    }
+
+    private async Task Delete(Guid? topicsId)
+    {
+        var topicsSelected = Topics.FirstOrDefault(x => x.Id == topicsId);
+
+        if (await js.Confirm("Confirm", $"Do you want to delete { topicsSelected.Name } ?", SweetAlertMessageType.question))
+        {
+            await _topicsService.DeleteAsync(topicsId);
+
+            await LoadTopics();
+        }
+    }
+
+}

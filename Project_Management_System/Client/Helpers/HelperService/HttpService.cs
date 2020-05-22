@@ -89,5 +89,25 @@ namespace Project_Management_System.Client.Helpers.HelperService
 
             return JsonSerializer.Deserialize<T>(responseString, options);
         }
+
+        public async Task<HttpResponseWrapper<TResponse>> Put<T, TResponse>(string url, T data)
+        {
+            var dataJson = JsonSerializer.Serialize(data);
+
+            var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync(url, stringContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseDeserialzed = await Deserialize<TResponse>(response, defaultJsonSerialization);
+
+                return new HttpResponseWrapper<TResponse>(responseDeserialzed, true, response);
+            }
+            else
+            {
+                return new HttpResponseWrapper<TResponse>(default, false, response);
+            }
+        }
     }
 }

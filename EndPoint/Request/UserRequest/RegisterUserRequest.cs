@@ -20,7 +20,7 @@ namespace EndPoint.Request.UserRequest
         [Required]
         [Display(Name = "Email Confirm Address")]
         [DataType(DataType.EmailAddress)]
-        [Compare("Email", ErrorMessage = "The Email and Email confirmation password do not match.")]
+        [Compare("Email", ErrorMessage = "The Email do not match.")]
         public string ConfirmEmail { get; set; }
 
         [Required]
@@ -40,7 +40,7 @@ namespace EndPoint.Request.UserRequest
 
         [Required]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "The password do not match.")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 

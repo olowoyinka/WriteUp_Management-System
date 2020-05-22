@@ -14,5 +14,7 @@ namespace Project_Management_System.Client.Helpers.HelperInterface
         Task<HttpResponseWrapper<TResponse>> Post<T, TResponse>(string url, T data);
 
         Task<HttpResponseWrapper<object>> Put<T>(string url, T data);
+
+        Task<HttpResponseWrapper<TResponse>> Put<T, TResponse>(string url, T data);
     }
 }

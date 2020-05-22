@@ -97,27 +97,41 @@ namespace Project_Management_System.Server.Services
         }
 
 
-        public async Task<List<Invitee>> ReadPendingInvitation(string GetUserId)
+        public IQueryable<Invitee> ReadPendingInvitation(string GetUserId, string name)
         {
-            return await _context.Invitees
+            var queryable =  _context.Invitees
                             .Where(x => x.AppUserId.Equals(GetUserId))
                             .Where(s => s.RequestStatus.Equals(false))
                             .Include(s => s.AppUser)
                             .Include(s => s.Topics)
                                 .ThenInclude(s => s.AppUser)
-                            .ToListAsync();
+                            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                queryable = queryable.Where(x => x.AppUser.UserName.Contains(name));
+            }
+
+            return queryable;
         }
 
 
-        public async Task<List<Invitee>> ReadAcceptedInvitation(string GetUserId) 
+        public IQueryable <Invitee> ReadAcceptedInvitation(string GetUserId, string name) 
         {
-            return await _context.Invitees
+            var queryable = _context.Invitees
                             .Where(x => x.AppUserId.Equals(GetUserId))
                             .Where(s => s.RequestStatus.Equals(true))
                              .Include(s => s.AppUser)
                              .Include(s => s.Topics)
                                 .ThenInclude(s => s.AppUser)
-                            .ToListAsync();
+                            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                queryable = queryable.Where(x => x.AppUser.UserName.Contains(name));
+            }
+
+            return queryable;
         }
     }
 }

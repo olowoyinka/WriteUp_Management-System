@@ -57,7 +57,7 @@ namespace Project_Management_System.Server.Services
         }
 
 
-        public async Task<bool> EditAsync(ChapterEditRequest chapterRequest, string GetUserId, Guid TopicsId, Guid chapterId)
+        public async Task<bool> EditAsync(ChapterRequest chapterRequest, string GetUserId, Guid TopicsId, Guid chapterId)
         {
 
             var topicOwn = await _context.Chapters
@@ -82,14 +82,11 @@ namespace Project_Management_System.Server.Services
 
             if (chapterExist)
             {
-                chapter.Name = chapter.Name;
-            }
-            else
-            {
-                chapter.Name = chapterRequest.Name;
+                return false;
             }
 
-            chapter.Body = chapterRequest.Body;
+            chapter.Name = chapterRequest.Name;
+
             chapter.TopicsId = TopicsId;
 
             _context.Chapters.Update(chapter);
@@ -112,15 +109,23 @@ namespace Project_Management_System.Server.Services
                             .SingleOrDefaultAsync();
         }
 
-        public async Task<List<Chapter>> GetChapterAllAsync(string GetUserId, Guid TopicsId)
+        public IQueryable<Chapter> GetChapterAllAsync(string GetUserId, Guid TopicsId, string name)
         {
-            return await _context.Chapters
+            var queryable =  _context.Chapters
                                   .Include(s => s.Topics)
                                         .ThenInclude(s => s.Invitees)
                             .Where(x => (x.Topics.Invitees.Any(r => r.AppUserId.Equals(GetUserId) && r.RequestStatus.Equals(true)) ||
                                     x.Topics.AppUserId.Equals(GetUserId)))
                             .Where(x => x.TopicsId.Equals(TopicsId))
-                            .ToListAsync();
+                            .OrderByDescending(x => x.CreatedDate)
+                            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                queryable = queryable.Where(x => x.Name.Contains(name));
+            }
+
+            return queryable;
         }
 
         public async Task<bool> DeleteChapterAsync(string GetUserId, Guid TopicsId, Guid chapterId)

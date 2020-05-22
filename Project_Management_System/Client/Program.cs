@@ -1,4 +1,3 @@
-using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,17 +26,15 @@ namespace Project_Management_System.Client
         {
             services.AddBaseAddressHttpClient();
 
-            services.AddOptions();
-
-            services.AddAuthorizationCore();
-
             services.AddScoped<IAccount, AccountService>();
+
+            services.AddScoped<ITopics, TopicsService>();
+
+            services.AddScoped<IChapter, ChapterService>();
 
             services.AddScoped<IHttpService, HttpService>();
 
             services.AddScoped<JWTAuthenticationProvider>();
-
-            services.AddBlazoredLocalStorage();
 
             services.AddScoped<AuthenticationStateProvider, JWTAuthenticationProvider>(
                 provider => provider.GetRequiredService<JWTAuthenticationProvider>()
@@ -46,6 +43,10 @@ namespace Project_Management_System.Client
             services.AddScoped<ILoginService, JWTAuthenticationProvider>(
                provider => provider.GetRequiredService<JWTAuthenticationProvider>()
                 );
+
+            services.AddOptions();
+
+            services.AddAuthorizationCore();
         }
     }
 }

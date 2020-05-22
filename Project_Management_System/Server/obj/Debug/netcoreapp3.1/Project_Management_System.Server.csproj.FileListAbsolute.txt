@@ -210,4 +210,3 @@ C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_Sy
 C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.Views.pdb
 C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Razor\Views\Manage\Resetconfirm.cshtml.g.cs
 C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Razor\Views\Manage\Resetpassword.cshtml.g.cs
-C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Server\bin\Debug\netcoreapp3.1\Blazored.LocalStorage.dll

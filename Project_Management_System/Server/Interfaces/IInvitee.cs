@@ -1,7 +1,7 @@
 ﻿using EndPoint.Request.ViewModelRequest;
 using Project_Management_System.Shared.Models.ViewModels;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Project_Management_System.Server.Interfaces
@@ -12,8 +12,8 @@ namespace Project_Management_System.Server.Interfaces
 
         Task<bool> AcceptInvitation(Guid topicsId, InviteeAcceptRequest inviteeAccept, string GetUserId);
 
-        Task<List<Invitee>> ReadPendingInvitation(string GetUserId);
+        IQueryable<Invitee> ReadPendingInvitation(string GetUserId, string name);
 
-        Task<List<Invitee>> ReadAcceptedInvitation(string GetUserId);
+        IQueryable<Invitee> ReadAcceptedInvitation(string GetUserId, string name);
     }
 }

@@ -11,9 +11,9 @@ namespace EndPoint.Response.ViewModelResponse
 
         public DateTime CreatedDate { get; set; }
 
-        public List<InviteeTopicResponse> Invitees { get; set; }
+        //public List<InviteeTopicResponse> Invitees { get; set; }
 
-        public List<ChapterResponse> Chapters { get; set; }
+        //public List<ChapterResponse> Chapters { get; set; }
     }
 
 

@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using EndPoint.Request.ViewModelRequest;
+using EndPoint.Response.UserResponse;
 using EndPoint.Response.ViewModelResponse;
 using EndPoint.v1;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Project_Management_System.Server.Helpers;
 using Project_Management_System.Server.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -32,24 +35,24 @@ namespace Project_Management_System.Server.Controllers
 
             if (!chapter)
             {
-                return BadRequest(new
+                return Ok(new AuthResponse
                 {
-                    Error = "The  Name Already Exist"
+                    Error = "The Name Already Exist"
                 });
             }
 
-            return Ok(new
+            return Ok(new AuthResponse
             {
-                Status = "The chapter is Created"
+                Token = "The chapter is Created"
             });
 
         }
 
 
         [HttpGet(APIRoute.Chapter.GetAll)]
-        public async Task<IActionResult> GetAll([FromRoute] Guid topicsId)
+        public async Task<IActionResult> GetAll([FromRoute] Guid topicsId, [FromQuery] PaginationRequest pagination, [FromQuery] string name)
         {
-            var chapter = await _chapterService.GetChapterAllAsync(GetUserId(), topicsId);
+            var chapter =  _chapterService.GetChapterAllAsync(GetUserId(), topicsId, name);
 
             if (chapter == null)
             {
@@ -59,7 +62,11 @@ namespace Project_Management_System.Server.Controllers
                 });
             }
 
-            return Ok(_mapper.Map<List<ChapterResponse>>(chapter));
+            await HttpContext.InsertPaginationParameterInResponse(chapter, pagination.QuantityPerPage);
+
+            var returnResult = await chapter.Paginate(pagination).ToListAsync();
+
+            return Ok(_mapper.Map<List<ChapterResponse>>(returnResult));
         }
 
 
@@ -76,26 +83,26 @@ namespace Project_Management_System.Server.Controllers
                 });
             }
 
-            return Ok(_mapper.Map<ChapterByIdResponse>(chapter));
+            return Ok(_mapper.Map<ChapterResponse>(chapter));
         }
 
         [HttpPut(APIRoute.Chapter.Update)]
-        public async Task<IActionResult> Update([FromBody]ChapterEditRequest chapterRequest,[FromRoute] Guid topicsId,
+        public async Task<IActionResult> Update([FromBody]ChapterRequest chapterRequest,[FromRoute] Guid topicsId,
                                                             [FromRoute] Guid chatperId)
         {
             var chapter = await _chapterService.EditAsync(chapterRequest, GetUserId(), topicsId, chatperId);
 
             if (!chapter)
             {
-                return BadRequest(new
+                return Ok(new AuthResponse
                 {
-                    Error = "The  Name Doesn't Exist"
+                    Error = "The Name Already Exist"
                 });
             }
 
-            return Ok(new
+            return Ok(new AuthResponse
             {
-                Status = "The Chapter is Updated"
+                Token = "The Chapter is Updated"
             });
         }
 

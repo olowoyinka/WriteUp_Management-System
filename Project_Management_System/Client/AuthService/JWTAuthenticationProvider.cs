@@ -1,6 +1,5 @@
-﻿using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Components.Authorization;
-using Project_Management_System.Shared.Models.ViewModels;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,35 +15,30 @@ namespace Project_Management_System.Client.AuthService
     public class JWTAuthenticationProvider : AuthenticationStateProvider, ILoginService
     {
         private static readonly string TOKENKEY = "TokenKey";
-         
-        private readonly ILocalStorageService _localStorageService;
 
         private readonly HttpClient _httpClient;
 
+        private readonly IJSRuntime js;
+
         private AuthenticationState Anonymous => new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
 
-        public JWTAuthenticationProvider(ILocalStorageService localStorageService,
-                                            HttpClient httpClient)
+        public JWTAuthenticationProvider(HttpClient httpClient,
+                                                IJSRuntime js)
         {
-            this._localStorageService = localStorageService;
             this._httpClient = httpClient;
+            this.js = js;
         }
 
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var token = await GetSessionTokenAsync();
+            var token = await js.GetFromLocalStorage(TOKENKEY);
 
-            if (string.IsNullOrEmpty(token.Token))
+            if (string.IsNullOrEmpty(token))
             {
                 return Anonymous;
             }
 
-            return BuildAuthenticationState(token.Token);
-        }
-
-        public async Task<AccessToken> GetSessionTokenAsync()
-        {
-            return await _localStorageService.GetItemAsync<AccessToken>(TOKENKEY);
+            return BuildAuthenticationState(token);
         }
 
         public AuthenticationState BuildAuthenticationState(string token)
@@ -101,12 +95,7 @@ namespace Project_Management_System.Client.AuthService
 
         public async Task Login(string token)
         {
-            var newToken = new AccessToken()
-            {
-                Token = token
-            };
-
-            await _localStorageService.SetItemAsync(TOKENKEY, newToken);
+            await js.SetInLocalStorage(TOKENKEY, token);
 
             var authState = BuildAuthenticationState(token);
 
@@ -116,7 +105,7 @@ namespace Project_Management_System.Client.AuthService
 
         public async Task Logout()
         {
-            await _localStorageService.RemoveItemAsync(TOKENKEY);
+            await js.RemoveItem(TOKENKEY);
 
             _httpClient.DefaultRequestHeaders.Authorization = null;
 

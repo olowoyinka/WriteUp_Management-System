@@ -91,14 +91,22 @@ namespace Project_Management_System.Server.Services
             return deleted > 0;
         }
 
-        public async Task<List<Topics>> GetAllAsync(string GetUserId)
+        public IQueryable<Topics> GetAllAsync(string GetUserId, string name)
         {
-            return await _context.Topics
+            var queryable = _context.Topics
                             .Where(x => x.AppUserId.Equals(GetUserId))
                             .Include(s => s.Invitees)
                                 .ThenInclude(s => s.AppUser)
                             .Include(x => x.Chapters)
-                            .ToListAsync();
+                            .OrderByDescending(d => d.CreatedDate)
+                            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                queryable = queryable.Where(x => x.Name.Contains(name));
+            }
+
+            return queryable;
         }
 
         public async Task<bool> UpdateAsync(Guid Id, TopicsRequest topicsRequest, string GetUserId)
