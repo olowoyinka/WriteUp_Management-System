@@ -11,5 +11,7 @@ namespace Project_Management_System.Client.Respository.RespositoryInterface
         Task<AuthResponse> Login(LoginUserRequest userRequest);
 
         Task<ConfirmMapResponse> ForgetPassword(ForgetPasswordRequest passwordRequest);
+
+        Task<UsernameResponse> GetUser();
     }
 }

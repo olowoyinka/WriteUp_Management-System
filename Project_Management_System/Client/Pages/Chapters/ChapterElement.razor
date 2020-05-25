@@ -3,61 +3,61 @@
 @inject IJSRuntime js
 
 
-<div class="col-md-3">
-    <div class="card card-primary card-outline">
-        <div class="card-header">
-            <h3 class="card-title">
-                <i class="fa fa-edit"></i>
-                CHAPTERS
-            </h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fa fa-minus"></i>
-                </button>
-            </div>
-        </div>
-        <div class="card-body">
-            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#AddEditEmpModal" @onclick="@AddChapter">
-                <i class="nav-icon fa fa-plus"></i>
-                New Chapter
+
+<div class="card card-primary card-outline">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fa fa-edit"></i>
+            CHAPTERS
+        </h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fa fa-minus"></i>
             </button>
-            <hr />
-            <div class="row">
-                <div class="col-12">
-                    <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
-                        <GenericList Elements="Chapter">
-                            <WithElementsTemplate>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        @foreach (var item in Chapter.OrderByDescending(s => s.CreatedDate))
-                                        {
-                                            <tr>
-                                                <td id="user-address">@item.Name</td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#EditEmpModal"
-                                                            @onclick="@(() => EditChapter(item.Id))">
-                                                        <i class="nav-icon fa fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">
-                                                        <i class="nav-icon fa fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </table>
-                                </div>
-                            </WithElementsTemplate>
-                        </GenericList>
-                    </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#AddEditEmpModal" @onclick="@AddChapter">
+            <i class="nav-icon fa fa-plus"></i>
+            New Chapter
+        </button>
+        <hr />
+        <div class="row">
+            <div class="col-12">
+                <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                    <GenericList Elements="Chapter">
+                        <WithElementsTemplate>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    @foreach (var item in Chapter.OrderByDescending(s => s.CreatedDate))
+                                    {
+                                        <tr>
+                                            <td id="user-address">@item.Name</td>
+                                            <td>
+                                                <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#EditEmpModal"
+                                                        @onclick="@(() => EditChapter(item.Id))">
+                                                    <i class="nav-icon fa fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">
+                                                    <i class="nav-icon fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </WithElementsTemplate>
+                    </GenericList>
                 </div>
             </div>
         </div>
-        <div class="card-footer text-center">
-            <Pagination CurrentPage="Request.Page" Radius="4" TotalPagesQuantity="totalAmountPages"
-                        SelectedPage="SelectedPage" />
-        </div>
+    </div>
+    <div class="card-footer text-center">
+        <Pagination CurrentPage="Request.Page" Radius="4" TotalPagesQuantity="totalAmountPages"
+                    SelectedPage="SelectedPage" />
     </div>
 </div>
+
 
 
 

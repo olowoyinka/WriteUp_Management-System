@@ -6,8 +6,6 @@ using Project_Management_System.Server.Interfaces;
 using Project_Management_System.Shared.Models.UserModel;
 using Project_Management_System.Shared.Models.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -67,9 +65,12 @@ namespace Project_Management_System.Server.Services
 
         public async Task<bool> AcceptInvitation(Guid topicsId, InviteeAcceptRequest inviteeAccept, string GetUserId)
         {
+            var findUsername = await _userManager.FindByNameAsync(inviteeAccept.username);
+
             var findInvitee = await _context.Invitees
+                                        .Where(x => x.Topics.AppUserId.Equals(GetUserId))
                                         .Where(s => s.TopicsId == topicsId)
-                                        .Where(s => s.AppUserId == GetUserId)
+                                        .Where(s => s.AppUserId == findUsername.Id)
                                     .SingleOrDefaultAsync();
 
             if(findInvitee == null)
@@ -97,10 +98,12 @@ namespace Project_Management_System.Server.Services
         }
 
 
-        public IQueryable<Invitee> ReadPendingInvitation(string GetUserId, string name)
+        public IQueryable<Invitee> ReadPendingInvitation(string GetUserId, Guid topicsId, string name)
         {
             var queryable =  _context.Invitees
-                            .Where(x => x.AppUserId.Equals(GetUserId))
+                            .Where(x => x.Topics.AppUserId.Equals(GetUserId) || x.AppUserId.Equals(GetUserId))
+                            //.Where(x => x.AppUserId.Equals(GetUserId))
+                            .Where(x => x.TopicsId.Equals(topicsId))
                             .Where(s => s.RequestStatus.Equals(false))
                             .Include(s => s.AppUser)
                             .Include(s => s.Topics)
@@ -116,10 +119,12 @@ namespace Project_Management_System.Server.Services
         }
 
 
-        public IQueryable <Invitee> ReadAcceptedInvitation(string GetUserId, string name) 
+        public IQueryable <Invitee> ReadAcceptedInvitation(string GetUserId, Guid topicsId, string name) 
         {
             var queryable = _context.Invitees
-                            .Where(x => x.AppUserId.Equals(GetUserId))
+                            //.Where(x => x.AppUserId.Equals(GetUserId))
+                            .Where(x => x.Topics.AppUserId.Equals(GetUserId) || x.AppUserId.Equals(GetUserId))
+                            .Where(x => x.TopicsId.Equals(topicsId))
                             .Where(s => s.RequestStatus.Equals(true))
                              .Include(s => s.AppUser)
                              .Include(s => s.Topics)

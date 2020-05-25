@@ -28,6 +28,25 @@
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
+      "Blazored.Typeahead/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "3.1.2",
+          "Microsoft.AspNetCore.Components.Web": "3.1.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Blazored.Typeahead.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Blazored.Typeahead.dll": {}
+        },
+        "build": {
+          "buildTransitive/Blazored.Typeahead.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Blazored.Typeahead.props": {}
+        }
+      },
       "DnsClient/1.2.0": {
         "type": "package",
         "dependencies": {
@@ -2736,6 +2755,24 @@
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.pdb"
+      ]
+    },
+    "Blazored.Typeahead/4.3.0": {
+      "sha512": "JzoZ7wOEobihh1SCTOwPaCawJ4F9t0MfizaG0OTWAfE4FBFBkkV///YBni08v7Q+k3eB9l4vlllfHkAqpQB4+w==",
+      "type": "package",
+      "path": "blazored.typeahead/4.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "blazored.typeahead.4.3.0.nupkg.sha512",
+        "blazored.typeahead.nuspec",
+        "build/Blazored.Typeahead.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "buildMultiTargeting/Blazored.Typeahead.props",
+        "buildTransitive/Blazored.Typeahead.props",
+        "lib/netstandard2.0/Blazored.Typeahead.dll",
+        "staticwebassets/blazored-typeahead.css",
+        "staticwebassets/blazored-typeahead.js"
       ]
     },
     "DnsClient/1.2.0": {
@@ -8587,6 +8624,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.1": [
+      "Blazored.Typeahead >= 4.3.0",
       "EndPoint >= 1.0.0",
       "Microsoft.AspNetCore.Blazor.HttpClient >= 3.2.0-preview3.20168.3",
       "Microsoft.AspNetCore.Components.Authorization >= 3.1.0",
@@ -8645,6 +8683,10 @@
     "frameworks": {
       "netstandard2.1": {
         "dependencies": {
+          "Blazored.Typeahead": {
+            "target": "Package",
+            "version": "[4.3.0, )"
+          },
           "Microsoft.AspNetCore.Blazor.HttpClient": {
             "target": "Package",
             "version": "[3.2.0-preview3.20168.3, )"

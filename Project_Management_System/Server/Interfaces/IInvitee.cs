@@ -12,8 +12,8 @@ namespace Project_Management_System.Server.Interfaces
 
         Task<bool> AcceptInvitation(Guid topicsId, InviteeAcceptRequest inviteeAccept, string GetUserId);
 
-        IQueryable<Invitee> ReadPendingInvitation(string GetUserId, string name);
+        IQueryable<Invitee> ReadPendingInvitation(string GetUserId, Guid topicsId, string name);
 
-        IQueryable<Invitee> ReadAcceptedInvitation(string GetUserId, string name);
+        IQueryable<Invitee> ReadAcceptedInvitation(string GetUserId, Guid topicsId, string name);
     }
 }

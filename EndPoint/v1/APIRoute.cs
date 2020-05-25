@@ -16,6 +16,8 @@
 
             public const string GetUserId = version + "/getuserid/{username}";
 
+            public const string GetUser = version + "/getuser";
+
             public const string ProfilePicture = version + "/profile";
         }
 
@@ -38,9 +40,9 @@
 
             public const string AcceptInvitee = version + "/topics/{topicsId}/acceptinvitee";
 
-            public const string ReadPending = version + "/topics/readpendinvitee";
+            public const string ReadPending = version + "/topics/readpendinvitee/{topicsId}";
 
-            public const string ReadAccepted = version + "/topics/readacceptinvitee";
+            public const string ReadAccepted = version + "/topics/readacceptinvitee/{topicsId}";
 
         }
 

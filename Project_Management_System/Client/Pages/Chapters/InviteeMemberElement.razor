@@ -1,0 +1,192 @@
+﻿@inject IAccount _accountService
+
+@inject IInvitee _inviteeService
+
+@inject IJSRuntime js
+
+
+
+<div class="card collapsed-card">
+    <div class="card-header">
+        <h3 class="card-title">INVITEE MEMBERS</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="card-body p-0">
+        <form class="form-inline m-3">
+            <div class="input-group input-group-sm">
+                <input class="form-control" type="search" placeholder="Search Username" aria-label="Search">
+                @*<div class="input-group-append">
+                        <button class="btn btn-navbar" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>*@
+            </div>
+        </form>
+        <div class="card-footer text-center">
+            <a href="javascript::">SENT REQUESTS</a>
+        </div>
+        <div class="card-body p-0">
+            <ul class="users-list clearfix">
+                <GenericThirdList Elements="inviteeResponsesPending">
+                    <WithElementsTemplate>
+                        @foreach (var item in inviteeResponsesPending.OrderByDescending(x => x.AcceptedDate))
+                        {
+                            <li>
+                                @if (item.AppUser.Images == null)
+                                {
+                                    <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserInvitee"
+                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                }
+                                else
+                                {
+                                    <img src="Images/@item.AppUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserInvitee"
+                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                }
+                                <span class="users-list-date">
+                                    <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                                       @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                        @item.AppUser.UserName
+                                    </a>
+                                </span>
+                            </li>
+                        }
+                    </WithElementsTemplate>
+                </GenericThirdList>
+            </ul>
+        </div>
+
+    </div>
+    <div class="card-footer text-center">
+        <Pagination CurrentPage="RequestPending.Page" Radius="4" TotalPagesQuantity="totalAmountPagesPending"
+                    SelectedPage="SelectedPage" />
+    </div>
+</div>
+
+<div class="modal fade" id="ViewUserInvitee">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">View @inviteePending.UserName Profile</h3>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5">
+                        @if (inviteePending.Images == null)
+                        {
+                            <img src="Images/blank-person.png" class="img-fluid img-circle" alt="User Image">
+                        }
+                        else
+                        {
+                            <img src="Images/@inviteePending.Images" class="img-fluid img-circle" alt="User Image">
+                        }
+                    </div>
+                    <div class="col-md-7 col-sm-7">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>@inviteePending.FirstName @inviteePending.LastName</h2>
+                                <h5>#@inviteePending.UserName</h5>
+                            </div>
+
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-block btn-danger" @onclick="@(() => DeleteUser(inviteePending.UserName))">
+                                    <i class="nav-icon fa fa-trash"></i>
+                                    Remove Sent Request
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code{
+
+    [Parameter]
+    public Guid? topicsPendingId { get; set; }
+
+    List<InviteeResponse> inviteeResponsesPending;
+
+    UsernameResponse inviteePending = new UsernameResponse();
+
+    InviteeAcceptRequest acceptRequestPending = new InviteeAcceptRequest();
+
+    PaginationRequest RequestPending = new PaginationRequest();
+
+    private int totalAmountPagesPending;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await GetUserPending();
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+
+    private async Task SelectedPage(int page)
+    {
+        RequestPending.Page = page;
+
+        await GetUserPending();
+    }
+
+
+    private async Task GetUserPending(string name = null)
+    {
+        var paginatedResponse = await _inviteeService.GetPendingUser(topicsPendingId, RequestPending, name);
+
+        inviteeResponsesPending = paginatedResponse.Response;
+
+        totalAmountPagesPending = paginatedResponse.TotalAmountPages;
+    }
+
+
+    private void ViewUsername(string username)
+    {
+        inviteePending = new UsernameResponse();
+
+        var chapterSelected = inviteeResponsesPending.FirstOrDefault(x => x.AppUser.UserName == username);
+
+        inviteePending.UserName = chapterSelected.AppUser.UserName;
+
+        inviteePending.FirstName = chapterSelected.AppUser.FirstName;
+
+        inviteePending.LastName = chapterSelected.AppUser.LastName;
+
+        inviteePending.Images = chapterSelected.AppUser.Images;
+    }
+
+
+    private async Task DeleteUser(string username)
+    {
+        acceptRequestPending = new InviteeAcceptRequest();
+
+        acceptRequestPending.acceptance = false;
+        acceptRequestPending.username = username;
+
+        if (await js.Confirm("Confirm", $"Do you want to cancel this sent request from this project ?", SweetAlertMessageType.question))
+        {
+            await _inviteeService.RemoveInvitation(topicsPendingId, acceptRequestPending);
+
+            await GetUserPending();
+        }
+    }
+
+}

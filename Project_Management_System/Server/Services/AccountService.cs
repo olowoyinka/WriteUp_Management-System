@@ -47,6 +47,11 @@ namespace Project_Management_System.Server.Services
             return await _userManager.Users.Where(x => x.UserName.ToLower().Contains(UserName.ToLower())).ToListAsync();
         }
 
+        public async Task<AppUser> getUser(string UserId)
+        {
+            return await _userManager.Users.SingleOrDefaultAsync(s => s.Id == UserId);
+        }
+
         public async Task<AuthResult> LoginAsync(LoginUserRequest userRequest)
         {
             var existUser = await _userManager.FindByNameAsync(userRequest.UserName);

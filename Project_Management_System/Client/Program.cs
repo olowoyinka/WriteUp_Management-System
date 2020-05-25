@@ -15,6 +15,7 @@ namespace Project_Management_System.Client
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
             builder.RootComponents.Add<App>("app");
 
             ConfigureServices(builder.Services);          
@@ -31,6 +32,8 @@ namespace Project_Management_System.Client
             services.AddScoped<ITopics, TopicsService>();
 
             services.AddScoped<IChapter, ChapterService>();
+
+            services.AddScoped<IInvitee, InviteeService>();
 
             services.AddScoped<IHttpService, HttpService>();
 

@@ -18,6 +18,8 @@ namespace Project_Management_System.Server.Interfaces
         Task<List<AppUser>> ListAllUsers(string UserName);
          
         Task<AppUser> getUserId(string UserName);
+         
+        Task<AppUser> getUser(string UserId);
 
         Task<ConfirmResponse> ForgetPasswordAsync(ForgetPasswordRequest passwordRequest);
     }

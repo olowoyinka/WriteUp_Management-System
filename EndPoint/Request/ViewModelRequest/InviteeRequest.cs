@@ -14,5 +14,7 @@ namespace EndPoint.Request.ViewModelRequest
     public class InviteeAcceptRequest
     {        
         public bool acceptance { get; set; }
+
+        public string username { get; set; }
     }
 }

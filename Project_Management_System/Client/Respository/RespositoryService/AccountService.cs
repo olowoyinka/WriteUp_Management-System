@@ -52,5 +52,10 @@ namespace Project_Management_System.Client.Respository.RespositoryService
 
             return httpResponse.Response;
         }
+
+        public async Task<UsernameResponse> GetUser()
+        {
+            return await _httpService.GetHelper<UsernameResponse>(APIRoute.Account.GetUser);
+        }
     }
 }

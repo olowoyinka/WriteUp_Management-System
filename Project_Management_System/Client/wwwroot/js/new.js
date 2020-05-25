@@ -1,4 +1,6 @@
 ﻿function CustomConfirm(title, message, type) {
+    $("#ViewUserModal").modal('hide');
+    $("#ViewUserInvitee").modal('hide');
     return new Promise((resolve) => {
         Swal.fire({
             title: title,
@@ -17,4 +19,3 @@
         })
     });
 }
-

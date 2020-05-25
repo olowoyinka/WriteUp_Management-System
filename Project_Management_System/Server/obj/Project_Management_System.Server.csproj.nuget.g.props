@@ -13,6 +13,7 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)blazored.typeahead\4.3.0\buildTransitive\Blazored.Typeahead.props" Condition="Exists('$(NuGetPackageRoot)blazored.typeahead\4.3.0\buildTransitive\Blazored.Typeahead.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.0.0\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.0.0\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">

@@ -101,6 +101,15 @@ namespace Project_Management_System.Server.Controllers
             return Ok(_mapper.Map<ConfirmMapResponse>(authResponse));
         }
 
+        [HttpGet(APIRoute.Account.GetUser)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> GetUsers()
+        {
+            var allUserResponse = await _account.getUser(GetUserId());
+
+            return Ok(_mapper.Map<UsernameResponse>(allUserResponse));
+        }
+
         [HttpGet(APIRoute.Account.GetAllUser)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetAllUsers([FromRoute] string username)

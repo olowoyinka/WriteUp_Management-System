@@ -6,7 +6,7 @@
   "linkerEnabled": false,
   "resources": {
     "assembly": {
-      "Project_Management_System.Client.dll": "sha256-NZRio3xIQlKeIY8nnzEXjS1RlVxo9hFWv4r9EflnKSo=",
+      "Project_Management_System.Client.dll": "sha256-o1PQx+ioljJBYDkcmlFhmApnaA\/TDBCL8mtTpEk6rPM=",
       "Microsoft.Extensions.Options.dll": "sha256-oAIlpv09S\/0jXnze744E1V88Oaw8Ql1x3Alw0hsVYdw=",
       "Microsoft.Extensions.Primitives.dll": "sha256-DG1MjidH81NA50uWH63eWmXLCxt18sJzoF2oXVlyvlY=",
       "System.Runtime.CompilerServices.Unsafe.dll": "sha256-fom8\/iCIAJjiOFGTfsevXMd0zQP6\/nFmuTkPAk1OBqs=",
@@ -45,7 +45,7 @@
       "System.ComponentModel.DataAnnotations.dll": "sha256-4vEvGLztX42bc61\/obHWFyGEOZkoMNPNAgycgz8WZqg=",
       "Microsoft.AspNetCore.Components.dll": "sha256-frGTd\/pHKY90\/MumXJBc9G549bt9caoHvQYRkXRv6Wg=",
       "Microsoft.Extensions.Logging.Abstractions.dll": "sha256-45ia6XmGIa5WI3cHUIE9KhVornlZleYW+B5FPpfD1wQ=",
-      "EndPoint.dll": "sha256-VyJuQaEQ+TJj+Wv8IMETCXeBzqE1+in8S2gdiHEmOjo=",
+      "EndPoint.dll": "sha256-yPsHN2BaiULay5Gqy0ZQcTubt4Fkj3RLB1ZzkJAoGUc=",
       "MongoDB.Bson.dll": "sha256-D+391uWz09RMVEyeYrPzPTEz8UErDzvis+xDf2bTde4=",
       "System.Security.Cryptography.Primitives.dll": "sha256-5vdR44YpzFJeJRtUB2XvzsSinXEV6ykSV6RBwVfJgac=",
       "System.Security.Cryptography.Algorithms.dll": "sha256-r7N9d3ZA86mYYoZ2R39WCc9Od7\/Utt+ZvaYSLzZmcaE=",
@@ -89,8 +89,8 @@
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-Sljk6nvSPSpTCrJ6+bd12XiNuOwqOHEKHPSBoINTtWo="
     },
     "pdb": {
-      "Project_Management_System.Client.pdb": "sha256-SDkqF4tODYzxvGEz23gpoF4DzIFfgfKD+Wih2sLs7Fs=",
-      "EndPoint.pdb": "sha256-xQxse4H9eNuSDvxFoQaTfk\/E4Ygm5zb85yI4+v\/UiZ0="
+      "Project_Management_System.Client.pdb": "sha256-eZAvCtBx8mIkQT0q9UItMCaTec5\/L6+hyFSd5VFxKuY=",
+      "EndPoint.pdb": "sha256-v+AjJEqgqfHDY8Dfjm2FgJAhNxcAP03LqkxZulRexnc="
     },
     "runtime": {
       "dotnet.3.2.0-preview3.20168.1.js": "sha256-274clLanSGrn5tb3h9iFyKyVG0KYG2Um+VHF0kdNzHE=",

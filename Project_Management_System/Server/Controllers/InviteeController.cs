@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EndPoint.Request.ViewModelRequest;
+using EndPoint.Response.UserResponse;
 using EndPoint.Response.ViewModelResponse;
 using EndPoint.v1;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,13 +33,13 @@ namespace Project_Management_System.Server.Controllers
 
 
         [HttpGet(APIRoute.Invitee.ReadPending)]
-        public async Task<IActionResult> ReadPending([FromQuery] PaginationRequest pagination, [FromQuery] string name)
+        public async Task<IActionResult> ReadPending([FromQuery] PaginationRequest pagination, [FromQuery] string name, [FromRoute]Guid topicsId)
         {
-            var invitee =  _inviteeService.ReadPendingInvitation(GetUserId(), name);
+            var invitee =  _inviteeService.ReadPendingInvitation(GetUserId(), topicsId,name);
 
             if (invitee == null)
             {
-                return BadRequest(new
+                return Ok(new
                 {
                     Error = $"No Record of Invitee Pending for User"
                 });
@@ -53,13 +54,13 @@ namespace Project_Management_System.Server.Controllers
 
 
         [HttpGet(APIRoute.Invitee.ReadAccepted)]
-        public async Task<IActionResult> ReadAccepted([FromQuery] PaginationRequest pagination, [FromQuery] string name)
+        public async Task<IActionResult> ReadAccepted([FromQuery] PaginationRequest pagination, [FromQuery] string name, [FromRoute]Guid topicsId)
         {
-            var invitee =  _inviteeService.ReadAcceptedInvitation(GetUserId(), name);
+            var invitee =  _inviteeService.ReadAcceptedInvitation(GetUserId(), topicsId,name);
 
             if (invitee == null)
             {
-                return BadRequest(new
+                return Ok(new
                 {
                     Error = $"No Record of Invitee Accepteed for the User"
                 });
@@ -80,7 +81,7 @@ namespace Project_Management_System.Server.Controllers
 
             if (!invitee)
             {
-                return BadRequest(new
+                return Ok(new
                 {
                     Error = "Not Found"
                 });
@@ -92,6 +93,7 @@ namespace Project_Management_System.Server.Controllers
             });
         }
 
+
         [HttpPut(APIRoute.Invitee.AcceptInvitee)]
         public async Task<IActionResult> AcceptInvitee([FromRoute]Guid topicsId, [FromBody]InviteeAcceptRequest acceptRequest)
         {
@@ -99,17 +101,18 @@ namespace Project_Management_System.Server.Controllers
 
             if (!invitee)
             {
-                return BadRequest(new
+                return Ok(new AuthResponse
                 {
                     Error = "Error Occur"
                 });
             }
 
-            return Ok(new
+            return Ok(new AuthResponse
             {
-                Status = "Invitation Accepted/Deleted"
+                Token = "Invitation Accepted/Deleted"
             });
         }
+
 
         private string GetUserId()
         {
