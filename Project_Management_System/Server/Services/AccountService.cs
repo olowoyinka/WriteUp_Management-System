@@ -42,9 +42,9 @@ namespace Project_Management_System.Server.Services
             return await _userManager.Users.SingleOrDefaultAsync(s => s.UserName == UserName);
         }
 
-        public async Task<List<AppUser>> ListAllUsers(string UserName)
+        public async Task<IEnumerable<AppUser>> ListAllUsers(string UserName)
         {
-            return await _userManager.Users.Where(x => x.UserName.ToLower().Contains(UserName.ToLower())).ToListAsync();
+            return await _userManager.Users.Where(x => x.UserName.ToLower().Equals(UserName.ToLower())).ToListAsync();
         }
 
         public async Task<AppUser> getUser(string UserId)

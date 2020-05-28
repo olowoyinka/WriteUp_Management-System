@@ -20,6 +20,13 @@ namespace Project_Management_System.Server.Hubs
             _chatroom = database.GetCollection<ChatRoom>(settings.ChatRoomsCollectionName);
         }
 
+        public async Task AddToGroup(Guid groupName)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, groupName.ToString());
+
+            await Clients.Group(groupName.ToString()).SendAsync("ReceiveMessage", $"{Context.ConnectionId} has joined the group { groupName}.");
+        }
+
         public Task SendMessageToGroup(Guid group, ChatRoom message)
         {
             var filter = Builders<ChatRoom>.Filter.Eq(s => s.TopicsId, group.ToString());

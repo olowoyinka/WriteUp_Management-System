@@ -1,6 +1,7 @@
 ﻿@page "/projects/{topicsId:guid}"
 
 
+
 <section class="content-header">
     <div class="container-fluid">
         <section class="content">
@@ -39,11 +40,11 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">                  
+                <div class="col-md-3">
 
-                    <MemberElement topicsId="topicsId"/>
+                    <MemberElement topicsId="topicsId" topicsResponse="topicsResponse" username="username"/>
 
-                    <InviteeMemberElement topicsPendingId="topicsId"/>
+                    <InviteeMemberElement topicsPendingId="topicsId" topicsResponse="topicsResponse" username="username"/>
 
                     <div class="card direct-chat direct-chat-primary">
                         <div class="card-header ui-sortable-handle" style="cursor: move;">
@@ -154,5 +155,35 @@
 
     [Parameter]
     public Guid topicsId { get; set; }
+
+    [Parameter]
+    public TopicsResponse topicsResponse { get; set; } = new TopicsResponse();
+
+    [Parameter]
+    public UsernameResponse username { get; set; } = new UsernameResponse();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            topicsResponse = await _topicsService.GetByIdAsync(topicsId);
+
+            username = await _accountService.GetUser();
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await js.ModalClose();
+        }
+    }
 
 }

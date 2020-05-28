@@ -79,9 +79,9 @@ namespace Project_Management_System.Server.Controllers
 
             if (topics == null)
             {
-                return BadRequest(new
+                return Ok(new TopicsResponse
                 {
-                    Error = "The  Name Doesn't Exist"
+                    Name = null
                 });
             }
 

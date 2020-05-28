@@ -14,5 +14,7 @@ namespace Project_Management_System.Client.Respository.RespositoryInterface
         Task<PaginationResponse<List<InviteeResponse>>> GetPendingUser(Guid? Id, PaginationRequest request, string name);
 
         Task<AuthResponse> RemoveInvitation(Guid? topicId, InviteeAcceptRequest inviteeAccept);
-    }
+
+        Task<AuthResponse> SentInvitation(Guid? topicId, InviteeSentRequest inviteeSent);
+    }  
 }

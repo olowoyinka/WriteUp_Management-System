@@ -132,6 +132,13 @@ using EndPoint.Response.UserResponse;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 22 "C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Client\_Imports.razor"
+using Blazored.Typeahead;
+
+#line default
+#line hidden
+#nullable disable
     public partial class GenericSecondList<TElement> : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998

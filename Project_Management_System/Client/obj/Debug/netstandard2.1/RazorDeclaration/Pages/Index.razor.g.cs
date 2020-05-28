@@ -133,6 +133,13 @@ using EndPoint.Response.UserResponse;
 #line hidden
 #nullable disable
 #nullable restore
+#line 22 "C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Client\_Imports.razor"
+using Blazored.Typeahead;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 2 "C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Client\Pages\Index.razor"
            [Authorize]
 
@@ -148,6 +155,10 @@ using EndPoint.Response.UserResponse;
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime js { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IInvitee _inviteeService { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IAccount _accountService { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ITopics _topicsService { get; set; }
     }
 }
 #pragma warning restore 1591

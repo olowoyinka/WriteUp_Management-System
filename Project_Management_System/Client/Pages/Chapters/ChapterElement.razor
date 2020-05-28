@@ -194,14 +194,6 @@
     }
 
 
-    protected override async void OnAfterRender(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await js.ModalClose();
-        }
-    }
-
     private async Task LoadChapter(string name = null)
     {
         var paginatedResponse = await _chapterService.GetAllAsync(topicsId, Request, name);
@@ -293,6 +285,8 @@
         if (await js.Confirm("Confirm", $"Do you want to delete { chapterSelected.Name } ?", SweetAlertMessageType.question))
         {
             await _chapterService.DeleteAsync(topicsId, ChapterId);
+
+            await js.RemoveModal("Deleted", $"{chapterSelected.Name} chapter from the Project", SweetAlertMessageType.success);
 
             await LoadChapter();
         }

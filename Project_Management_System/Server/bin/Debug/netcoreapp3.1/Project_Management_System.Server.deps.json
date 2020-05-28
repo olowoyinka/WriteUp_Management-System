@@ -324,6 +324,21 @@
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
+      "Blazored.Typeahead/4.3.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components": "3.1.2",
+          "Microsoft.AspNetCore.Components.Web": "3.1.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Blazored.Typeahead.dll": {
+            "assemblyVersion": "4.3.0.0",
+            "fileVersion": "4.3.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Blazored.Typeahead.dll": {}
+        }
+      },
       "DnsClient/1.2.0": {
         "dependencies": {
           "System.Buffers": "4.5.0"
@@ -3100,6 +3115,7 @@
       },
       "Project_Management_System.Client/1.0.0": {
         "dependencies": {
+          "Blazored.Typeahead": "4.3.0",
           "EndPoint": "1.0.0",
           "Microsoft.AspNetCore.Blazor.HttpClient": "3.2.0-preview3.20168.3",
           "Microsoft.AspNetCore.Components.Authorization": "3.1.0",
@@ -4617,6 +4633,13 @@
       "sha512": "sha512-szI4yeRIM7GWe9JyekW0dKYehPB0t6M+I55fPeCebN6PhS7zQZa0eG3bgOnOx+eP3caSNoE7KEJs2rk7MLsh8w==",
       "path": "automapper.extensions.microsoft.dependencyinjection/7.0.0",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512"
+    },
+    "Blazored.Typeahead/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JzoZ7wOEobihh1SCTOwPaCawJ4F9t0MfizaG0OTWAfE4FBFBkkV///YBni08v7Q+k3eB9l4vlllfHkAqpQB4+w==",
+      "path": "blazored.typeahead/4.3.0",
+      "hashPath": "blazored.typeahead.4.3.0.nupkg.sha512"
     },
     "DnsClient/1.2.0": {
       "type": "package",

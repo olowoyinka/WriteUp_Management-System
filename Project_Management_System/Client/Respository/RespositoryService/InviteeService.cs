@@ -48,5 +48,17 @@ namespace Project_Management_System.Client.Respository.RespositoryService
 
             return response.Response;
         }
+
+        public async Task<AuthResponse> SentInvitation(Guid? topicId, InviteeSentRequest inviteeSent)
+        {
+            var response = await _httpService.Put<InviteeSentRequest, AuthResponse>($"{topics}/{topicId}/sentinvitee", inviteeSent);
+
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+
+            return response.Response;
+        }
     }
 } 

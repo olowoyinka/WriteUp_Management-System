@@ -15,7 +15,7 @@ namespace Project_Management_System.Server.Interfaces
 
         Task<AuthResult> ProfilePicture(IFormFile Image, string GetUserId);
 
-        Task<List<AppUser>> ListAllUsers(string UserName);
+        Task<IEnumerable<AppUser>> ListAllUsers(string UserName);
          
         Task<AppUser> getUserId(string UserName);
          

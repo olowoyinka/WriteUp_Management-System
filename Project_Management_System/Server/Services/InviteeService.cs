@@ -123,7 +123,7 @@ namespace Project_Management_System.Server.Services
         {
             var queryable = _context.Invitees
                             //.Where(x => x.AppUserId.Equals(GetUserId))
-                            .Where(x => x.Topics.AppUserId.Equals(GetUserId) || x.AppUserId.Equals(GetUserId))
+                            //.Where(x => x.Topics.AppUserId.Equals(GetUserId) || x.AppUserId.Equals(GetUserId))
                             .Where(x => x.TopicsId.Equals(topicsId))
                             .Where(s => s.RequestStatus.Equals(true))
                              .Include(s => s.AppUser)

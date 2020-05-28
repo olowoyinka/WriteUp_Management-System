@@ -1,72 +1,102 @@
-﻿@inject IAccount _accountService
+﻿
+@if (topicsResponse.Name != null)
+{
+    <div class="card collapsed-card">
+        <div class="card-header">
+            <h3 class="card-title">INVITEE MEMBERS</h3>
 
-@inject IInvitee _inviteeService
-
-@inject IJSRuntime js
-
-
-
-<div class="card collapsed-card">
-    <div class="card-header">
-        <h3 class="card-title">INVITEE MEMBERS</h3>
-
-        <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fa fa-plus"></i>
-            </button>
-        </div>
-    </div>
-
-    <div class="card-body p-0">
-        <form class="form-inline m-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control" type="search" placeholder="Search Username" aria-label="Search">
-                @*<div class="input-group-append">
-                        <button class="btn btn-navbar" type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>*@
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fa fa-plus"></i>
+                </button>
             </div>
-        </form>
-        <div class="card-footer text-center">
-            <a href="javascript::">SENT REQUESTS</a>
-        </div>
-        <div class="card-body p-0">
-            <ul class="users-list clearfix">
-                <GenericThirdList Elements="inviteeResponsesPending">
-                    <WithElementsTemplate>
-                        @foreach (var item in inviteeResponsesPending.OrderByDescending(x => x.AcceptedDate))
-                        {
-                            <li>
-                                @if (item.AppUser.Images == null)
-                                {
-                                    <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserInvitee"
-                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                }
-                                else
-                                {
-                                    <img src="Images/@item.AppUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserInvitee"
-                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                }
-                                <span class="users-list-date">
-                                    <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
-                                       @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                        @item.AppUser.UserName
-                                    </a>
-                                </span>
-                            </li>
-                        }
-                    </WithElementsTemplate>
-                </GenericThirdList>
-            </ul>
         </div>
 
+        <div class="card-body p-0 m">
+            <div class="row">
+                <div class="col-md-12 p-3">
+                    <h6>Search for a Member</h6>
+                    <BlazoredTypeahead SearchMethod="SearchUsername" @bind-Value="SelectedUsername" placehoolder="Search Name">
+                        <SelectedTemplate>
+                            @context.UserName
+                        </SelectedTemplate>
+                        <ResultTemplate>
+                            @if (context.UserName == username.UserName)
+                             {
+                                <h6>Member Request Can't Be Sent</h6>
+                             }
+                             else
+                             {
+                                @context.UserName
+                             }
+                        </ResultTemplate>
+                    </BlazoredTypeahead>
+
+                    @if (SelectedUsername != null)
+                    {
+
+                        @if (SelectedUsername.UserName == username.UserName)
+                        {
+                            <hr />
+                            <h6>Member Request Can't Be Sent</h6>
+                        }
+                        else
+                        {
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-block btn-danger" @onclick="@(() => SentUser(SelectedUsername.UserName))">
+                                        @SelectedUsername.UserName - Sent Request
+                                    </button>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                </div>
+
+            </div>
+            <div class="card-footer text-center">
+                <a href="javascript::">SENT REQUESTS</a>
+            </div>
+            <div class="card-body p-0">
+                <ul class="users-list clearfix">
+                    <GenericThirdList Elements="inviteeResponsesPending">
+                        <WithElementsTemplate>
+                            @foreach (var item in inviteeResponsesPending.OrderByDescending(x => x.AcceptedDate))
+                            {
+                                <li>
+                                    @if (item.AppUser.Images == null)
+                                    {
+                                        <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserInvitee"
+                                             @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                    }
+                                    else
+                                    {
+                                        <img src="Images/@item.AppUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserInvitee"
+                                             @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                    }
+                                    <span class="users-list-date">
+                                        <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                                           @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                            @item.AppUser.UserName
+                                        </a>
+                                    </span>
+                                </li>
+                            }
+                        </WithElementsTemplate>
+                    </GenericThirdList>
+                </ul>
+            </div>
+
+        </div>
+        <div class="card-footer text-center">
+            <Pagination CurrentPage="RequestPending.Page" Radius="4" TotalPagesQuantity="totalAmountPagesPending"
+                        SelectedPage="SelectedPage" />
+        </div>
     </div>
-    <div class="card-footer text-center">
-        <Pagination CurrentPage="RequestPending.Page" Radius="4" TotalPagesQuantity="totalAmountPagesPending"
-                    SelectedPage="SelectedPage" />
-    </div>
-</div>
+}
+
 
 <div class="modal fade" id="ViewUserInvitee">
     <div class="modal-dialog">
@@ -117,13 +147,23 @@
     [Parameter]
     public Guid? topicsPendingId { get; set; }
 
+    [Parameter]
+    public TopicsResponse topicsResponse { get; set; } = new TopicsResponse();
+
+    [Parameter]
+    public UsernameResponse username { get; set; } = new UsernameResponse();
+
     List<InviteeResponse> inviteeResponsesPending;
 
     UsernameResponse inviteePending = new UsernameResponse();
 
     InviteeAcceptRequest acceptRequestPending = new InviteeAcceptRequest();
 
+    InviteeSentRequest acceptInviteePending = new InviteeSentRequest();
+
     PaginationRequest RequestPending = new PaginationRequest();
+
+    private UsernameResponse SelectedUsername;
 
     private int totalAmountPagesPending;
 
@@ -132,13 +172,13 @@
         try
         {
             await GetUserPending();
+
         }
         catch (Exception ex)
         {
 
         }
     }
-
 
     private async Task SelectedPage(int page)
     {
@@ -185,8 +225,34 @@
         {
             await _inviteeService.RemoveInvitation(topicsPendingId, acceptRequestPending);
 
+
+            await js.RemoveModal("Remove the Request to", $"{username}", SweetAlertMessageType.success);
+
             await GetUserPending();
         }
     }
 
+    private async Task<IEnumerable<UsernameResponse>> SearchUsername(string searchText)
+    {
+        return await _accountService.GetAllAsync(searchText);
+    }
+
+    private async Task SentUser(string username)
+    {
+        acceptInviteePending = new InviteeSentRequest();
+
+        acceptInviteePending.RoleStatus = true;
+        acceptInviteePending.UserName = username;
+
+        if (await js.Confirm("Confirm", $"Do you sent {username} request for this project ?", SweetAlertMessageType.question))
+        {
+            await _inviteeService.SentInvitation(topicsPendingId, acceptInviteePending);
+
+            SelectedUsername = null;
+
+            await js.RemoveModal("Request Sent to", $"{username}", SweetAlertMessageType.success);
+
+            await GetUserPending();
+        }
+    }
 }

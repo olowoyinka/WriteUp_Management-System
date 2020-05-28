@@ -1,10 +1,4 @@
-﻿@inject IAccount _accountService
-
-@inject IInvitee _inviteeService
-
-@inject IJSRuntime js
-
-
+﻿
 
 <div class="card collapsed-card">
     <div class="card-header">
@@ -62,25 +56,54 @@
                             }
                             else if (item.AppUser.Images == null)
                             {
-                                <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
-                                     @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                <span class="users-list-date">
-                                    <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
-                                       @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                        @item.AppUser.UserName
-                                    </a>
-                                </span>
+                                @if (topicsResponse.Name != null)
+                                {
+
+                                    <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                    <span class="users-list-date">
+                                        <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                                           @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                            @item.AppUser.UserName
+                                        </a>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModalss"
+                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                    <span class="users-list-date">
+                                        <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModalss"
+                                           @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                            @item.AppUser.UserName
+                                        </a>
+                                    </span>
+                                }
                             }
                             else
                             {
-                                <img src="Images/@item.AppUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
-                                     @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                <span class="users-list-date">
-                                    <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
-                                       @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                        @item.AppUser.UserName
-                                    </a>
-                                </span>
+                                @if (topicsResponse.Name != null)
+                                {
+                                    <img src="Images/@item.AppUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModalss"
+                                         @onclick="@(() => ViewUsernamess(item.AppUser.UserName))">
+                                    <span class="users-list-date">
+                                        <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModalss"
+                                           @onclick="@(() => ViewUsernamess(item.AppUser.UserName))">
+                                            @item.AppUser.UserName
+                                        </a>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <img src="Images/@item.AppUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModalss"
+                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                    <span class="users-list-date">
+                                        <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModalss"
+                                           @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                            @item.AppUser.UserName
+                                        </a>
+                                    </span>
+                                }
                             }
                         </li>
                     }
@@ -175,14 +198,19 @@
 
 
 
+
 @code{
 
     [Parameter]
     public Guid topicsId { get; set; }
 
-    List<InviteeResponse> inviteeResponses;
+    [Parameter]
+    public TopicsResponse topicsResponse { get; set; } = new TopicsResponse();
 
-    UsernameResponse username = new UsernameResponse();
+    [Parameter]
+    public UsernameResponse username { get; set; } = new UsernameResponse();
+
+    List<InviteeResponse> inviteeResponses;
 
     UsernameResponse invitee = new UsernameResponse();
 
@@ -196,20 +224,12 @@
     {
         try
         {
-            await GetUser();
-
             await GetUserAccepted();
         }
         catch (Exception ex)
         {
 
         }
-    }
-
-
-    private async Task GetUser()
-    {
-        username = await _accountService.GetUser();
     }
 
 
@@ -250,7 +270,7 @@
     {
         invitee = new UsernameResponse();
 
-        var chapterSelected = inviteeResponses.FirstOrDefault(x => x.OwnerUser.UserName == username);
+        var chapterSelected = inviteeResponses.Where(x => x.OwnerUser.UserName == username || x.AppUser.UserName == username).FirstOrDefault();
 
         invitee.UserName = chapterSelected.OwnerUser.UserName;
 
@@ -260,7 +280,6 @@
 
         invitee.Images = chapterSelected.OwnerUser.Images;
     }
-
 
     private async Task DeleteUser(string username)
     {
@@ -272,6 +291,8 @@
         if (await js.Confirm("Confirm", $"Do you want to remove { username } from this project ?", SweetAlertMessageType.question))
         {
             await _inviteeService.RemoveInvitation(topicsId, acceptRequest);
+
+            await js.RemoveModal("Remove ", $"{username} from the Project", SweetAlertMessageType.success);
 
             await GetUserAccepted();
         }

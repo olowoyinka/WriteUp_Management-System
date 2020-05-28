@@ -116,7 +116,7 @@ namespace Project_Management_System.Server.Controllers
         {
             var allUserResponse = await _account.ListAllUsers(username);
 
-            return Ok(_mapper.Map<List<UsernameResponse>>(allUserResponse));
+            return Ok(_mapper.Map<IEnumerable<UsernameResponse>>(allUserResponse));
         }
 
         [HttpGet(APIRoute.Account.GetUserId)]

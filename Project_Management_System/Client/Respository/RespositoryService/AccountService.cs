@@ -4,6 +4,7 @@ using EndPoint.v1;
 using Project_Management_System.Client.Helpers.HelperInterface;
 using Project_Management_System.Client.Respository.RespositoryInterface;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Project_Management_System.Client.Respository.RespositoryService
@@ -11,6 +12,8 @@ namespace Project_Management_System.Client.Respository.RespositoryService
     public class AccountService : IAccount
     {
         private readonly IHttpService _httpService;
+
+        private string url = "v1/getalluser";
 
         public AccountService(IHttpService httpService)
         {
@@ -56,6 +59,11 @@ namespace Project_Management_System.Client.Respository.RespositoryService
         public async Task<UsernameResponse> GetUser()
         {
             return await _httpService.GetHelper<UsernameResponse>(APIRoute.Account.GetUser);
+        }
+
+        public async Task<IEnumerable<UsernameResponse>> GetAllAsync(string username)
+        {
+            return await _httpService.GetHelper<IEnumerable<UsernameResponse>>($"{url}/{username}");
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿@page "/projects"
 
-@inject ITopics _topicsService
-
-@inject IJSRuntime js
 
 @attribute [Authorize]
 <section class="content-header">
@@ -234,7 +231,7 @@
 
         topicsRequest = new TopicsRequest();
 
-        topicsResponse = await _topicsService.GetByIdAsync(topicsId);
+        topicsResponse = Topics.FirstOrDefault(x => x.Id == topicsId);
 
         topicsRequest.Name = topicsResponse.Name;
     }

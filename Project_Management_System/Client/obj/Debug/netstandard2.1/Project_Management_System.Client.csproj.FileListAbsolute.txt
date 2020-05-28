@@ -526,3 +526,7 @@ C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_Sy
 C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Client\obj\Debug\netstandard2.1\Razor\Shared\NoNavBar.razor.g.cs
 C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Client\obj\Debug\netstandard2.1\Razor\Shared\Pagination.razor.g.cs
 C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Client\obj\Debug\netstandard2.1\Razor\_Imports.razor.g.cs
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Blazored.Typeahead.dll
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Blazored.Typeahead.dll.gz
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Blazored.Typeahead.dll.gz
+C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Blazored.Typeahead.dll.gz.hash
