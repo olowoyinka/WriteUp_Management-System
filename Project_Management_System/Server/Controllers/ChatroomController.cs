@@ -25,7 +25,7 @@ namespace Project_Management_System.Server.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost(APIRoute.Chatroom.AddToGroup)]
+        [HttpGet(APIRoute.Chatroom.AddToGroup)]
         public async Task<IActionResult> AddToGroup([FromRoute] Guid chatroomId)
         {
             var chatroomExist = await _chatroomService.GetChatroomIdAsync(GetUserId(), chatroomId);

@@ -40,6 +40,8 @@ namespace Project_Management_System.Server.Installer
 
             services.AddScoped<IChatroom, ChatroomService>();
 
+            services.AddScoped<IEditBody, EditBodyService>();
+
             services.AddTransient<IEmailSender, SendGridEmailSender>();
         }
     }

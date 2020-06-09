@@ -13,12 +13,12 @@ namespace Project_Management_System.Server.Mapping.ChatroomMapping
                      .ForMember(dest => dest.ChatMessages, opt =>
                         opt.MapFrom(src => src.ChatMessages.Select(x => new ChatMessageResponse
                         {
-                            Id = x.Id,
+                            //Id = x.Id,
                             Message = x.Message,
                             CreatedDate = x.CreatedDate,
                             Username = x.Username,
                             Highlighted = x.Highlighted,
-                            URL = x.URL
+                            Image = x.Image
                         })));
         }
     }

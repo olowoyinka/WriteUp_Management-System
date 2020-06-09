@@ -57,11 +57,7 @@ namespace Project_Management_System.Server.Services
 
             var user = await _userManager.Users.SingleOrDefaultAsync(s => s.Id == GetUserId);
 
-            await _hubContext.Groups.AddToGroupAsync(user.UserName, TopicsId.ToString());
-
-            await _hubContext.Clients.Group(TopicsId.ToString()).SendAsync("Send", $"{user.UserName} was online at { DateTime.Now }");
-
-            return await _chatroom.Find<ChatRoom>(book => book.TopicsId == TopicsId.ToString()).FirstOrDefaultAsync();
+            return  _chatroom.Find<ChatRoom>(book => book.TopicsId == TopicsId.ToString()).FirstOrDefault();
         }
     }
 }

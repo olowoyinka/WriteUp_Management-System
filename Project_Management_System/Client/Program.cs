@@ -35,6 +35,10 @@ namespace Project_Management_System.Client
 
             services.AddScoped<IInvitee, InviteeService>();
 
+            services.AddScoped<IChatroom, ChatroomService>();
+
+            services.AddScoped<IEditBody, EditBodyService>();
+
             services.AddScoped<IHttpService, HttpService>();
 
             services.AddScoped<JWTAuthenticationProvider>();

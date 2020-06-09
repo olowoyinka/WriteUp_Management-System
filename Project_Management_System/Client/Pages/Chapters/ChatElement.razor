@@ -1,0 +1,186 @@
+﻿<div class="card card-primary card-outline direct-chat direct-chat-primary">
+    <div class="card-header ui-sortable-handle" style="cursor: move;">
+        <h3 class="card-title">CHATS</h3>
+
+        <div class="card-tools">
+            <span data-toggle="tooltip" title="3 New Messages" class="badge badge-primary">3</span>
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body" style="height:200%">
+        <div id="scrollUpdate" class="direct-chat-messages">
+            <GenericSecondList Elements="chatRoomResponses.ChatMessages">
+                <WithElementsTemplate>
+                    @foreach (var chatExist in chatRoomResponses.ChatMessages)
+                    {
+                        @if (chatExist.Username == username.UserName)
+                        {
+                            <div class="direct-chat-msg right">
+                                <div class="direct-chat-infos clearfix">
+                                    <span class="direct-chat-name float-right">You</span>
+                                    <span class="direct-chat-timestamp float-left">@chatExist.CreatedDate</span>
+                                </div>
+                                @if (chatExist.Image == null)
+                                {
+                                    <img class="direct-chat-img" src="Images/blank-person.png" alt="message user image">
+                                }
+                                else
+                                {
+                                    <img class="direct-chat-img" src="/Images/@chatExist.Image" alt="message user image">
+                                }
+                                <div class="direct-chat-text">
+                                    @chatExist.Message
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="direct-chat-msg">
+                                <div class="direct-chat-infos clearfix">
+                                    <span class="direct-chat-name float-left">@chatExist.Username</span>
+                                    <span class="direct-chat-timestamp float-right">@chatExist.CreatedDate</span>
+                                </div>
+                                @if (chatExist.Image == null)
+                                {
+                                    <img class="direct-chat-img" src="Images/blank-person.png" alt="message user image">
+                                }
+                                else
+                                {
+                                    <img class="direct-chat-img" src="/Images/@chatExist.Image" alt="message user image">
+                                }
+                                <div class="direct-chat-text">
+                                    @chatExist.Message
+                                </div>
+                            </div>
+                        }
+                    }
+                </WithElementsTemplate>
+            </GenericSecondList>
+            @foreach (var item in chatMessages)
+            {
+                @if (item.Username == username.UserName)
+                {
+                    <div class="direct-chat-msg right">
+                        <div class="direct-chat-infos clearfix">
+                            <span class="direct-chat-name float-right">You</span>
+                            <span class="direct-chat-timestamp float-left">@item.CreatedDate</span>
+                        </div>
+                        @if (item.Image == null)
+                        {
+                            <img class="direct-chat-img" src="Images/blank-person.png" alt="message user image">
+                        }
+                        else
+                        {
+                            <img class="direct-chat-img" src="/Images/@item.Image" alt="message user image">
+                        }
+                        <div class="direct-chat-text">
+                            @item.Message
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="direct-chat-msg">
+                        <div class="direct-chat-infos clearfix">
+                            <span class="direct-chat-name float-left">@item.Username</span>
+                            <span class="direct-chat-timestamp float-right">@item.CreatedDate</span>
+                        </div>
+                        @if (item.Image == null)
+                        {
+                            <img class="direct-chat-img" src="Images/blank-person.png" alt="message user image">
+                        }
+                        else
+                        {
+                            <img class="direct-chat-img" src="/Images/@item.Image" alt="message user image">
+                        }
+                        <div class="direct-chat-text">
+                            @item.Message
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+        <div class="card-footer">
+            <div class="input-group">
+                <input type="text" @bind="message" name="message" placeholder="Type Message ..." class="form-control">
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-primary" @onclick="Send">Send</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public Guid topicsId { get; set; }
+
+    [Parameter]
+    public UsernameResponse username { get; set; } = new UsernameResponse();
+
+    private HubConnection _hubConnection;
+
+    private List<ChatMessage> chatMessages = new List<ChatMessage>();
+
+    private ChatRoomResponse chatRoomResponses = new ChatRoomResponse();
+
+    private string message;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            chatRoomResponses = await _chatroomService.GetByIdAsync(topicsId);
+
+            _hubConnection = new HubConnectionBuilder()
+                               .WithUrl(NavigationManager.ToAbsoluteUri("/chatroomHub"))
+                               .Build();
+
+            await _hubConnection.StartAsync();
+
+            await _hubConnection.SendAsync("AddToGroup", topicsId, username.UserName);
+
+            _hubConnection.On<string, string, string, string>("ReceiveMessage", (message, username, image, datetime) =>
+            {
+                const string FMT = "O";
+
+                DateTime now2 = DateTime.ParseExact(datetime, FMT, System.Globalization.CultureInfo.InvariantCulture);
+
+                chatMessages.Add(new ChatMessage
+                {
+                    Message = message,
+                    Username = username,
+                    Image = image,
+                    CreatedDate = now2
+                });
+
+                StateHasChanged();
+
+            });
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+
+    private async Task Send()
+    {
+        if (message != null)
+        {
+            await _hubConnection.SendAsync("SendMessageToGroup", topicsId, message, username.UserName, username.Images);
+
+            message = null;
+
+            await js.scrollToElementId("scrollUpdate");
+        }
+    }
+
+}

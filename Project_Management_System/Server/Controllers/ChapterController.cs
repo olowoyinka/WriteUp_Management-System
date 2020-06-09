@@ -106,7 +106,6 @@ namespace Project_Management_System.Server.Controllers
             });
         }
 
-
         [HttpDelete(APIRoute.Chapter.DeletedById)]
         public async Task<IActionResult> DeleteById([FromRoute] Guid topicsId, [FromRoute] Guid chapterId)
         {

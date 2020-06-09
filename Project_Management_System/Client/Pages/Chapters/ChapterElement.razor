@@ -1,10 +1,4 @@
-﻿@inject IChapter _chapterService;
-
-@inject IJSRuntime js
-
-
-
-<div class="card card-primary card-outline">
+﻿<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">
             <i class="fa fa-edit"></i>
@@ -32,7 +26,7 @@
                                     @foreach (var item in Chapter.OrderByDescending(s => s.CreatedDate))
                                     {
                                         <tr>
-                                            <td id="user-address">@item.Name</td>
+                                            <td id="user-address"><a href="projects/@topicsId/@item.Id">@item.Name</a></td>
                                             <td>
                                                 <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#EditEmpModal"
                                                         @onclick="@(() => EditChapter(item.Id))">

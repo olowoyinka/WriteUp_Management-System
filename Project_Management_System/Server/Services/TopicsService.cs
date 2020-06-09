@@ -54,7 +54,8 @@ namespace Project_Management_System.Server.Services
             {
                 Name = newTopics.Name,
                 CreatedDate = DateTime.Now,
-                TopicsId = newTopics.Id.ToString()
+                TopicsId = newTopics.Id.ToString(),
+                ChatMessages = new ChatMessage [] {}
             };
 
             await _chatroom.InsertOneAsync(newChatRoom);

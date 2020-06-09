@@ -53,11 +53,20 @@
             public const string Create = version + "/topics/{topicsId}/chapter";
             
             public const string Update = version + "/topics/{topicsId}/chapter/{chatperId}";
+            
+            public const string UpdateBody = version + "/topics/{topicsId}/chapter/{chatperId}";
 
             public const string GetById = version + "/topics/{topicsId}/chapter/{chatperId}";
 
             public const string DeletedById = version + "/topics/{topicsId}/chapter/{chapterId}";
 
+        }
+
+        public static class EditBody
+        {
+            public const string UpdateBody = version + "/project/{topicsId}/chapter/{chatperId}";
+
+            public const string GetById = version + "/project/{topicsId}/chapter/{chatperId}";
         }
 
         public static class Chatroom

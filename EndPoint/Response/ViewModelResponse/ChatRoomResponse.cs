@@ -16,7 +16,7 @@ namespace EndPoint.Response.ViewModelResponse
 
     public class ChatMessageResponse
     {
-        public ObjectId Id { get; set; }
+        //public ObjectId Id { get; set; }
 
         public string Username { get; set; }
 
@@ -24,7 +24,7 @@ namespace EndPoint.Response.ViewModelResponse
 
         public DateTime CreatedDate { get; set; }
 
-        public string URL { get; set; }
+        public string Image { get; set; }
 
         public string Highlighted { get; set; }
     }

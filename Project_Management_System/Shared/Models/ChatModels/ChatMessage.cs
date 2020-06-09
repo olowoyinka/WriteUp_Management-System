@@ -3,7 +3,6 @@ using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Project_Management_System.Shared.Models.ChatModels
 {
@@ -11,29 +10,16 @@ namespace Project_Management_System.Shared.Models.ChatModels
     {
         [BsonId]
         [JsonConverter(typeof(StringToObjectId))]
-        [BsonRepresentation(BsonType.ObjectId)]
         public ObjectId Id { get; set; }
 
-        [BsonElement("Username")]
-        [JsonProperty("Username")]
-        [Required]
         public string Username { get; set; }
 
-        [BsonElement("Message")]
-        [JsonProperty("Message")]
-        [Required]
         public string Message { get; set; }
 
-        [BsonElement("CreatedDate")]
-        [JsonProperty("CreatedName")]
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        [BsonElement("URL")]
-        [JsonProperty("URL")]
-        public string URL { get; set; }
+        public string Image { get; set; }
 
-        [BsonElement("Highlighted")]
-        [JsonProperty("Highlighted")]
         public string Highlighted { get; set; }
 
         public ChatMessage()

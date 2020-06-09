@@ -15,7 +15,18 @@ namespace Project_Management_System.Client.AuthService
             => js.InvokeVoidAsync("localStorage.removeItem", key);
 
         public static ValueTask ModalClose(this IJSRuntime js)
-            =>  js.InvokeVoidAsync("CloseModal");
+            =>  js.InvokeVoidAsync("EditNote");
+
+        //public static ValueTask ScrollModal(this IJSRuntime js)
+        //    => js.InvokeVoidAsync("updateScroll");
+
+        //public static ValueTask ScrollModalSecond(this IJSRuntime js)
+        //    => js.InvokeVoidAsync("updateScrollSecond");
+
+        public static ValueTask<bool> scrollToElementId(this IJSRuntime js, string elementId)
+        {
+            return js.InvokeAsync<bool>("scrollToElementId", elementId);
+        }
 
         public static ValueTask<bool> RemoveModal(this IJSRuntime js, string title, string message, SweetAlertMessageType sweetAlertMessageType)
         {

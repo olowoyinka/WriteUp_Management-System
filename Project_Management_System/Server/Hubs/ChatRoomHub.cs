@@ -5,6 +5,7 @@ using Project_Management_System.Shared.Models.ChatModels;
 using System;
 using System.Threading.Tasks;
 
+
 namespace Project_Management_System.Server.Hubs
 {
     public class ChatRoomHub : Hub
@@ -20,23 +21,32 @@ namespace Project_Management_System.Server.Hubs
             _chatroom = database.GetCollection<ChatRoom>(settings.ChatRoomsCollectionName);
         }
 
-        public async Task AddToGroup(Guid groupName)
+        public async Task AddToGroup(Guid groupName, string username)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName.ToString());
 
-            await Clients.Group(groupName.ToString()).SendAsync("ReceiveMessage", $"{Context.ConnectionId} has joined the group { groupName}.");
+            //await Clients.Group(groupName.ToString()).SendAsync("ReceiveMessage", $"{username} is online", "", "", "");
         }
 
-        public Task SendMessageToGroup(Guid group, ChatRoom message)
+        public Task SendMessageToGroup(Guid group, string message, string username, string image)
         {
             var filter = Builders<ChatRoom>.Filter.Eq(s => s.TopicsId, group.ToString());
 
-            var update = Builders<ChatRoom>.Update
-                            .AddToSetEach(s => s.ChatMessages, message.ChatMessages);
+            DateTime dateTime = DateTime.Now;
+            
+            var chatMessage = new ChatMessage()
+            {
+                Message = message,
+                Username = username,
+                CreatedDate = dateTime,
+                Image = image
+            };
 
-            _chatroom.UpdateOneAsync(filter, update);
+            var update = Builders<ChatRoom>.Update.Push(s => s.ChatMessages, chatMessage);
 
-            return Clients.Group(group.ToString()).SendAsync("ReceiveMessage", message.ChatMessages);
+            _chatroom.UpdateOne(filter, update);
+
+            return Clients.Group(group.ToString()).SendAsync("ReceiveMessage", message, username, image, dateTime.ToString("O"));
         }
     }
 }
