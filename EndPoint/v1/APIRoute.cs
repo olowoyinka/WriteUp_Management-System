@@ -44,6 +44,10 @@
 
             public const string ReadAccepted = version + "/topics/readacceptinvitee/{topicsId}";
 
+            public const string ReadUserPending = version + "/topics/readpendinvitee";
+
+            public const string ReadUserAccepted = version + "/topics/readacceptinvitee";
+
         }
 
         public static class Chapter

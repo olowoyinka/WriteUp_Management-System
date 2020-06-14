@@ -15,7 +15,7 @@ namespace EndPoint.Response.ViewModelResponse
 
         public UsernameResponse OwnerUser { get; set; }
         
-        //public TopicsInviteeResponse Topics { get; set; }
+        public TopicsInviteeResponse Topics { get; set; }
     }
 
     public class InviteeTopicResponse

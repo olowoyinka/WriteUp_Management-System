@@ -16,7 +16,7 @@ namespace Project_Management_System.Shared.Models.ChatModels
 
         public string Message { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedDate { get; set; }
 
         public string Image { get; set; }
 

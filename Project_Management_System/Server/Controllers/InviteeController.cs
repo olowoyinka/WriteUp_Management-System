@@ -73,6 +73,47 @@ namespace Project_Management_System.Server.Controllers
             return Ok(_mapper.Map<List<InviteeResponse>>(returnResult));
         }
 
+        [HttpGet(APIRoute.Invitee.ReadUserPending)]
+        public async Task<IActionResult> ReadUserPending([FromQuery] PaginationRequest pagination, [FromQuery] string name)
+        {
+            var invitee = _inviteeService.ReadUserPendingInvitation(GetUserId(), name);
+
+            if (invitee == null)
+            {
+                return Ok(new
+                {
+                    Error = $"No Record of Invitee Pending for User"
+                });
+            }
+
+            await HttpContext.InsertPaginationParameterInResponse(invitee, pagination.QuantityPerPage);
+
+            var returnResult = await invitee.Paginate(pagination).ToListAsync();
+
+            return Ok(_mapper.Map<List<InviteeResponse>>(returnResult));
+        }
+
+
+        [HttpGet(APIRoute.Invitee.ReadUserAccepted)]
+        public async Task<IActionResult> ReadUserAccepted([FromQuery] PaginationRequest pagination, [FromQuery] string name)
+        {
+            var invitee = _inviteeService.ReadUserAcceptedInvitation(GetUserId(), name);
+
+            if (invitee == null)
+            {
+                return Ok(new
+                {
+                    Error = $"No Record of Invitee Accepteed for the User"
+                });
+            }
+
+            await HttpContext.InsertPaginationParameterInResponse(invitee, pagination.QuantityPerPage);
+
+            var returnResult = await invitee.Paginate(pagination).ToListAsync();
+
+            return Ok(_mapper.Map<List<InviteeResponse>>(returnResult));
+        }
+
 
         [HttpPut(APIRoute.Invitee.SentInvitee)]
         public async Task<IActionResult> SentInvitee([FromRoute]Guid topicsId, [FromBody]InviteeSentRequest inviteeSent)

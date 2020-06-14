@@ -19,10 +19,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
-                    <GenericList Elements="Chapter">
-                        <WithElementsTemplate>
-                            <div class="table-responsive">
-                                <table class="table">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <GenericList Elements="Chapter">
+                                <WithElementsTemplate>
+
                                     @foreach (var item in Chapter.OrderByDescending(s => s.CreatedDate))
                                     {
                                         <tr>
@@ -38,10 +39,10 @@
                                             </td>
                                         </tr>
                                     }
-                                </table>
-                            </div>
-                        </WithElementsTemplate>
-                    </GenericList>
+                                </WithElementsTemplate>
+                            </GenericList>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -161,6 +162,10 @@
 
     ChapterRequest chapterRequest = new ChapterRequest();
 
+    private List<ChapterHub> chapterHubs = new List<ChapterHub>();
+
+    private HubConnection _hubConnection;
+
     private string modalTitle { get; set; }
 
     private bool IsSearching { get; set; }
@@ -180,6 +185,52 @@
         try
         {
             await LoadChapter();
+
+            _hubConnection = new HubConnectionBuilder()
+                               .WithUrl(NavigationManager.ToAbsoluteUri("/chatroomHub"))
+                               .Build();
+
+            await _hubConnection.StartAsync();
+
+            await _hubConnection.SendAsync("AddToGroup", topicsId, "");
+
+            _hubConnection.On<string, Guid>("Notification", (name, chapterId) =>
+            {
+                Chapter.Add(new ChapterResponse
+                {
+                    Id = chapterId,
+                    Name = name
+                });
+
+                StateHasChanged();
+
+            });
+
+            _hubConnection.On<string, Guid>("Edit", (name, chapterId) =>
+            {
+                var find = Chapter.Where(s => s.Name == name).SingleOrDefault();
+
+                Chapter.Remove(find);
+
+                StateHasChanged();
+
+            });
+
+            _hubConnection.On<string, Guid, string>("Change", (name, chapterId, editName) =>
+            {
+                var find = Chapter.Where(s => s.Name == name).SingleOrDefault();
+
+                Chapter.Remove(find);
+
+                Chapter.Add(new ChapterResponse
+                {
+                    Id = chapterId,
+                    Name = editName
+                });
+
+                StateHasChanged();
+
+            });
         }
         catch (Exception ex)
         {
@@ -197,6 +248,7 @@
         totalAmountPages = paginatedResponse.TotalAmountPages;
     }
 
+
     private async Task SelectedPage(int page)
     {
         Request.Page = page;
@@ -211,6 +263,7 @@
 
         modalTitle = "Add New Chapter";
     }
+
 
     private void EditChapter(Guid? chapterId)
     {
@@ -239,6 +292,12 @@
             await js.RemoveModal("New Project Added", $"{chapterRequest.Name}", SweetAlertMessageType.success);
 
             await LoadChapter();
+
+            IsSearching = false;
+
+            var chapterId = Chapter.Where(s => s.Name == chapterRequest.Name).SingleOrDefault().Id;
+
+            NavigationManager.NavigateTo($"/projects/{topicsId}/{chapterId}");
         }
 
         ErrorMessage = result.Error;
@@ -283,6 +342,8 @@
             await js.RemoveModal("Deleted", $"{chapterSelected.Name} chapter from the Project", SweetAlertMessageType.success);
 
             await LoadChapter();
+
+            NavigationManager.NavigateTo($"/projects/{topicsId}");
         }
     }
 }

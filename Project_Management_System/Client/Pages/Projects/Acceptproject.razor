@@ -1,0 +1,132 @@
+﻿@page "/acceptproject"
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-8">
+                    <h1><strong>ACCEPTED PROJECTS</strong></h1>
+                </div>
+            </div>
+            <hr />
+
+            <br />
+            <div class="pl-lg-5">
+                <div class="row">
+                    <GenericList Elements="inviteeResponses">
+                        <WithElementsTemplate>
+                            @foreach (var item in inviteeResponses)
+                            {
+                                <div class="col-lg-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-9">
+                                                    <h4>@item.Topics.Name</h4>
+                                                    <h6>@item.Topics.CreatedDate</h6>
+                                                    <h5 class="text-blue">#@item.OwnerUser.UserName</h5>
+                                                    <hr />
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <a href="projects/@item.Topics.Id" class="btn btn-primary">VIEW DETAILS</a>
+                                                        </div>
+                                                        <div class="col-4 ml-3">
+                                                            <button @onclick="@(() => Rejected(item.Topics.Id))" class="btn btn-danger"><i class="nav-icon fa fa-close"></i> Remove</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-3">
+                                                    <ol class="breadcrumb float-sm-right">
+                                                        <li class="breadcrumb-item">
+                                                            @if (item.OwnerUser.Images == null)
+                                                            {
+                                                                <img src="Images/blank-person.png" class="img-fluid img-circle" alt="black sample">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="/Images/@item.OwnerUser.Images" class="img-fluid img-circle" alt="black sample">
+                                                            }
+                                                        </li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </WithElementsTemplate>
+                    </GenericList>
+                </div>
+            </div>
+            <Pagination CurrentPage="Request.Page" Radius="1" TotalPagesQuantity="totalAmountPages"
+                        SelectedPage="SelectedPage" />
+        </div>
+    </div>
+</section>
+
+
+
+
+@code {
+
+    List<InviteeResponse> inviteeResponses;
+
+    PaginationRequest Request = new PaginationRequest();
+
+    InviteeAcceptRequest inviteeAccept = new InviteeAcceptRequest();
+
+    private int totalAmountPages;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadInvitee();
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+
+    private async Task LoadInvitee(string name = null)
+    {
+        var paginatedResponse = await _inviteeService.GetAccepted(Request, name);
+
+        inviteeResponses = paginatedResponse.Response;
+
+        totalAmountPages = paginatedResponse.TotalAmountPages;
+    }
+
+
+    private async Task Rejected(Guid? topicsId)
+    {
+        var topicsSelected = inviteeResponses.FirstOrDefault(x => x.Topics.Id == topicsId);
+
+        inviteeAccept = new InviteeAcceptRequest();
+
+        inviteeAccept.username = topicsSelected.AppUser.UserName;
+
+        inviteeAccept.acceptance = false;
+
+        if (await js.Confirm("Confirm", $"Remove { topicsSelected.Topics.Name } By #{ topicsSelected.OwnerUser.UserName } ?", SweetAlertMessageType.question))
+        {
+            await _inviteeService.RemoveInvitation(topicsId, inviteeAccept);
+
+            await js.RemoveModal("Remove ", $"{topicsSelected.Topics.Name}", SweetAlertMessageType.success);
+
+            await LoadInvitee();
+        }
+    }
+
+    private async Task SelectedPage(int page)
+    {
+        Request.Page = page;
+
+        await LoadInvitee();
+    }
+} 

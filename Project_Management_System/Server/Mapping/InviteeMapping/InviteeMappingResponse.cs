@@ -10,9 +10,10 @@ namespace Project_Management_System.Server.Mapping.InviteeMapping
         public InviteeMappingResponse()
         {
             CreateMap<Invitee, InviteeResponse>()
-                    //.ForMember(dest => dest.Topics, opt =>
-                    //    opt.MapFrom(x => new TopicsInviteeResponse { Name = x.Topics.Name,
-                    //                                                  CreatedDate = x.Topics.CreatedDate}))
+                    .ForMember(dest => dest.Topics, opt =>
+                        opt.MapFrom(x => new TopicsInviteeResponse {  Id = x.Topics.Id,
+                                                                      Name = x.Topics.Name,
+                                                                      CreatedDate = x.Topics.CreatedDate}))
                     .ForMember(dest => dest.OwnerUser, opt =>
                         opt.MapFrom(x => new UsernameResponse { FirstName = x.Topics.AppUser.FirstName,
                                                                 LastName = x.Topics.AppUser.LastName,

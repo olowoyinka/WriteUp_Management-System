@@ -16,7 +16,7 @@ namespace EndPoint.Response.ViewModelResponse
 
     public class ChatMessageResponse
     {
-        //public ObjectId Id { get; set; }
+        public ObjectId Id { get; set; }
 
         public string Username { get; set; }
 

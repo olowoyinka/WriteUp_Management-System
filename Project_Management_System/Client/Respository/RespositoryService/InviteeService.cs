@@ -36,6 +36,17 @@ namespace Project_Management_System.Client.Respository.RespositoryService
             return await _httpService.GetHelper<List<InviteeResponse>>($"{topics}/{pending}/{Id}", request, name);
         }
 
+        public async Task<PaginationResponse<List<InviteeResponse>>> GetAccepted(PaginationRequest request, string name)
+        {
+            return await _httpService.GetHelper<List<InviteeResponse>>($"{topics}/{accepted}", request, name);
+        }
+
+
+        public async Task<PaginationResponse<List<InviteeResponse>>> GetPending(PaginationRequest request, string name)
+        {
+            return await _httpService.GetHelper<List<InviteeResponse>>($"{topics}/{pending}", request, name);
+        }
+
 
         public async Task<AuthResponse> RemoveInvitation(Guid? topicId, InviteeAcceptRequest inviteeAccept)
         {

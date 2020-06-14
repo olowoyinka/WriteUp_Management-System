@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-8">
-                    <h1><strong>YOUR PROJECTS</strong></h1>
+                    <h1><strong>PROJECTS</strong></h1>
                 </div>
                 <div class="col-4">
                     <ol class="breadcrumb float-sm-right">
@@ -65,7 +65,7 @@
                     </GenericList>
                 </div>
             </div>
-            <Pagination CurrentPage="Request.Page" Radius="4"  TotalPagesQuantity="totalAmountPages"
+            <Pagination CurrentPage="Request.Page" Radius="1"  TotalPagesQuantity="totalAmountPages"
                         SelectedPage="SelectedPage" />
         </div>
     </div>
@@ -250,6 +250,10 @@
             await js.RemoveModal("New Project Added", $"{topicsRequest.Name}", SweetAlertMessageType.success);
 
             await LoadTopics();
+
+            var topicsId = Topics.Where(s => s.Name == topicsRequest.Name).SingleOrDefault().Id;
+
+            NavigationManager.NavigateTo($"/projects/{topicsId}"); 
         }
 
         ErrorMessage = result.Error;

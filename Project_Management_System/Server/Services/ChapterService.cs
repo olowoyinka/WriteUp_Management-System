@@ -1,11 +1,12 @@
 ﻿using DAL.Data;
 using EndPoint.Request.ViewModelRequest;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Project_Management_System.Server.Hubs;
 using Project_Management_System.Server.Interfaces;
 using Project_Management_System.Shared.Models.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,9 +16,13 @@ namespace Project_Management_System.Server.Services
     {
         private readonly ApplicationDbContext _context;
 
-        public ChapterService(ApplicationDbContext context)
+        private readonly IHubContext<ChatRoomHub> _hubContext;
+
+        public ChapterService(ApplicationDbContext context,
+                                IHubContext<ChatRoomHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
 
@@ -49,9 +54,13 @@ namespace Project_Management_System.Server.Services
                 TopicsId = TopicsId
             };
 
+            var nameId = chapter.Id;
+
             _context.Chapters.Add(chapter);
 
             var created = await _context.SaveChangesAsync();
+
+            await _hubContext.Clients.Group(TopicsId.ToString()).SendAsync("Notification", chapterRequest.Name, nameId);
 
             return created > 0;
         }
@@ -85,6 +94,8 @@ namespace Project_Management_System.Server.Services
                 return false;
             }
 
+            var chapterName = chapter.Name;
+
             chapter.Name = chapterRequest.Name;
 
             chapter.TopicsId = TopicsId;
@@ -92,6 +103,10 @@ namespace Project_Management_System.Server.Services
             _context.Chapters.Update(chapter);
 
             var created = await _context.SaveChangesAsync();
+
+            var nameId = chapter.Id;
+
+            await _hubContext.Clients.Group(TopicsId.ToString()).SendAsync("Change", chapterName, nameId, chapterRequest.Name);
 
             return created > 0;
         }
@@ -132,12 +147,18 @@ namespace Project_Management_System.Server.Services
         {
             var chapter = await GetChapterIdAsync(GetUserId, chapterId, TopicsId);
 
+            var name = chapter.Name;
+
+            var Id = chapter.Id;
+
             if (chapter == null)
                 return false;
 
             _context.Chapters.Remove(chapter);
 
             var deleted = await _context.SaveChangesAsync();
+
+            await _hubContext.Clients.Group(TopicsId.ToString()).SendAsync("Edit", name, Id);
 
             return deleted > 0;
         }

@@ -15,5 +15,9 @@ namespace Project_Management_System.Server.Interfaces
         IQueryable<Invitee> ReadPendingInvitation(string GetUserId, Guid topicsId, string name);
 
         IQueryable<Invitee> ReadAcceptedInvitation(string GetUserId, Guid topicsId, string name);
+
+        IQueryable<Invitee> ReadUserPendingInvitation(string GetUserId, string name);
+
+        IQueryable<Invitee> ReadUserAcceptedInvitation(string GetUserId, string name);
     }
 }

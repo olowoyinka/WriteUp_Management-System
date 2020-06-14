@@ -1,4 +1,6 @@
-﻿
+﻿@using Blazored.Typeahead
+
+
 @if (topicsResponse.Name != null)
 {
     <div class="card card-primary card-outline collapsed-card">
@@ -22,13 +24,14 @@
                         </SelectedTemplate>
                         <ResultTemplate>
                             @if (context.UserName == username.UserName)
-                             {
+                                {
                                 <h6>Member Request Can't Be Sent</h6>
-                             }
-                             else
-                             {
+                                }
+                                else
+                                {
                                 @context.UserName
-                             }
+                                }
+                            /**/
                         </ResultTemplate>
                     </BlazoredTypeahead>
 

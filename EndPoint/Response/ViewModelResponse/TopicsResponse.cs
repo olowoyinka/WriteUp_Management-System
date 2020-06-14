@@ -19,6 +19,8 @@ namespace EndPoint.Response.ViewModelResponse
 
     public class TopicsInviteeResponse
     {
+        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         public DateTime CreatedDate { get; set; }

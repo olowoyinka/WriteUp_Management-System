@@ -1,6 +1,7 @@
 ﻿using DAL.Data;
 using EndPoint.Request.ViewModelRequest;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using MongoDB.Driver;
 using Project_Management_System.Server.Interfaces;
 using Project_Management_System.Shared.Models.ChatModels;
@@ -50,6 +51,16 @@ namespace Project_Management_System.Server.Services
 
             _context.Topics.Add(newTopics);
 
+            var newChapter = new Chapter
+            {
+                Id = Guid.NewGuid(),
+                Name = "Welcome",
+                TopicsId = newTopics.Id,
+                CreatedDate = DateTime.Now
+            };
+
+            _context.Chapters.Add(newChapter);
+
             var newChatRoom = new ChatRoom
             {
                 Name = newTopics.Name,
@@ -70,6 +81,7 @@ namespace Project_Management_System.Server.Services
             return await _context.Topics
                             .Where(x => x.Id.Equals(Id))
                             .Where(x => x.AppUserId.Equals(GetUserId))
+                            //.Where(x => x.AppUserId.Equals(GetUserId) || x.Invitees.Any(s => s.AppUserId == GetUserId))
                             .Include(s => s.Invitees)
                                 .ThenInclude(s => s.AppUser)
                             .Include(m => m.Chapters)

@@ -68,7 +68,7 @@ namespace Project_Management_System.Server.Services
             var findUsername = await _userManager.FindByNameAsync(inviteeAccept.username);
 
             var findInvitee = await _context.Invitees
-                                        .Where(x => x.Topics.AppUserId.Equals(GetUserId))
+                                       .Where(x => x.Topics.AppUserId.Equals(GetUserId) || x.AppUserId.Equals(GetUserId))
                                         .Where(s => s.TopicsId == topicsId)
                                         .Where(s => s.AppUserId == findUsername.Id)
                                     .SingleOrDefaultAsync();
@@ -125,6 +125,44 @@ namespace Project_Management_System.Server.Services
                             //.Where(x => x.AppUserId.Equals(GetUserId))
                             //.Where(x => x.Topics.AppUserId.Equals(GetUserId) || x.AppUserId.Equals(GetUserId))
                             .Where(x => x.TopicsId.Equals(topicsId))
+                            .Where(s => s.RequestStatus.Equals(true))
+                             .Include(s => s.AppUser)
+                             .Include(s => s.Topics)
+                                .ThenInclude(s => s.AppUser)
+                            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                queryable = queryable.Where(x => x.AppUser.UserName.Contains(name));
+            }
+
+            return queryable;
+        }
+
+
+        public IQueryable<Invitee> ReadUserPendingInvitation(string GetUserId, string name)
+        {
+            var queryable = _context.Invitees
+                            .Where(x => x.AppUserId.Equals(GetUserId))
+                            .Where(s => s.RequestStatus.Equals(false))
+                            .Include(s => s.AppUser)
+                            .Include(s => s.Topics)
+                                .ThenInclude(s => s.AppUser)
+                            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                queryable = queryable.Where(x => x.AppUser.UserName.Contains(name));
+            }
+
+            return queryable;
+        }
+
+
+        public IQueryable<Invitee> ReadUserAcceptedInvitation(string GetUserId, string name)
+        {
+            var queryable = _context.Invitees
+                            .Where(x => x.AppUserId.Equals(GetUserId))
                             .Where(s => s.RequestStatus.Equals(true))
                              .Include(s => s.AppUser)
                              .Include(s => s.Topics)
