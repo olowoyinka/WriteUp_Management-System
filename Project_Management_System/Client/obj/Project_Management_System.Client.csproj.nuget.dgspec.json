@@ -172,6 +172,10 @@
             "Syncfusion.Blazor": {
               "target": "Package",
               "version": "[18.1.0.54, )"
+            },
+            "Tewr.Blazor.FileReader": {
+              "target": "Package",
+              "version": "[1.5.0.20109, )"
             }
           },
           "imports": [

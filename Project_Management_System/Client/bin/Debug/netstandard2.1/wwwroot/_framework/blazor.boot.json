@@ -6,7 +6,7 @@
   "linkerEnabled": false,
   "resources": {
     "assembly": {
-      "Project_Management_System.Client.dll": "sha256-fW08jzmvWBtp1nouoSpVbvNSPcXj28L09tkGf45R77k=",
+      "Project_Management_System.Client.dll": "sha256-C28ZWoeuGgHW4tf6cfPAeh9CczGd\/FjZwNST6oAqgMA=",
       "Microsoft.AspNetCore.SignalR.Client.dll": "sha256-igrcFeyPp22HGfCpDpYX2wnaFn4TCFwVOwdJZkjPel0=",
       "Microsoft.Extensions.DependencyInjection.Abstractions.dll": "sha256-o+nIDOlv+7C51lX5qskB167ESJHrLYQiPQU9lsq7bOk=",
       "netstandard.dll": "sha256-\/zcPVM75OAY+joGVM8yIC1gO1SFYWP1CFERgQ8PJkfA=",
@@ -52,6 +52,7 @@
       "Microsoft.Extensions.DependencyInjection.dll": "sha256-wiJ\/tTsfR06mqIO4AUWTWR8o2QTwBlCvRdrZZzf66aQ=",
       "Microsoft.Extensions.Logging.dll": "sha256-zNP4aHLW\/rhi6gW72YV8xGy1rLa+RQZtwvWEpiwBSrs=",
       "System.Threading.Channels.dll": "sha256-QkMdUp2MgLDgAoXyZq8X7Tr2Y0t9pnsF9I2yXyMmKYk=",
+      "Microsoft.AspNetCore.Blazor.HttpClient.dll": "sha256-1xfOnnlZZg19s2R3vH\/UX9m3dprauIFLdeaYzgmiwc0=",
       "Blazored.Typeahead.dll": "sha256-\/mlUeGRN3cRmhApZdnHivvxbIZXNFmRpErVUFw8OcWQ=",
       "Microsoft.AspNetCore.Components.Web.dll": "sha256-P1OQnoHnOHvc97vE2VWr6zImvNN0VhdUxnH1ccLhuH0=",
       "Microsoft.AspNetCore.Components.Forms.dll": "sha256-INh+HEyd1tejV3ZiCSKTS1pM9lhRRmWPDPOhWVHgiPY=",
@@ -59,7 +60,7 @@
       "System.ComponentModel.DataAnnotations.dll": "sha256-4vEvGLztX42bc61\/obHWFyGEOZkoMNPNAgycgz8WZqg=",
       "Microsoft.AspNetCore.Components.dll": "sha256-4AR\/s5kiD6WZfdsfrOTAC7K5ZH8nISQUl5+ibhhhGxM=",
       "Microsoft.JSInterop.dll": "sha256-21Eo58gZGe1h56KPVgJXZnNVIdVd6CjTrjnPM3RFMGI=",
-      "Project_Management_System.Shared.dll": "sha256-3wfPuiuS9HUVfbRWsDdt4Fva2nW7PODD8tRKER2abRE=",
+      "Project_Management_System.Shared.dll": "sha256-I7e4aOD2gZKEA2X018mnW7x\/srf+rTWr+eIJZJV9IdU=",
       "Newtonsoft.Json.dll": "sha256-mRd6TL4DYldo1ko9czkjEDcoiPdMPrJxz3dekwV6OOY=",
       "MongoDB.Bson.dll": "sha256-D+391uWz09RMVEyeYrPzPTEz8UErDzvis+xDf2bTde4=",
       "System.Security.Cryptography.Primitives.dll": "sha256-5vdR44YpzFJeJRtUB2XvzsSinXEV6ykSV6RBwVfJgac=",
@@ -92,11 +93,12 @@
       "Microsoft.Extensions.Identity.Core.dll": "sha256-HV0FPAq8IjYeT5S7BKKtq4MV6ofbrMKb4GH8InOzmSw=",
       "Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": "sha256-AKS2466cpCUrilTxsp3hB42ITAnZ8PsorKwoU6csE+E=",
       "Microsoft.AspNetCore.Cryptography.Internal.dll": "sha256-E6+zrUanuQaKspjFZBNFWawbDWBHk3o6lM+e9aOhHOc=",
-      "EndPoint.dll": "sha256-kizYPNQYHGAx2IwXDo5K49ji5X1SovGLsbcagIgJ\/Xs=",
+      "EndPoint.dll": "sha256-zq5BjuhDGOvoLy2nTej+8ULo\/9dJjlmWHqzb7nIjOcY=",
       "Microsoft.AspNetCore.Authorization.dll": "sha256-EMaZcXm5dyuOLalqRCroNj2uXZHt+SfWSic9GJZhE7g=",
       "Microsoft.AspNetCore.Metadata.dll": "sha256-S0Mw1WRROQ8J783YownTK43tCbYVuNvL6SdEV\/W9LH4=",
       "Blazored.TextEditor.dll": "sha256-p6KpADdpScfksgGgA5pIqZ21ViYtQxWPLg7FZrtbNB0=",
       "Microsoft.AspNetCore.Components.Authorization.dll": "sha256-Bu0SR9S0oqYxGH7gWSkPb2PWk3e3Vpes88RGy51JgG4=",
+      "Blazor.FileReader.dll": "sha256-g47UrBsazl1y\/nxZhJ2vwp83B6tOdyjkWguobwBZPDI=",
       "Microsoft.AspNetCore.Components.WebAssembly.dll": "sha256-okt5R9jazrJNCSXDmVKldJ7\/t1rrEEnsKoKC+qQoIVE=",
       "Microsoft.Extensions.Configuration.dll": "sha256-iUTfpj7A29tIp2gl2fLM+w1MwyI8XMmUV8gFe+mJBZI=",
       "Microsoft.Extensions.Configuration.Abstractions.dll": "sha256-D1gbYUWxCdwEKvWRcGQoVikKs0zgWMUenGMDEaDRxrc=",
@@ -108,9 +110,9 @@
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-Sljk6nvSPSpTCrJ6+bd12XiNuOwqOHEKHPSBoINTtWo="
     },
     "pdb": {
-      "Project_Management_System.Client.pdb": "sha256-jYB9YZdVs6\/xV31VUIAx7QGxHbgla6PdDLDsYQ1i60o=",
-      "Project_Management_System.Shared.pdb": "sha256-6Mds0JV45kw6MIOKENNybopiTPM1GpDsTc91zHdIhZ4=",
-      "EndPoint.pdb": "sha256-6CPlzaVeYaYwA3tic5+Of8RFDTpujFxVVGqAvYThkzU="
+      "Project_Management_System.Client.pdb": "sha256-Mej3Z+RgPnvrXaVhCElVIsfB8ofF\/\/Z9FfVbpMeIxbA=",
+      "Project_Management_System.Shared.pdb": "sha256-p9Z0U7czNuRFRatbJn5DZE8mpVwv3DYj8HxocxwI1mk=",
+      "EndPoint.pdb": "sha256-wWEwiMtHnJYPQpICG5vrNU9m+Rh93pLsxliOXsmM+9M="
     },
     "runtime": {
       "dotnet.3.2.0-preview3.20168.1.js": "sha256-274clLanSGrn5tb3h9iFyKyVG0KYG2Um+VHF0kdNzHE=",

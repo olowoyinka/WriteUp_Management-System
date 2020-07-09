@@ -37,24 +37,16 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="fa fa-user"></i>
-                <span class="badge badge-danger navbar-badge">3</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <a href="#" class="dropdown-item">
-                    <div class="media">
-                        <img src="" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                Brad Diesel
-                                <span class="float-right text-sm text-danger"><i class="fa fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">Call me whenever you can...</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                    </div>
+                <div class="dropdown-divider"></div>
+                <a href="/settings" class="dropdown-item">
+                    <i class="fa fa-cog mr-2"></i> Settings
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                <a href="/logout" class="dropdown-item">
+                    <i class="fa fa-sign-out mr-2"></i> Log Out
+                </a>
             </div>
         </li>
     </ul>
@@ -105,7 +97,7 @@
                 </li>
                 <li class="nav-header"></li>
                 <li class="nav-item">
-                    <a href="../widgets.html" class="nav-link">
+                    <a href="/settings" class="nav-link">
                         <i class="nav-icon fa fa-cogs"></i>
                         <p>
                             Settings
@@ -116,3 +108,10 @@
         </nav>
     </div>
 </aside>
+
+
+
+@code {
+
+
+}

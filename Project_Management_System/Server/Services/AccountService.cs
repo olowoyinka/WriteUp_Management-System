@@ -88,7 +88,6 @@ namespace Project_Management_System.Server.Services
 
         }
 
-
         public async Task<AuthResult> ProfilePicture(IFormFile Image, string GetUserId)
         {
             var user = await _userManager.FindByIdAsync(GetUserId);
@@ -97,7 +96,7 @@ namespace Project_Management_System.Server.Services
             {
                 return new AuthResult()
                 {
-                    Error = "Upload a File"
+                    Error = "No Image Upload"
                 };
             }
 
@@ -130,11 +129,39 @@ namespace Project_Management_System.Server.Services
 
             return new AuthResult()
             {
-                Token = "Image Upload Sucessfully",
+                Token = newFileName,
                 Success = true
             };
         }
 
+        public async Task<AuthResult> DeletePicture(string GetUserId, string imageName)
+        {
+            var user = await _userManager.FindByIdAsync(GetUserId);
+
+            if(imageName != "noProfile.jpg")
+            {
+                imageName = Path.Combine(_environment.ContentRootPath, "wwwroot", "Images", imageName);
+
+                FileInfo fileInfo = new FileInfo(imageName);
+
+                if (fileInfo != null)
+                {
+                    File.Delete(imageName);
+
+                    fileInfo.Delete();
+                }
+            }
+
+            user.Images = "noProfile.jpg";
+
+            await _userManager.UpdateAsync(user);
+
+            return new AuthResult()
+            {
+                Token = "noProfile.jpg",
+                Success = true
+            };
+        }
 
         public async Task<ConfirmResponse> RegisterAsync(RegisterUserRequest userRequest)
         {
@@ -216,6 +243,59 @@ namespace Project_Management_System.Server.Services
             };
         }
 
+        public async Task<bool> ChangePasswordAsync(string GetUserId, ChangePasswordRequest changePasswordRequest)
+        {
+            var user = await _userManager.FindByIdAsync(GetUserId);
+
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            {
+                return false;
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, changePasswordRequest.OldPassword, changePasswordRequest.Password);
+
+            if(!result.Succeeded)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task<ConfirmResponse> UpdateNameAsync(string GetUserId, FullNameRequest fullNameRequest)
+        {
+            var user = await _userManager.FindByIdAsync(GetUserId);
+
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            {
+                return new ConfirmResponse()
+                {
+                    Error = "Username Doesn't Exist"
+                };
+            }
+
+            //var existingUsername = await _userManager.FindByNameAsync(fullNameRequest.UserName);
+
+            //if (existingUsername != null)
+            //{
+            //    return new ConfirmResponse()
+            //    {
+            //        Error = "This Username is Already Used"
+            //    };
+            //}
+
+            user.FirstName = fullNameRequest.FirstName;
+            user.LastName = fullNameRequest.LastName;
+            //user.UserName = fullNameRequest.UserName;
+
+            await _userManager.UpdateAsync(user);
+
+            return new ConfirmResponse()
+            {
+                Success = true,
+                Result = "Updated Successfully."
+            };
+        }
 
         private async Task<AuthResult> GenerateUserToken(AppUser user)
         {
@@ -250,6 +330,7 @@ namespace Project_Management_System.Server.Services
             return new AuthResult()
             {
                 Token = tokenHandler.WriteToken(token),
+                Expiration = Expires,
                 Success = true
             };
         }

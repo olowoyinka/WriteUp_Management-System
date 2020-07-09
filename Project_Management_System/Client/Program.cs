@@ -1,3 +1,4 @@
+using Blazor.FileReader;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,6 +55,11 @@ namespace Project_Management_System.Client
             services.AddOptions();
 
             services.AddAuthorizationCore();
+
+            services.AddFileReaderService(options =>
+            {
+                options.UseWasmSharedBuffer = true;
+            });
         }
     }
 }

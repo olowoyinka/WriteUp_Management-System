@@ -1,6 +1,14 @@
 ﻿<div class="card card-primary card-outline">
     <div class="card-header">
         <h3 class="card-title">
+            <a href="/projects/@topicsId">@topicsResponse.Name</a>
+        </h3>
+    </div>
+</div>
+
+<div class="card card-primary card-outline">
+    <div class="card-header">
+        <h3 class="card-title">
             <i class="fa fa-edit"></i>
             CHAPTERS
         </h3>
@@ -21,7 +29,7 @@
                 <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                     <div class="table-responsive">
                         <table class="table">
-                            <GenericList Elements="Chapter">
+                            <GenericSecondList Elements="Chapter">
                                 <WithElementsTemplate>
 
                                     @foreach (var item in Chapter.OrderByDescending(s => s.CreatedDate))
@@ -40,7 +48,7 @@
                                         </tr>
                                     }
                                 </WithElementsTemplate>
-                            </GenericList>
+                            </GenericSecondList>
                         </table>
                     </div>
                 </div>
@@ -158,6 +166,8 @@
 
     ChapterResponse chapterResponse = new ChapterResponse();
 
+    TopicsResponse topicsResponse = new TopicsResponse();
+
     PaginationRequest Request = new PaginationRequest();
 
     ChapterRequest chapterRequest = new ChapterRequest();
@@ -184,6 +194,8 @@
     {
         try
         {
+            topicsResponse = await _topicsService.GetByIdAsync(topicsId);
+
             await LoadChapter();
 
             _hubConnection = new HubConnectionBuilder()

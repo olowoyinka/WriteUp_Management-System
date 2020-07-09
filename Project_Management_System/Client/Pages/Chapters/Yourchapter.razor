@@ -34,9 +34,9 @@
                                     </div>
                                     <p class="text-sm mb-0">
                                         @*Editor <a href="https://github.com/bootstrap-wysiwyg/bootstrap3-wysiwyg">
-                                            Documentation and license
-                                            information.
-                                        </a>*@
+                                                Documentation and license
+                                                information.
+                                            </a>*@
                                     </p>
                                 </div>
                             }
@@ -71,9 +71,9 @@
                                 <div class="card-body pad">
                                     <div class="mb-3">
                                         @*<textarea class="textarea" placeholder="Place some text here"
-                                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
-                                           @chapterByIdResponse.Body
-                                        </textarea>*@
+                                                      style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                                               @chapterByIdResponse.Body
+                                            </textarea>*@
                                         @*<Texteditor QuillHtml="@QuillHtml"></Texteditor>*@
 
                                         <BlazoredTextEditor @ref="@QuillHtml">
@@ -118,9 +118,9 @@
                                     </div>
                                     <p class="text-sm mb-0">
                                         @*Editor <a href="https://github.com/bootstrap-wysiwyg/bootstrap3-wysiwyg">
-                                            Documentation and license
-                                            information.
-                                        </a>*@
+                                                Documentation and license
+                                                information.
+                                            </a>*@
                                     </p>
                                 </div>
                             }
@@ -130,9 +130,12 @@
 
                 <div class="col-md-3">
 
-                    <MemberElement topicsId="topicsId" topicsResponse="topicsResponse" username="username" />
+                    <MemberElement topicsId="topicsId" topicsResponse="topicsResponse" username="username" usernameRole="@usernameRole" />
 
-                    <InviteeMemberElement topicsPendingId="topicsId" topicsResponse="topicsResponse" username="username" />
+                    @if (username.UserName == usernameRole)
+                    {
+                        <InviteeMemberElement topicsPendingId="topicsId" topicsResponse="topicsResponse" username="username" />
+                    }
 
                     <ChatElement topicsId="topicsId" username="username" />
 
@@ -160,6 +163,9 @@
     [Parameter]
     public UsernameResponse username { get; set; } = new UsernameResponse();
 
+    [Parameter]
+    public string usernameRole { get; set; }
+
     ChapterByIdResponse chapterByIdResponse = new ChapterByIdResponse();
 
     CancellationTokenSource pollingCancellationToken;
@@ -176,7 +182,14 @@
         {
             topicsResponse = await _topicsService.GetByIdAsync(topicsId);
 
+            if(topicsResponse.Name == null)
+            {
+                NavigationManager.NavigateTo("/notfound");
+            }
+
             username = await _accountService.GetUser();
+
+            usernameRole = topicsResponse.SingleUsernameResponse.UserName;
         }
         catch (Exception ex)
         {
@@ -198,6 +211,14 @@
         UpdatesBody();
 
         await js.ModalClose();
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await js.textEnterButton();
+        }
     }
 
 

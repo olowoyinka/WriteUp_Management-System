@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "IXRxk9l0IGUP86WOjXT0oLhmD9oAu9MOXtre0mZESl6EQZKPc0c4u1jb5zunE1CRNBF97Rjx71MtfFxWc1WLZg==",
+  "dgSpecHash": "3ryU2N58b/z/Ai6kHHL+wq1ZH8uDHV7iaren+Ho/E4qSsdenoC6w04X3g4yJwlMYzBUebt+hiliE1itkf6IIQw==",
   "success": true,
   "projectFilePath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Client\\Project_Management_System.Client.csproj",
   "expectedPackageFiles": [
@@ -190,7 +190,8 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading.threadpool\\4.3.0\\system.threading.threadpool.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\olowoyinka\\.nuget\\packages\\tewr.blazor.filereader\\1.5.0.20109\\tewr.blazor.filereader.1.5.0.20109.nupkg.sha512"
   ],
   "logs": []
 }

@@ -5,4 +5,5 @@
   <ContentRoot BasePath="_content/Blazored.Toast" Path="C:\Users\olowoyinka\.nuget\packages\blazored.toast\3.1.2\build\..\staticwebassets\" />
   <ContentRoot BasePath="_content/Blazored.Typeahead" Path="C:\Users\olowoyinka\.nuget\packages\blazored.typeahead\4.3.0\build\..\staticwebassets\" />
   <ContentRoot BasePath="_content/Syncfusion.Blazor" Path="C:\Users\olowoyinka\.nuget\packages\syncfusion.blazor\18.1.0.54\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Tewr.Blazor.FileReader" Path="C:\Users\olowoyinka\.nuget\packages\tewr.blazor.filereader\1.5.0.20109\build\..\staticwebassets\" />
 </StaticWebAssets>

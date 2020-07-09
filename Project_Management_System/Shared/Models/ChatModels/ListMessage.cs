@@ -16,4 +16,15 @@ namespace Project_Management_System.Shared.Models.ChatModels
 
         public string Highlighted { get; set; }
     }
+
+    public class inviteeMessage
+    {
+        public string Username { get; set; }
+
+        public string Images { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+    }
 }

@@ -2,7 +2,6 @@
 using EndPoint.Response.UserResponse;
 using EndPoint.Response.ViewModelResponse;
 using Project_Management_System.Shared.Models.ViewModels;
-using System.Linq;
 
 namespace Project_Management_System.Server.Mapping.TopicsMapping
 {
@@ -10,7 +9,9 @@ namespace Project_Management_System.Server.Mapping.TopicsMapping
     {
         public TopicsMappingResponse()
         {
-            CreateMap<Topics, TopicsResponse>();
+            CreateMap<Topics, TopicsResponse>()
+                .ForMember(dest => dest.SingleUsernameResponse, opt =>
+                        opt.MapFrom(x => new SingleUsernameResponse { UserName = x.AppUser.UserName}));
                     //.ForMember(dest => dest.Invitees, opt =>
                     //    opt.MapFrom(src => src.Invitees
                     //        .Select(x => new InviteeTopicResponse { RoleStatus = x.RoleStatus,

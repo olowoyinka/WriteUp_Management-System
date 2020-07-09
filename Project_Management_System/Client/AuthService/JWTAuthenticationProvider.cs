@@ -16,6 +16,8 @@ namespace Project_Management_System.Client.AuthService
     {
         private static readonly string TOKENKEY = "TokenKey";
 
+        private static readonly string EXPIRATION = "Expiration";
+
         private readonly HttpClient _httpClient;
 
         private readonly IJSRuntime js;
@@ -33,9 +35,20 @@ namespace Project_Management_System.Client.AuthService
         {
             var token = await js.GetFromLocalStorage(TOKENKEY);
 
+            var expire = await js.GetFromLocalStorage(EXPIRATION);
+
             if (string.IsNullOrEmpty(token))
             {
                 return Anonymous;
+            }
+
+            if (DateTime.Parse(expire.ToString()) < DateTime.Now)
+            {
+                await js.RemoveItem(TOKENKEY);
+
+                await js.RemoveItem(EXPIRATION);
+
+                NotifyAuthenticationStateChanged(Task.FromResult(Anonymous));
             }
 
             return BuildAuthenticationState(token);
@@ -93,9 +106,11 @@ namespace Project_Management_System.Client.AuthService
         }
         
 
-        public async Task Login(string token)
+        public async Task Login(string token, DateTime expiry = default)
         {
             await js.SetInLocalStorage(TOKENKEY, token);
+
+            await js.SetInLocalStorageTime(EXPIRATION, expiry);
 
             var authState = BuildAuthenticationState(token);
 

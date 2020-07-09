@@ -1,6 +1,4 @@
-﻿
-
-<div class="card card-primary card-outline collapsed-card">
+﻿<div class="card card-primary card-outline collapsed-card">
     <div class="card-header">
         <h3 class="card-title">MEMBERS</h3>
 
@@ -24,6 +22,33 @@
                 }
                 <p class="users-list-name">You</p>
             </li>
+            @foreach (var item in inviteeMessages)
+            {
+                <li>
+                    @if (item.Images == null)
+                    {
+                        <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                             @onclick="@(() => ViewUsernameMessage(item.Username))">
+                        <span class="users-list-date">
+                            <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                               @onclick="@(() => ViewUsernameMessage(item.Username))">
+                                @item.Username
+                            </a>
+                        </span>
+                    }
+                    else
+                    {
+                        <img src="Images/@item.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                             @onclick="@(() => ViewUsernameMessage(item.Username))">
+                        <span class="users-list-date">
+                            <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                               @onclick="@(() => ViewUsernameMessage(item.Username))">
+                                @item.Username
+                            </a>
+                        </span>
+                    }
+                </li>
+            }
             <GenericSecondList Elements="inviteeResponses">
                 <WithElementsTemplate>
                     @foreach (var item in inviteeResponses.OrderByDescending(x => x.AcceptedDate))
@@ -33,22 +58,22 @@
                             {
                                 @if (item.OwnerUser.Images == null)
                                 {
-                                    <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModalss"
-                                         @onclick="@(() => ViewUsernamess(item.OwnerUser.UserName))">
+                                    <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                                         @onclick="@(() => ViewUsername(item.OwnerUser.UserName))">
                                     <span class="users-list-date">
                                         <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
-                                           @onclick="@(() => ViewUsernamess(item.OwnerUser.UserName))">
+                                           @onclick="@(() => ViewUsername(item.OwnerUser.UserName))">
                                             Owner
                                         </a>
                                     </span>
                                 }
                                 else
                                 {
-                                    <img src="Images/@item.OwnerUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModalss"
-                                         @onclick="@(() => ViewUsernamess(item.OwnerUser.UserName))">
+                                    <img src="Images/@item.OwnerUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                                         @onclick="@(() => ViewUsername(item.OwnerUser.UserName))">
                                     <span class="users-list-date">
                                         <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
-                                           @onclick="@(() => ViewUsernamess(item.OwnerUser.UserName))">
+                                           @onclick="@(() => ViewUsername(item.OwnerUser.UserName))">
                                             Owner
                                         </a>
                                     </span>
@@ -56,54 +81,25 @@
                             }
                             else if (item.AppUser.Images == null)
                             {
-                                @if (topicsResponse.Name != null)
-                                {
-
-                                    <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
-                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                    <span class="users-list-date">
-                                        <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
-                                           @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                            @item.AppUser.UserName
-                                        </a>
-                                    </span>
-                                }
-                                else
-                                {
-                                    <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModalss"
-                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                    <span class="users-list-date">
-                                        <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModalss"
-                                           @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                            @item.AppUser.UserName
-                                        </a>
-                                    </span>
-                                }
+                                <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                                     @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                <span class="users-list-date">
+                                    <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                                       @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                        @item.AppUser.UserName
+                                    </a>
+                                </span>
                             }
                             else
                             {
-                                @if (topicsResponse.Name != null)
-                                {
-                                    <img src="Images/@item.AppUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
-                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                    <span class="users-list-date">
-                                        <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
-                                           @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                            @item.AppUser.UserName
-                                        </a>
-                                    </span>
-                                }
-                                else
-                                {
-                                    <img src="Images/@item.AppUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModalss"
-                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                    <span class="users-list-date">
-                                        <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModalss"
-                                           @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                            @item.AppUser.UserName
-                                        </a>
-                                    </span>
-                                }
+                                <img src="Images/@item.AppUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                                     @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                <span class="users-list-date">
+                                    <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                                       @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                        @item.AppUser.UserName
+                                    </a>
+                                </span>
                             }
                         </li>
                     }
@@ -117,6 +113,8 @@
                     SelectedPage="SelectedPage" />
     </div>
 </div>
+
+
 
 <div class="modal fade" id="ViewUserModal">
     <div class="modal-dialog">
@@ -146,12 +144,20 @@
                                 <h5>#@invitee.UserName</h5>
                             </div>
 
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-block btn-danger" @onclick="@(() => DeleteUser(invitee.UserName))">
-                                    <i class="nav-icon fa fa-trash"></i>
-                                    Remove User
-                                </button>
-                            </div>
+                            @if (usernameRole == username.UserName)
+                            {
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-block btn-danger" @onclick="@(() => DeleteUser(invitee.UserName))">
+                                        <i class="nav-icon fa fa-trash"></i>
+                                        Remove User
+                                    </button>
+                                </div>
+                            }
+                            else
+                            {
+
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -159,44 +165,6 @@
         </div>
     </div>
 </div>
-
-
-<div class="modal fade" id="ViewUserModalss">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">View @invitee.UserName Profile</h3>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">X</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-5 col-sm-5">
-                        @if (invitee.Images == null)
-                        {
-                            <img src="Images/blank-person.png" class="img-fluid img-circle" alt="User Image">
-                        }
-                        else
-                        {
-                            <img src="Images/@invitee.Images" class="img-fluid img-circle" alt="User Image">
-                        }
-                    </div>
-                    <div class="col-md-7 col-sm-7">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h2>@invitee.FirstName @invitee.LastName</h2>
-                                <h5>#@invitee.UserName</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 
 @code{
@@ -209,6 +177,13 @@
 
     [Parameter]
     public UsernameResponse username { get; set; } = new UsernameResponse();
+
+    [Parameter]
+    public string usernameRole { get; set; }
+
+    private HubConnection _hubConnection;
+
+    List<inviteeMessage> inviteeMessages = new List<inviteeMessage>();
 
     List<InviteeResponse> inviteeResponses;
 
@@ -225,6 +200,27 @@
         try
         {
             await GetUserAccepted();
+
+            _hubConnection = new HubConnectionBuilder()
+                              .WithUrl(NavigationManager.ToAbsoluteUri("/chatroomHub"))
+                              .Build();
+
+            await _hubConnection.StartAsync();
+
+            await _hubConnection.SendAsync("AddToGroup", topicsId, "");
+
+            _hubConnection.On<string, string, string, string>("RecieveAccept", (username, Images, firstname, lastname) =>
+            {
+                inviteeMessages.Add(new inviteeMessage
+                {
+                    Username = username,
+                    Images = Images,
+                    FirstName = firstname,
+                    LastName = lastname
+                });
+
+                StateHasChanged();
+            });
         }
         catch (Exception ex)
         {
@@ -253,33 +249,53 @@
 
     private void ViewUsername(string username)
     {
-        invitee = new UsernameResponse();
+        var chapterSelected = inviteeResponses.Where(x => x.AppUser.UserName == username).FirstOrDefault();
 
-        var chapterSelected = inviteeResponses.FirstOrDefault(x => x.AppUser.UserName == username || x.OwnerUser.UserName == username);
+        if (chapterSelected != null)
+        {
+            invitee = new UsernameResponse();
 
-        invitee.UserName = chapterSelected.AppUser.UserName;
+            invitee.UserName = chapterSelected.AppUser.UserName;
 
-        invitee.FirstName = chapterSelected.AppUser.FirstName;
+            invitee.FirstName = chapterSelected.AppUser.FirstName;
 
-        invitee.LastName = chapterSelected.AppUser.LastName;
+            invitee.LastName = chapterSelected.AppUser.LastName;
 
-        invitee.Images = chapterSelected.AppUser.Images;
+            invitee.Images = chapterSelected.AppUser.Images;
+        }
+
+        else
+        {
+            invitee = new UsernameResponse();
+
+            chapterSelected = inviteeResponses.Where(x => x.OwnerUser.UserName == username).FirstOrDefault();
+
+            invitee.UserName = chapterSelected.OwnerUser.UserName;
+
+            invitee.FirstName = chapterSelected.OwnerUser.FirstName;
+
+            invitee.LastName = chapterSelected.OwnerUser.LastName;
+
+            invitee.Images = chapterSelected.OwnerUser.Images;
+        }
     }
 
-    private void ViewUsernamess(string username)
+
+    private void ViewUsernameMessage(string username)
     {
         invitee = new UsernameResponse();
 
-        var chapterSelected = inviteeResponses.Where(x => x.OwnerUser.UserName == username || x.AppUser.UserName == username).FirstOrDefault();
+        var chapterSelected = inviteeMessages.FirstOrDefault(x => x.Username == username);
 
-        invitee.UserName = chapterSelected.OwnerUser.UserName;
+        invitee.UserName = chapterSelected.Username;
 
-        invitee.FirstName = chapterSelected.OwnerUser.FirstName;
+        invitee.FirstName = chapterSelected.FirstName;
 
-        invitee.LastName = chapterSelected.OwnerUser.LastName;
+        invitee.LastName = chapterSelected.LastName;
 
-        invitee.Images = chapterSelected.OwnerUser.Images;
+        invitee.Images = chapterSelected.Images;
     }
+
 
     private async Task DeleteUser(string username)
     {
@@ -294,6 +310,10 @@
             await _inviteeService.RemoveInvitation(topicsId, acceptRequest);
 
             await js.RemoveModal("Remove ", $"{username} from the Project", SweetAlertMessageType.success);
+
+            var inviteeMember = inviteeMessages.Where(s => s.Username == username).SingleOrDefault();
+
+            inviteeMessages.Remove(inviteeMember);
 
             await GetUserAccepted();
         }

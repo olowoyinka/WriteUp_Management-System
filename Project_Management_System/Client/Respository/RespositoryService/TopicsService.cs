@@ -49,7 +49,7 @@ namespace Project_Management_System.Client.Respository.RespositoryService
             return await _httpService.GetHelper<List<TopicsResponse>>(APIRoute.Topics.GetAll, request, name);
         }
 
-        public async Task<TopicsResponse> GetByIdAsync(Guid? Id)
+        public async Task<TopicsResponse> GetByIdAsync(Guid Id)
         {
             return await _httpService.GetHelper<TopicsResponse>($"{url}/{Id}");
         }

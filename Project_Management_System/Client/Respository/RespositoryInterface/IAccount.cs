@@ -13,6 +13,12 @@ namespace Project_Management_System.Client.Respository.RespositoryInterface
 
         Task<ConfirmMapResponse> ForgetPassword(ForgetPasswordRequest passwordRequest);
 
+        Task<AuthResponse> ChangePassword(ChangePasswordRequest changePasswordRequest);
+
+        Task<ConfirmMapResponse> ChangeFullName(FullNameRequest fullNameRequest);
+
+        Task<AuthResponse> DeleteProfilePicture(DeletePictureRequest deletePictureRequest);
+
         Task<UsernameResponse> GetUser();
 
         Task<IEnumerable<UsernameResponse>> GetAllAsync(string username);

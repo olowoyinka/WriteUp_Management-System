@@ -71,6 +71,10 @@
                                 {
                                     <img class="direct-chat-img" src="Images/blank-person.png" alt="message user image">
                                 }
+                                else if (chatExist.Image != username.Images)
+                                {
+                                    <img class="direct-chat-img" src="Images/blank-person.png" alt="message user image">
+                                }
                                 else
                                 {
                                     <img class="direct-chat-img" src="/Images/@chatExist.Image" alt="message user image">
@@ -107,9 +111,9 @@
         </div>
         <div class="card-footer">
             <div class="input-group">
-                <input type="text" @bind="message" name="message" placeholder="Type Message ..." class="form-control">
+                <input type="text" @bind="message" name="message" id="myInput" placeholder="Type Message ..." class="form-control">
                 <span class="input-group-append">
-                    <button type="button" class="btn btn-primary" @onclick="Send">Send</button>
+                    <button type="button" class="btn btn-primary" id="myBtn" @onclick="Send">Send</button>
                 </span>
             </div>
         </div>
@@ -195,8 +199,6 @@
             await _hubConnection.SendAsync("SendMessageToGroup", topicsId, message, username.UserName, username.Images);
 
             message = null;
-
-            await js.scrollToElementId("scrollUpdate");
         }
     }
 

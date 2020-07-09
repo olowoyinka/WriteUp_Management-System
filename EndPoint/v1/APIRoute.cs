@@ -12,6 +12,10 @@
 
             public const string ForgetPassword = version + "/forgetpassword";
 
+            public const string ChangePassword = version + "/changepassword";
+
+            public const string UpdateFullname = version + "/updatename";
+
             public const string GetAllUser = version + "/getalluser/{username}";
 
             public const string GetUserId = version + "/getuserid/{username}";
@@ -19,6 +23,8 @@
             public const string GetUser = version + "/getuser";
 
             public const string ProfilePicture = version + "/profile";
+
+            public const string DeletePicture = version + "/profiledelete";
         }
 
         public static class Topics

@@ -44,6 +44,7 @@ C:\Users\olowoyinka\.nuget\packages\microsoft.aspnetcore.signalr.protocols.json\
 C:\Users\olowoyinka\.nuget\packages\microsoft.extensions.dependencyinjection\3.1.4\lib\netstandard2.1\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\olowoyinka\.nuget\packages\microsoft.extensions.logging\3.1.3\lib\netstandard2.0\Microsoft.Extensions.Logging.dll
 C:\Users\olowoyinka\.nuget\packages\system.threading.channels\4.7.0\lib\netstandard2.0\System.Threading.Channels.dll
+C:\Users\olowoyinka\.nuget\packages\microsoft.aspnetcore.blazor.httpclient\3.2.0-preview3.20168.3\lib\netstandard2.0\Microsoft.AspNetCore.Blazor.HttpClient.dll
 C:\Users\olowoyinka\.nuget\packages\blazored.typeahead\4.3.0\lib\netstandard2.0\Blazored.Typeahead.dll
 C:\Users\olowoyinka\.nuget\packages\microsoft.aspnetcore.components.web\3.1.4\lib\netstandard2.0\Microsoft.AspNetCore.Components.Web.dll
 C:\Users\olowoyinka\.nuget\packages\microsoft.aspnetcore.components.forms\3.1.4\lib\netstandard2.0\Microsoft.AspNetCore.Components.Forms.dll
@@ -89,6 +90,7 @@ C:\Users\olowoyinka\.nuget\packages\microsoft.aspnetcore.authorization\3.1.4\lib
 C:\Users\olowoyinka\.nuget\packages\microsoft.aspnetcore.metadata\3.1.4\lib\netstandard2.0\Microsoft.AspNetCore.Metadata.dll
 C:\Users\olowoyinka\.nuget\packages\blazored.texteditor\1.0.3\lib\netstandard2.0\Blazored.TextEditor.dll
 C:\Users\olowoyinka\.nuget\packages\microsoft.aspnetcore.components.authorization\3.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Components.Authorization.dll
+C:\Users\olowoyinka\.nuget\packages\tewr.blazor.filereader\1.5.0.20109\lib\netstandard2.0\Blazor.FileReader.dll
 C:\Users\olowoyinka\.nuget\packages\microsoft.aspnetcore.components.webassembly\3.2.0-preview3.20168.3\lib\netstandard2.1\Microsoft.AspNetCore.Components.WebAssembly.dll
 C:\Users\olowoyinka\.nuget\packages\microsoft.extensions.configuration\3.1.3\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll
 C:\Users\olowoyinka\.nuget\packages\microsoft.extensions.configuration.abstractions\3.1.3\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll

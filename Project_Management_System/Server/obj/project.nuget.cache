@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6IHSmQChAnhQn3PvSl7pzO23LGOiozM664Ewgxd0rYnTnIffmsXBYvNBAaD8hiGAL3eQfm2hLprh9jpXHPJF8g==",
+  "dgSpecHash": "VTCopij/RvheBIOWxb4caTCh9TeVdxO5S/6j78B0p5E7uhvv5HDCu1Qr3gDf5c2DsQbgQeY2kQzrvzEtUDvUqA==",
   "success": true,
   "projectFilePath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Server\\Project_Management_System.Server.csproj",
   "expectedPackageFiles": [
@@ -247,7 +247,8 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\olowoyinka\\.nuget\\packages\\tewr.blazor.filereader\\1.5.0.20109\\tewr.blazor.filereader.1.5.0.20109.nupkg.sha512"
   ],
   "logs": []
 }

@@ -56,6 +56,42 @@ namespace Project_Management_System.Client.Respository.RespositoryService
             return httpResponse.Response;
         }
 
+        public async Task<AuthResponse> ChangePassword(ChangePasswordRequest changePasswordRequest)
+        {
+            var httpResponse = await _httpService.Post<ChangePasswordRequest, AuthResponse>(APIRoute.Account.ChangePassword, changePasswordRequest);
+
+            if (!httpResponse.Success)
+            {
+                throw new ApplicationException(await httpResponse.GetBody());
+            }
+            
+            return httpResponse.Response;
+        }
+
+        public async Task<ConfirmMapResponse> ChangeFullName(FullNameRequest fullNameRequest)
+        {
+            var httpResponse = await _httpService.Post<FullNameRequest, ConfirmMapResponse>(APIRoute.Account.UpdateFullname, fullNameRequest);
+
+            if (!httpResponse.Success)
+            {
+                throw new ApplicationException(await httpResponse.GetBody());
+            }
+
+            return httpResponse.Response;
+        }
+
+        public async Task<AuthResponse> DeleteProfilePicture(DeletePictureRequest deletePictureRequest)
+        {
+            var httpResponse = await _httpService.Post<DeletePictureRequest, AuthResponse>(APIRoute.Account.DeletePicture, deletePictureRequest);
+
+            if (!httpResponse.Success)
+            {
+                throw new ApplicationException(await httpResponse.GetBody());
+            }
+
+            return httpResponse.Response;
+        }
+
         public async Task<UsernameResponse> GetUser()
         {
             return await _httpService.GetHelper<UsernameResponse>(APIRoute.Account.GetUser);

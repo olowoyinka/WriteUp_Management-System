@@ -14,4 +14,9 @@ namespace EndPoint.Response.UserResponse
 
         public string Images { get; set; }
     }
+
+    public class SingleUsernameResponse
+    {
+        public string UserName { get; set; }
+    }
 }

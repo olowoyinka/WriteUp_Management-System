@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 namespace Project_Management_System.Server.Controllers
 {
     [ApiController]
-    [Produces("application/json")]
     public class AccountController : ControllerBase
     {
         private readonly IAccount _account;
@@ -71,17 +70,30 @@ namespace Project_Management_System.Server.Controllers
 
             if (!authUserResponse.Success)
             {
+                return BadRequest(new SingleUsernameResponse
+                {
+                    UserName = authUserResponse.Error
+                });
+            }
+
+            return Ok($"Images/{authUserResponse.Token}");
+        }
+
+        [HttpPost(APIRoute.Account.DeletePicture)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> ProfileDeletePicture([FromBody] DeletePictureRequest deletePicture)
+        {
+            var authUserResponse = await _account.DeletePicture(GetUserId(), deletePicture.DeleteName);
+
+            if (!authUserResponse.Success)
+            {
                 return BadRequest(new AuthResponse
                 {
                     Error = authUserResponse.Error
                 });
-
             }
 
-            return Ok(new AuthResponse
-            {
-                Token = authUserResponse.Token
-            });
+            return Ok($"Images/{authUserResponse.Token}");
         }
 
         [HttpPost(APIRoute.Account.ForgetPassword)]
@@ -99,6 +111,40 @@ namespace Project_Management_System.Server.Controllers
             await _emailSender.SendEmailAsync(authResponse.Email, "ProjMAN - Confirm Your Email", "Please Confirm Your E-Mail by clicking this link: <a href=\"" + callbackUrl + "\">Click here </a>");
 
             return Ok(_mapper.Map<ConfirmMapResponse>(authResponse));
+        }
+
+        [HttpPost(APIRoute.Account.ChangePassword)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest changePasswordRequest)
+        {
+            var passwordResponse = await _account.ChangePasswordAsync(GetUserId(), changePasswordRequest);
+
+            if (!passwordResponse)
+            {
+                return Ok(new AuthResponse
+                {
+                    Error = "Your Old Password is Incorrect"
+                });
+            }
+
+            return Ok(new AuthResponse
+            {
+                Token = "Password Changed"
+            });
+        }
+
+        [HttpPost(APIRoute.Account.UpdateFullname)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> UpdateFullname([FromBody] FullNameRequest fullNameRequest)
+        {
+            var passwordResponse = await _account.UpdateNameAsync(GetUserId(), fullNameRequest);
+
+            if (!passwordResponse.Success)
+            {
+                return Ok(_mapper.Map<ConfirmMapResponse>(passwordResponse));
+            }
+
+            return Ok(_mapper.Map<ConfirmMapResponse>(passwordResponse));
         }
 
         [HttpGet(APIRoute.Account.GetUser)]

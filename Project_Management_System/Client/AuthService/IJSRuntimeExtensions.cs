@@ -1,4 +1,5 @@
 ﻿using Microsoft.JSInterop;
+using System;
 using System.Threading.Tasks;
 
 namespace Project_Management_System.Client.AuthService
@@ -6,6 +7,9 @@ namespace Project_Management_System.Client.AuthService
     public static class IJSRuntimeExtensions
     {
         public static ValueTask SetInLocalStorage(this IJSRuntime js, string key, string content)
+            => js.InvokeVoidAsync("localStorage.setItem", key, content);
+
+        public static ValueTask SetInLocalStorageTime(this IJSRuntime js, string key, DateTime content)
             => js.InvokeVoidAsync("localStorage.setItem", key, content);
 
         public static ValueTask<string> GetFromLocalStorage(this IJSRuntime js, string key)
@@ -17,15 +21,9 @@ namespace Project_Management_System.Client.AuthService
         public static ValueTask ModalClose(this IJSRuntime js)
             =>  js.InvokeVoidAsync("EditNote");
 
-        //public static ValueTask ScrollModal(this IJSRuntime js)
-        //    => js.InvokeVoidAsync("updateScroll");
-
-        //public static ValueTask ScrollModalSecond(this IJSRuntime js)
-        //    => js.InvokeVoidAsync("updateScrollSecond");
-
-        public static ValueTask<bool> scrollToElementId(this IJSRuntime js, string elementId)
+        public static ValueTask<bool> textEnterButton(this IJSRuntime js)
         {
-            return js.InvokeAsync<bool>("scrollToElementId", elementId);
+            return js.InvokeAsync<bool>("TextButton");
         }
 
         public static ValueTask<bool> RemoveModal(this IJSRuntime js, string title, string message, SweetAlertMessageType sweetAlertMessageType)

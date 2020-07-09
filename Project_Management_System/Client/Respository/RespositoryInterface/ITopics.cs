@@ -15,7 +15,7 @@ namespace Project_Management_System.Client.Respository.RespositoryInterface
 
         Task<PaginationResponse<List<TopicsResponse>>> GetAllAsync(PaginationRequest request, string name);
 
-        Task<TopicsResponse> GetByIdAsync(Guid? Id);
+        Task<TopicsResponse> GetByIdAsync(Guid Id);
 
         Task<AuthResponse> UpdateAsync(Guid Id, TopicsRequest topicsRequest);
     }

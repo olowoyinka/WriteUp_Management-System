@@ -80,10 +80,11 @@ namespace Project_Management_System.Server.Services
         {
             return await _context.Topics
                             .Where(x => x.Id.Equals(Id))
-                            .Where(x => x.AppUserId.Equals(GetUserId))
-                            //.Where(x => x.AppUserId.Equals(GetUserId) || x.Invitees.Any(s => s.AppUserId == GetUserId))
+                            //.Where(x => x.AppUserId.Equals(GetUserId))
+                            .Where(x => x.AppUserId.Equals(GetUserId) || x.Invitees.Any(s => s.AppUserId == GetUserId))
                             .Include(s => s.Invitees)
                                 .ThenInclude(s => s.AppUser)
+                            .Include(x => x.AppUser)
                             .Include(m => m.Chapters)
                             .SingleOrDefaultAsync();
         }

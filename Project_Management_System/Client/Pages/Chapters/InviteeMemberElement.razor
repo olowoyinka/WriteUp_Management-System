@@ -1,104 +1,99 @@
 ﻿@using Blazored.Typeahead
 
+<div class="card card-primary card-outline collapsed-card">
+    <div class="card-header">
+        <h3 class="card-title">INVITEE MEMBERS</h3>
 
-@if (topicsResponse.Name != null)
-{
-    <div class="card card-primary card-outline collapsed-card">
-        <div class="card-header">
-            <h3 class="card-title">INVITEE MEMBERS</h3>
-
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fa fa-plus"></i>
-                </button>
-            </div>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fa fa-plus"></i>
+            </button>
         </div>
+    </div>
 
-        <div class="card-body p-0 m">
-            <div class="row">
-                <div class="col-md-12 p-3">
-                    <h6>Search for a Member</h6>
-                    <BlazoredTypeahead SearchMethod="SearchUsername" @bind-Value="SelectedUsername" placehoolder="Search Name">
-                        <SelectedTemplate>
-                            @context.UserName
-                        </SelectedTemplate>
-                        <ResultTemplate>
-                            @if (context.UserName == username.UserName)
-                                {
-                                <h6>Member Request Can't Be Sent</h6>
-                                }
-                                else
-                                {
-                                @context.UserName
-                                }
-                            /**/
-                        </ResultTemplate>
-                    </BlazoredTypeahead>
-
-                    @if (SelectedUsername != null)
-                    {
-
-                        @if (SelectedUsername.UserName == username.UserName)
+    <div class="card-body p-0 m">
+        <div class="row">
+            <div class="col-md-12 p-3">
+                <h6>Search for a Member</h6>
+                <BlazoredTypeahead SearchMethod="SearchUsername" @bind-Value="SelectedUsername" placeholder="Search Name">
+                    <SelectedTemplate>
+                        @context.UserName
+                    </SelectedTemplate>
+                    <ResultTemplate>
+                        @if (context.UserName == username.UserName)
                         {
-                            <hr />
                             <h6>Member Request Can't Be Sent</h6>
                         }
                         else
                         {
-                            <hr />
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-block btn-danger" @onclick="@(() => SentUser(SelectedUsername.UserName))">
-                                        @SelectedUsername.UserName - Sent Request
-                                    </button>
-                                </div>
-                            </div>
+                            @context.UserName
                         }
+                    </ResultTemplate>
+                </BlazoredTypeahead>
 
+                @if (SelectedUsername != null)
+                {
+
+                    @if (SelectedUsername.UserName == username.UserName)
+                    {
+                        <hr />
+                        <h6>Member Request Can't Be Sent</h6>
                     }
-                </div>
+                    else
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-block btn-danger" @onclick="@(() => SentUser(SelectedUsername.UserName))">
+                                    @SelectedUsername.UserName - Sent Request
+                                </button>
+                            </div>
+                        </div>
+                    }
 
-            </div>
-            <div class="card-footer text-center">
-                <a href="javascript::">SENT REQUESTS</a>
-            </div>
-            <div class="card-body p-0">
-                <ul class="users-list clearfix">
-                    <GenericThirdList Elements="inviteeResponsesPending">
-                        <WithElementsTemplate>
-                            @foreach (var item in inviteeResponsesPending.OrderByDescending(x => x.AcceptedDate))
-                            {
-                                <li>
-                                    @if (item.AppUser.Images == null)
-                                    {
-                                        <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserInvitee"
-                                             @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                    }
-                                    else
-                                    {
-                                        <img src="Images/@item.AppUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserInvitee"
-                                             @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                    }
-                                    <span class="users-list-date">
-                                        <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
-                                           @onclick="@(() => ViewUsername(item.AppUser.UserName))">
-                                            @item.AppUser.UserName
-                                        </a>
-                                    </span>
-                                </li>
-                            }
-                        </WithElementsTemplate>
-                    </GenericThirdList>
-                </ul>
+                }
             </div>
 
         </div>
         <div class="card-footer text-center">
-            <Pagination CurrentPage="RequestPending.Page" Radius="4" TotalPagesQuantity="totalAmountPagesPending"
-                        SelectedPage="SelectedPage" />
+            <a href="javascript::">SENT REQUESTS</a>
         </div>
+        <div class="card-body p-0">
+            <ul class="users-list clearfix">
+                <GenericThirdList Elements="inviteeResponsesPending">
+                    <WithElementsTemplate>
+                        @foreach (var item in inviteeResponsesPending.OrderByDescending(x => x.AcceptedDate))
+                        {
+                            <li>
+                                @if (item.AppUser.Images == null)
+                                {
+                                    <img src="Images/blank-person.png" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserInvitee"
+                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                }
+                                else
+                                {
+                                    <img src="Images/@item.AppUser.Images" alt="User Image" style="cursor:pointer" data-toggle="modal" data-target="#ViewUserInvitee"
+                                         @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                }
+                                <span class="users-list-date">
+                                    <a style="cursor:pointer" data-toggle="modal" data-target="#ViewUserModal"
+                                       @onclick="@(() => ViewUsername(item.AppUser.UserName))">
+                                        @item.AppUser.UserName
+                                    </a>
+                                </span>
+                            </li>
+                        }
+                    </WithElementsTemplate>
+                </GenericThirdList>
+            </ul>
+        </div>
+
     </div>
-}
+    <div class="card-footer text-center">
+        <Pagination CurrentPage="RequestPending.Page" Radius="4" TotalPagesQuantity="totalAmountPagesPending"
+                    SelectedPage="SelectedPage" />
+    </div>
+</div>
 
 
 <div class="modal fade" id="ViewUserInvitee">
@@ -156,6 +151,8 @@
     [Parameter]
     public UsernameResponse username { get; set; } = new UsernameResponse();
 
+    private HubConnection _hubConnection;
+
     List<InviteeResponse> inviteeResponsesPending;
 
     UsernameResponse inviteePending = new UsernameResponse();
@@ -175,6 +172,23 @@
         try
         {
             await GetUserPending();
+
+            _hubConnection = new HubConnectionBuilder()
+                               .WithUrl(NavigationManager.ToAbsoluteUri("/chatroomHub"))
+                               .Build();
+
+            await _hubConnection.StartAsync();
+
+            await _hubConnection.SendAsync("AddToGroup", topicsPendingId, "");
+
+            _hubConnection.On<string, string, string, string>("RecieveAccept", (username, Images, firstname, lastname) =>
+            {
+                var inviteeMember = inviteeResponsesPending.Where(s => s.AppUser.UserName == username).SingleOrDefault();
+
+                inviteeResponsesPending.Remove(inviteeMember);
+
+                StateHasChanged();
+            });
 
         }
         catch (Exception ex)

@@ -15,12 +15,18 @@ namespace Project_Management_System.Server.Interfaces
 
         Task<AuthResult> ProfilePicture(IFormFile Image, string GetUserId);
 
+        Task<AuthResult> DeletePicture(string GetUserId, string imageName);
+
         Task<IEnumerable<AppUser>> ListAllUsers(string UserName);
-         
+        
         Task<AppUser> getUserId(string UserName);
-         
+        
         Task<AppUser> getUser(string UserId);
 
         Task<ConfirmResponse> ForgetPasswordAsync(ForgetPasswordRequest passwordRequest);
+
+        Task<bool> ChangePasswordAsync(string GetUserId, ChangePasswordRequest changePasswordRequest);
+
+        Task<ConfirmResponse> UpdateNameAsync(string GetUserId, FullNameRequest fullNameRequest);
     }
 }

@@ -1,7 +1,9 @@
 ﻿using DAL.Data;
 using EndPoint.Request.ViewModelRequest;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Project_Management_System.Server.Hubs;
 using Project_Management_System.Server.Interfaces;
 using Project_Management_System.Shared.Models.UserModel;
 using Project_Management_System.Shared.Models.ViewModels;
@@ -17,11 +19,15 @@ namespace Project_Management_System.Server.Services
 
         private readonly ApplicationDbContext _context;
 
+        private readonly IHubContext<ChatRoomHub> _hubContext;
+
         public InviteeService(UserManager<AppUser> userManager,
-                        ApplicationDbContext context)
+                        ApplicationDbContext context,
+                        IHubContext<ChatRoomHub> hubContext)
         {
             _userManager = userManager;
             _context = context;
+            _hubContext = hubContext;
         }
 
 
@@ -93,6 +99,8 @@ namespace Project_Management_System.Server.Services
             _context.Invitees.Update(findInvitee);
 
             var updated = await _context.SaveChangesAsync();
+
+            await _hubContext.Clients.Group(topicsId.ToString()).SendAsync("RecieveAccept", findUsername.UserName, findUsername.Images, findUsername.FirstName, findUsername.LastName);
 
             return updated > 0;
         }

@@ -1,0 +1,220 @@
+﻿@page "/changeprofile"
+
+@using System.IO
+
+@using Blazor.FileReader
+
+@inject IFileReaderService fileReader
+
+@inject HttpClient http
+
+
+<section class="content-header">
+    <div class="container-fluid">
+
+        <section class="content">
+            <div class="row">
+
+                <div class="col-md-3">
+                    <SideBar />
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card card-outline card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                Change Profile Name
+                            </h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse" data-toggle="tooltip"
+                                        title="Collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body pad">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                                <img src=@imagePath asp-append-version="true" class="img-fluid img-lg img-circle" alt="User Image">
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                            <input type="file" @ref="inputReference" @onchange="async () => await UploadProfilePictureAsync()"/>
+                                        </div>
+                                        <div class="col-md-12 mt-3 mb-3">
+                                            <button type="submit" class="btn btn-block btn-danger" @onclick="@(() => RemoveProfilePictureAsync(username.Images))">
+                                                <i class="nav-icon fa fa-trash"></i>
+                                                Remove Profile Picture
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    @if (Failure)
+                                    {
+                                        <div class="text-danger">
+                                            <h6>
+                                                @ErrorMessage
+                                            </h6>
+                                        </div>
+                                    }
+                                    <div class="mb-3">
+                                        <EditForm Model="@fullNameRequest" OnValidSubmit="SaveName">
+                                            <div class="row">
+                                                <DataAnnotationsValidator />
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <InputText @bind-Value="@fullNameRequest.UserName" class="form-control" disabled />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <InputText @bind-Value="@fullNameRequest.FirstName" class="form-control" placeholder="First Name" />
+                                                        <ValidationMessage For="@(() => fullNameRequest.FirstName)" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <InputText @bind-Value="@fullNameRequest.LastName" class="form-control" placeholder="Last Name" />
+                                                        <ValidationMessage For="@(() => fullNameRequest.LastName)" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    @if (IsSearching)
+                                                    {
+                                                        <button type="submit" class="btn btn-block btn-success" disabled><span class="fa fa-refresh fas spinning" style="margin-right:10px;"></span>Saving</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="submit" class="btn btn-block btn-success">Save Changes</button>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </EditForm>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+
+@code {
+
+    FullNameRequest fullNameRequest = new FullNameRequest();
+
+    UsernameResponse username = new UsernameResponse();
+
+    DeletePictureRequest deletePictureRequest = new DeletePictureRequest();
+
+    ElementReference inputReference;
+
+    string fileName = string.Empty;
+
+    string message = string.Empty;
+
+    string imagePath = null;
+
+    Stream fileStream = null;
+
+    private bool IsSearching { get; set; }
+
+    bool Failure;
+
+    private string ErrorMessage = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await GetUser();
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    private async Task GetUser()
+    {
+        username = await _accountService.GetUser();
+
+        fullNameRequest.FirstName = username.FirstName;
+
+        fullNameRequest.LastName = username.LastName;
+
+        fullNameRequest.UserName = username.UserName;
+
+        imagePath = $"Images/{username.Images}";
+    }
+
+
+    private async Task SaveName()
+    {
+        IsSearching = true;
+
+        StateHasChanged();
+
+        var result = await _accountService.ChangeFullName(fullNameRequest);
+
+        await js.RemoveModal("Your Profile Updated", $"", SweetAlertMessageType.success);
+
+        IsSearching = false;
+
+        StateHasChanged();
+    }
+
+    async Task UploadProfilePictureAsync()
+    {
+
+        var file = (await fileReader.CreateReference(inputReference).EnumerateFilesAsync()).FirstOrDefault();
+
+        if (file == null)
+            return;
+
+        var fileInfo = await file.ReadFileInfoAsync();
+
+        fileName = fileInfo.Name;
+
+        using (var ms = await file.CreateMemoryStreamAsync((int)fileInfo.Size))
+        {
+            fileStream = new MemoryStream(ms.ToArray());
+        }
+
+        var content = new MultipartFormDataContent();
+
+        content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data");
+
+        content.Add(new StreamContent(fileStream, (int)fileStream.Length), "image", fileName);
+
+        var response = await http.PostAsync("v1/profile", content);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var uploadedFileName = await response.Content.ReadAsStringAsync();
+
+            imagePath = null;
+
+            imagePath = $"/{uploadedFileName}";
+        }
+    }
+
+    private async Task RemoveProfilePictureAsync(string username)
+    {
+        deletePictureRequest.DeleteName = username;
+
+        await http.PostJsonAsync("v1/profiledelete", deletePictureRequest);
+
+        imagePath = $"/Images/noProfile.jpg";
+
+        StateHasChanged();
+    }
+}

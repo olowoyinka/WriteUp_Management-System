@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using EndPoint.Response.UserResponse;
+using System;
 
 namespace EndPoint.Response.ViewModelResponse
 {
@@ -10,6 +10,8 @@ namespace EndPoint.Response.ViewModelResponse
         public string Name { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public SingleUsernameResponse SingleUsernameResponse { get; set; }
 
         //public List<InviteeTopicResponse> Invitees { get; set; }
 

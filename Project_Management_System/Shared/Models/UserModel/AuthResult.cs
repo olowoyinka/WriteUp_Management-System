@@ -6,6 +6,8 @@ namespace Project_Management_System.Shared.Models.UserModel
     {
         public string Token { get; set; }
 
+        public DateTime Expiration { get; set; }
+
         public string Error { get; set; }
 
         public bool Success { get; set; }
