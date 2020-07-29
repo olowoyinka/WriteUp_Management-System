@@ -284,6 +284,34 @@ namespace DAL.Migrations
                     b.ToTable("Invitees");
                 });
 
+            modelBuilder.Entity("Project_Management_System.Shared.Models.ViewModels.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NotificationMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ReadStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("Url")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("Project_Management_System.Shared.Models.ViewModels.Topics", b =>
                 {
                     b.Property<Guid>("Id")
@@ -378,6 +406,13 @@ namespace DAL.Migrations
                         .HasForeignKey("TopicsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Project_Management_System.Shared.Models.ViewModels.Notification", b =>
+                {
+                    b.HasOne("Project_Management_System.Shared.Models.UserModel.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("Project_Management_System.Shared.Models.ViewModels.Topics", b =>

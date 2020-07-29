@@ -9157,11 +9157,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Client\\Project_Management_System.Client.csproj",
+      "projectUniqueName": "C:\\Users\\olowoyinka\\source\\repos\\BLAZOR\\Project_Management_System\\Project_Management_System\\Client\\Project_Management_System.Client.csproj",
       "projectName": "Project_Management_System.Client",
-      "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Client\\Project_Management_System.Client.csproj",
+      "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\BLAZOR\\Project_Management_System\\Project_Management_System\\Client\\Project_Management_System.Client.csproj",
       "packagesPath": "C:\\Users\\olowoyinka\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Client\\obj\\",
+      "outputPath": "C:\\Users\\olowoyinka\\source\\repos\\BLAZOR\\Project_Management_System\\Project_Management_System\\Client\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -9181,11 +9181,11 @@
       "frameworks": {
         "netstandard2.1": {
           "projectReferences": {
-            "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\EndPoint\\EndPoint.csproj": {
-              "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\EndPoint\\EndPoint.csproj"
+            "C:\\Users\\olowoyinka\\source\\repos\\BLAZOR\\Project_Management_System\\EndPoint\\EndPoint.csproj": {
+              "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\BLAZOR\\Project_Management_System\\EndPoint\\EndPoint.csproj"
             },
-            "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj": {
-              "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj"
+            "C:\\Users\\olowoyinka\\source\\repos\\BLAZOR\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj": {
+              "projectPath": "C:\\Users\\olowoyinka\\source\\repos\\BLAZOR\\Project_Management_System\\Project_Management_System\\Shared\\Project_Management_System.Shared.csproj"
             }
           }
         }

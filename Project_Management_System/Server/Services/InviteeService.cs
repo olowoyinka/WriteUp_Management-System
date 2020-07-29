@@ -8,6 +8,7 @@ using Project_Management_System.Server.Interfaces;
 using Project_Management_System.Shared.Models.UserModel;
 using Project_Management_System.Shared.Models.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,22 +22,28 @@ namespace Project_Management_System.Server.Services
 
         private readonly IHubContext<ChatRoomHub> _hubContext;
 
+        private readonly INotification _notificationService;
+        
+        List<Notification> _notificationsList = new List<Notification>();
+
         public InviteeService(UserManager<AppUser> userManager,
                         ApplicationDbContext context,
+                        INotification notificationService,
                         IHubContext<ChatRoomHub> hubContext)
         {
             _userManager = userManager;
             _context = context;
+            _notificationService = notificationService;
             _hubContext = hubContext;
         }
 
 
         public async Task<bool> SentInvitation(Guid topicsId, InviteeSentRequest inviteeRequest, string GetUserId)
         {
-            var topicOwn = await _context.Topics
-                                    .AnyAsync(s => s.AppUserId.Equals(GetUserId) && s.Id.Equals(topicsId));
+            var topicOwn =  await _context.Topics
+                                    .Where(s => s.AppUserId.Equals(GetUserId) && s.Id.Equals(topicsId)).SingleOrDefaultAsync();
 
-            if(!topicOwn)
+            if(topicOwn == null)
                 return false;
 
             var findUser = await _userManager.Users
@@ -65,6 +72,23 @@ namespace Project_Management_System.Server.Services
 
             var created = await _context.SaveChangesAsync();
 
+            var User = await _userManager.Users
+                               .SingleOrDefaultAsync(s => s.Id == GetUserId );
+
+            var newNottification = new Notification()
+            {
+                Id = Guid.NewGuid(),
+                AppUserId = findUser.Id,
+                CreatedTime = DateTime.Now,
+                NotificationMessage = $"#{User.UserName} Sent Collaboration on {topicOwn.Name} ",
+                Url = topicsId,
+                ReadStatus = false
+            };
+
+            _context.Notifications.Add(newNottification);
+
+            await _notificationService.CreateAsync(newNottification);
+
             return created > 0;
         }
 
@@ -74,6 +98,8 @@ namespace Project_Management_System.Server.Services
             var findUsername = await _userManager.FindByNameAsync(inviteeAccept.username);
 
             var findInvitee = await _context.Invitees
+                                        .Include(s => s.Topics)
+                                            .ThenInclude(s => s.AppUser)
                                        .Where(x => x.Topics.AppUserId.Equals(GetUserId) || x.AppUserId.Equals(GetUserId))
                                         .Where(s => s.TopicsId == topicsId)
                                         .Where(s => s.AppUserId == findUsername.Id)
@@ -90,6 +116,20 @@ namespace Project_Management_System.Server.Services
 
                 var deleted = await _context.SaveChangesAsync();
 
+                var rejectNottification = new Notification()
+                {
+                    Id = Guid.NewGuid(),
+                    AppUserId = findInvitee.Topics.AppUserId,
+                    CreatedTime = DateTime.Now,
+                    NotificationMessage = $"#{ findUsername.UserName } Reject Collaboration on { findInvitee.Topics.Name }",
+                    Url = topicsId,
+                    ReadStatus = false
+                };
+
+                _context.Notifications.Add(rejectNottification);
+
+                await _notificationService.CreateAsync(rejectNottification);
+
                 return deleted > 0;
             }
 
@@ -99,6 +139,50 @@ namespace Project_Management_System.Server.Services
             _context.Invitees.Update(findInvitee);
 
             var updated = await _context.SaveChangesAsync();
+
+            var dateTime = DateTime.Now;
+
+            var message = $"#{ findUsername.UserName } Accept Collaboration on { findInvitee.Topics.Name }";
+
+            foreach (var item in await _context.Invitees.Include(s => s.AppUser).Where(s => s.TopicsId == topicsId).ToListAsync())
+            {
+                if(GetUserId == item.AppUserId)
+                {
+                    var newNottification = new Notification()
+                    {
+                        Id = Guid.NewGuid(),
+                        AppUserId = findInvitee.Topics.AppUserId,
+                        CreatedTime = dateTime,
+                        NotificationMessage = message,
+                        Url = topicsId,
+                        ReadStatus = false
+                    };
+
+                    _notificationsList.Add(newNottification);
+
+                    await _hubContext.Clients.Group(findInvitee.AppUser.UserName).SendAsync("notification", message, dateTime.ToString("O"));
+                }
+                else
+                {
+                    var newNottification = new Notification()
+                    {
+                        Id = Guid.NewGuid(),
+                        AppUserId = item.AppUserId,
+                        CreatedTime = dateTime,
+                        NotificationMessage = message,
+                        Url = topicsId,
+                        ReadStatus = false
+                    };
+
+                    _notificationsList.Add(newNottification);
+
+                    await _hubContext.Clients.Group(item.AppUser.UserName).SendAsync("notification", message, dateTime.ToString("O"));
+                }
+            }
+
+            _context.Notifications.AddRange(_notificationsList);
+
+            await _context.SaveChangesAsync();
 
             await _hubContext.Clients.Group(topicsId.ToString()).SendAsync("RecieveAccept", findUsername.UserName, findUsername.Images, findUsername.FirstName, findUsername.LastName);
 

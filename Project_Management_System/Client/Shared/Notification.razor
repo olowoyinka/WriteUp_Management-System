@@ -1,0 +1,109 @@
+﻿@inject INotification _notificationService
+
+
+<li class="nav-item dropdown" @onclick="@(() => LoadNotification())">
+    <a class="nav-link" data-toggle="dropdown">
+        <i class="fa fa-bell"></i>
+        <span class="badge badge-warning navbar-badge">@CountUnRead.Number</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+        <GenericList Elements="notificationResponse">
+            <WithElementsTemplate>
+                @foreach (var item in notificationResponse)
+                {
+                    <div class="dropdown-divider"></div>
+                    @if (!item.ReadStatus)
+                    {
+                        <a href="#" class="dropdown-item" style="background:#f8f9fa">
+                            <div class="media">
+                                <div class="media-body">
+                                    <p class="text-sm">@item.NotificationMessage</p>
+                                    <p class="text-sm text-muted text-white"><i class="far fa-clock mr-1"></i> @item.CreatedTime</p>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#" class="dropdown-item">
+                            <div class="media">
+                                <div class="media-body">
+                                    <p class="text-sm">@item.NotificationMessage</p>
+                                    <p class="text-sm text-muted text-white"><i class="far fa-clock mr-1"></i> @item.CreatedTime</p>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                }
+            </WithElementsTemplate>
+        </GenericList>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+    </div>
+</li>
+
+
+@code {
+
+    List<NotificationResponse> notificationResponse = new List<NotificationResponse>();
+
+    PaginationRequest Request = new PaginationRequest();
+
+    CountAllGetResponse CountUnRead = new CountAllGetResponse();
+
+    UsernameResponse username;
+
+    private HubConnection _hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            CountUnRead = await _notificationService.CountUnRead();
+
+            username = await _accountService.GetUser();
+
+            _hubConnection = new HubConnectionBuilder()
+                              .WithUrl(NavigationManager.ToAbsoluteUri("/chatroomHub"))
+                              .Build();
+
+            await _hubConnection.StartAsync();
+
+            await _hubConnection.SendAsync("AddToNotification", username.UserName);
+
+            _hubConnection.On<string, string>("notification", (message, datetime) =>
+            {
+                const string FMT = "O";
+
+                DateTime now2 = DateTime.ParseExact(datetime, FMT, System.Globalization.CultureInfo.InvariantCulture);
+
+                notificationResponse.Add(new NotificationResponse
+                {
+                    NotificationMessage = message,
+                    CreatedTime = now2
+                });
+
+                //CountUnRead.Number++;
+
+                StateHasChanged();
+            });
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    private async Task LoadNotification()
+    {
+        var paginatedResponse = await _notificationService.GetAllAsync(Request);
+
+        notificationResponse = paginatedResponse.Response;
+    }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        await LoadNotification();
+    }
+
+}

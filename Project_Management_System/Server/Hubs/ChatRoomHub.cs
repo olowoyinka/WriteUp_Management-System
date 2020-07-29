@@ -25,8 +25,11 @@ namespace Project_Management_System.Server.Hubs
         public async Task AddToGroup(Guid groupName, string username)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName.ToString());
+        }
 
-            //await Clients.Group(groupName.ToString()).SendAsync("ReceiveMessage", $"{username} is online", "", "", "");
+        public async Task AddToNotification(string username)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, username);
         }
 
         public Task SendMessageToGroup(Guid group, string message, string username, string image)

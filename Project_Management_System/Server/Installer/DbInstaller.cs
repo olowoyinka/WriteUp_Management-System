@@ -42,6 +42,8 @@ namespace Project_Management_System.Server.Installer
 
             services.AddScoped<IEditBody, EditBodyService>();
 
+            services.AddScoped<INotification, NotificationService>();
+
             services.AddTransient<IEmailSender, SendGridEmailSender>();
         }
     }

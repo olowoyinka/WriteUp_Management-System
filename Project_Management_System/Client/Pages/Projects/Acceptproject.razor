@@ -16,7 +16,7 @@
                 <div class="row">
                     <GenericList Elements="inviteeResponses">
                         <WithElementsTemplate>
-                            @foreach (var item in inviteeResponses)
+                            @foreach (var item in inviteeResponses.OrderByDescending(s => s.AcceptedDate))
                             {
                                 <div class="col-lg-6">
                                     <div class="card card-primary card-outline">

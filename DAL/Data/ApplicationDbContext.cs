@@ -31,5 +31,7 @@ namespace DAL.Data
         public DbSet<Chapter> Chapters { get; set; }
 
         public DbSet<Invitee> Invitees { get; set; }
+
+        public DbSet<Notification> Notifications { get; set; }
     }
 }

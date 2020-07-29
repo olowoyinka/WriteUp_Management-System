@@ -36,6 +36,8 @@ namespace Project_Management_System.Client
 
             services.AddScoped<IInvitee, InviteeService>();
 
+            services.AddScoped<INotification, NotificationService>();
+
             services.AddScoped<IChatroom, ChatroomService>();
 
             services.AddScoped<IEditBody, EditBodyService>();

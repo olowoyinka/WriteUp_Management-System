@@ -7,3 +7,12 @@ C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_Sy
 C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\obj\Debug\netstandard2.1\Project_Management_System.Shared.dll
 C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\obj\Debug\netstandard2.1\Project_Management_System.Shared.pdb
 C:\Users\olowoyinka\source\repos\Project_Management_System\Project_Management_System\Shared\obj\Debug\netstandard2.1\Project_Management_System.Shared.csprojAssemblyReference.cache
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Shared\bin\Debug\netstandard2.1\Project_Management_System.Shared.deps.json
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Shared\bin\Debug\netstandard2.1\Project_Management_System.Shared.dll
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Shared\bin\Debug\netstandard2.1\Project_Management_System.Shared.pdb
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Shared\obj\Debug\netstandard2.1\Project_Management_System.Shared.csprojAssemblyReference.cache
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Shared\obj\Debug\netstandard2.1\Project_Management_System.Shared.csproj.CoreCompileInputs.cache
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Shared\obj\Debug\netstandard2.1\Project_Management_System.Shared.AssemblyInfoInputs.cache
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Shared\obj\Debug\netstandard2.1\Project_Management_System.Shared.AssemblyInfo.cs
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Shared\obj\Debug\netstandard2.1\Project_Management_System.Shared.dll
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Shared\obj\Debug\netstandard2.1\Project_Management_System.Shared.pdb

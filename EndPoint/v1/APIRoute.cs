@@ -83,5 +83,14 @@
         {
             public const string AddToGroup = version + "/chatroom/{chatroomId}";
         }
+
+        public static class Notification
+        {
+            public const string GetAll = version + "/notification";
+             
+            public const string GetUnRead = version + "/notificationCount";
+
+            public const string ReadStatus = version + "/readstatus/{topicsId}";
+        }
     }
 }

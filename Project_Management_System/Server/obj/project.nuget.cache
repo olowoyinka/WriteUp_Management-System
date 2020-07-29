@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VTCopij/RvheBIOWxb4caTCh9TeVdxO5S/6j78B0p5E7uhvv5HDCu1Qr3gDf5c2DsQbgQeY2kQzrvzEtUDvUqA==",
+  "dgSpecHash": "Ks0oDZ9o9mwsVecnablydne6Efx6iCz7pRO/7MPYPyvKXE+NoCy9cQ3ZNqYErUpfKGplCuYudKX7Bln/0A1k6Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\olowoyinka\\source\\repos\\Project_Management_System\\Project_Management_System\\Server\\Project_Management_System.Server.csproj",
+  "projectFilePath": "C:\\Users\\olowoyinka\\source\\repos\\BLAZOR\\Project_Management_System\\Project_Management_System\\Server\\Project_Management_System.Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\olowoyinka\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\olowoyinka\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\7.0.0\\automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
