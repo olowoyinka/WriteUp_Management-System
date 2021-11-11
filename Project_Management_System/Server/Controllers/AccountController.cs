@@ -41,9 +41,9 @@ namespace Project_Management_System.Server.Controllers
                 return Ok(_mapper.Map<ConfirmMapResponse>(authResponse));
             }
 
-            var callbackUrl = Url.Action("ConfirmEmail", "Manage", new { UserId = authResponse.UserId, Code = authResponse.Code }, HttpContext.Request.Scheme);
+            //var callbackUrl = Url.Action("ConfirmEmail", "Manage", new { UserId = authResponse.UserId, Code = authResponse.Code }, HttpContext.Request.Scheme);
              
-            await _emailSender.SendEmailAsync(authResponse.Email, "ProjMAN - Confirm Your Email", "Please Confirm Your E-Mail by clicking this link: <a href=\"" + callbackUrl + "\">Click here </a>");
+            //await _emailSender.SendEmailAsync(authResponse.Email, "ProjMAN - Confirm Your Email", "Please Confirm Your E-Mail by clicking this link: <a href=\"" + callbackUrl + "\">Click here </a>");
 
             return Ok( _mapper.Map<ConfirmMapResponse>(authResponse));
         }

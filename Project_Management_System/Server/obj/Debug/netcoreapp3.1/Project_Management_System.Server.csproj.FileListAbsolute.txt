@@ -421,9 +421,6 @@ C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Manage
 C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\bin\Debug\netcoreapp3.1\Project_Management_System.Client.pdb
 C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\bin\Debug\netcoreapp3.1\Project_Management_System.Shared.pdb
 C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.csprojAssemblyReference.cache
-C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.csproj.CoreCompileInputs.cache
-C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.RazorAssemblyInfo.cache
 C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.RazorAssemblyInfo.cs
 C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.AssemblyInfoInputs.cache
@@ -448,3 +445,10 @@ C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Manage
 C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.dll
 C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.pdb
 C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.genruntimeconfig.cache
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\bin\Debug\netcoreapp3.1\Npgsql.dll
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\bin\Debug\netcoreapp3.1\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.csproj.CoreCompileInputs.cache
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\olowoyinka\source\repos\BLAZOR\Project_Management_System\Project_Management_System\Server\obj\Debug\netcoreapp3.1\Project_Management_System.Server.MvcApplicationPartsAssemblyInfo.cache

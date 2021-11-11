@@ -191,7 +191,8 @@ namespace Project_Management_System.Server.Services
                 LastName = userRequest.LastName,
                 Email = userRequest.Email,
                 UserName = userRequest.UserName,
-                JoinedDate = DateTime.Now
+                JoinedDate = DateTime.Now,
+                EmailConfirmed = true
             };
 
             var result = await _userManager.CreateAsync(newUser, userRequest.Password);

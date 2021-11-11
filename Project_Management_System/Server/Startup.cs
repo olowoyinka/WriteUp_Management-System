@@ -22,6 +22,7 @@ namespace Project_Management_System.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.InstallServicesInAssenmbly(Configuration);
+
             services.AddAutoMapper(typeof(Startup));
         }
 
@@ -30,6 +31,7 @@ namespace Project_Management_System.Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
                 app.UseWebAssemblyDebugging();
             }
             else
@@ -39,12 +41,15 @@ namespace Project_Management_System.Server
             }
 
             app.UseHttpsRedirection();
+
             app.UseBlazorFrameworkFiles();
+
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             var swaggerOptions = new SwaggerSetting();

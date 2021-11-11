@@ -16,9 +16,14 @@ namespace Project_Management_System.Server.Installer
     {
         public void InstallService(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(
+            //        configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+            });
 
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
